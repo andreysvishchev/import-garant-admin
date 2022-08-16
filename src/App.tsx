@@ -2,11 +2,13 @@ import Header from "./components/Header";
 import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
 import {Button, Container} from "@mui/material";
 import Product from "./components/Product";
+import {Link, Route, Routes, useNavigate} from "react-router-dom";
 
 
 function App() {
     const data = [
         {
+            id: '1',
             name: 'Мясная продукция',
             categories: [
                 {
@@ -52,6 +54,7 @@ function App() {
             ]
         },
         {
+            id: '2',
             name: 'Молочная продукция',
             categories: [
                 {
@@ -77,6 +80,7 @@ function App() {
             ]
         },
         {
+            id: '3',
             name: 'Детское Питание',
             categories: [
                 {
@@ -102,6 +106,7 @@ function App() {
             ]
         },
         {
+            id: '4',
             name: 'Продукция в замарозке',
             categories: [
                 {
@@ -127,6 +132,7 @@ function App() {
             ]
         },
         {
+            id: '5',
             name: 'Напитки',
             categories: [
                 {
@@ -152,6 +158,7 @@ function App() {
             ]
         },
         {
+            id: '6',
             name: 'Фрукты',
             categories: [
                 {
@@ -177,6 +184,7 @@ function App() {
             ]
         },
         {
+            id: '7',
             name: 'Овощи',
             categories: [
                 {
@@ -202,6 +210,7 @@ function App() {
             ]
         },
         {
+            id: '8',
             name: 'Орехи',
             categories: [
                 {
@@ -229,42 +238,36 @@ function App() {
 
     ]
 
+    const navigate = useNavigate();
+
+    const getCardsHandler = (name: string, id: string) => {
+            navigate('/product', {
+                state: {
+                    packName: name,
+                    id,
+                },
+            });
+
+    };
 
     return (
         <div className="App">
             <Header/>
             <Container maxWidth="xl">
-                <Tabs>
-                    <div className="aside">
-                        <TabList>
-                            {
-                                data.map(el => {
-                                    return (
-                                        <Tab>{el.name}</Tab>
-                                    )
-                                })
-                            }
-                        </TabList>
-                        <Button sx={{width: '100%'}} variant="contained">Добавить продукцию</Button>
-                    </div>
+                <div className="nav">
+                    {data.map(el => {
+                        return (
+                         <div onClick={()=>getCardsHandler(el.name, el.id)}>{el.name}</div>
+                        )
+                    })}
+                </div>
+                <div>
+                    <Routes>
+
+                        <Route path="product" element={<Product data={data[0]} />} />
 
 
-                    <div className="content">
-                        {
-                            data.map(el => {
-                                return (
-                                    <TabPanel>
-                                        <div className="container">
-                                            <div className='title'>{el.name}</div>
-                                            <Product data={el}/>
-                                        </div>
-
-                                    </TabPanel>
-                                )
-                            })
-                        }
-                    </div>
-                </Tabs>
+                    </Routes></div>
             </Container>
         </div>
     );
