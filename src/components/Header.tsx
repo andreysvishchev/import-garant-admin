@@ -9,6 +9,7 @@ import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import {Container} from "@mui/material";
+import {NavLink} from "react-router-dom";
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -54,11 +55,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 export default function SearchAppBar() {
+  const setActive = ({isActive}: { isActive: boolean }): string => {
+    return `header-nav__link ${isActive ? 'active' : ''}`;
+  }
   return (
     <Box sx={{ flexGrow: 1, marginBottom: '20px' }}>
-
       <AppBar position="static">
-        <Container maxWidth="xl">
         <Toolbar>
           <IconButton
             size="large"
@@ -75,6 +77,10 @@ export default function SearchAppBar() {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
+            <div className="header-nav">
+              <NavLink className={setActive} to='/'>Главная</NavLink>
+              <NavLink className={setActive} to='/products'>Продукция</NavLink>
+            </div>
           </Typography>
           <Search>
             <SearchIconWrapper>
@@ -86,9 +92,7 @@ export default function SearchAppBar() {
             />
           </Search>
         </Toolbar>
-        </Container>
       </AppBar>
-
     </Box>
   );
 };
