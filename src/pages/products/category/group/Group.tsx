@@ -19,18 +19,25 @@ const Group: React.FC = () => {
     const img = true;
     return (
         <div className='content'>
+            <Link className='content__back'
+                  to={`/products/${id}`}>Назад</Link>
             <div className="content__top">
-                <Button variant="contained">
-                    <Link className='content__back'
-                          to={`/products/${id}`}>Назад</Link>
-                </Button>
-                <Button variant="outlined">
-                    <Link className='content__button'
-                          to={`/products/${id}/${groupId}/new`}>Добавить</Link>
-                </Button>
+                <div
+                    className="content__title">{state[catIndex].categories[groupIndex].name}
+                </div>
+                <Link className='button'
+                      to={`/products/${id}/${groupId}/new`}>Добавить</Link>
             </div>
-            <div
-                className="content__title">{state[catIndex].categories[groupIndex].name}</div>
+            <div className="content__filters">
+                <div className="sort">
+                    <div className='sort__caption'>Сортировать по:</div>
+                    <select className='sort__select'>
+                        <option value="">По возрастнаию</option>
+                        <option value="">По убыванию</option>
+                        <option value="">По цене</option>
+                    </select>
+                </div>
+            </div>
 
             <div className='content__list'>
                 <div className={img ? 'content__captions img' : 'content__captions'}>
@@ -47,7 +54,7 @@ const Group: React.FC = () => {
                             <Link className='content__link'
                                   to={`/products/${id}/${groupId}/${el.id}`}>{el.name}</Link>
                             <div className='content__public content__col'>
-                                <Checkbox sx={{padding: '5px'}}/>
+                                <Checkbox sx={{padding: '5px'}}  color="success"/>
                             </div>
                             <div className='content__edit content__col'>
                                 <IconButton sx={{padding: '5px'}}>

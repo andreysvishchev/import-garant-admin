@@ -22,28 +22,14 @@ const Product: React.FC = () => {
     return (
         <div className='content'>
             <div className="content__top">
-                <Button variant="contained">
-                    <Link className='content__back'
-                          to={`/products/${id}/${groupId}`}>Назад</Link>
-                </Button>
+                <Link className='content__back'
+                      to={`/products/${id}/${groupId}`}>Назад</Link>
             </div>
             <Tabs>
                 <TabList>
-                    <Tab>
-                        <Button variant="outlined" size="small">
-                            Основная информация
-                        </Button>
-                    </Tab>
-                    <Tab>
-                        <Button variant="outlined" size="small">
-                            Дополнительная информация
-                        </Button>
-                    </Tab>
-                    <Tab>
-                        <Button variant="outlined" size="small">
-                          Ещё Дополнительная информация
-                        </Button>
-                    </Tab>
+                    <Tab>Основная информация</Tab>
+                    <Tab>Дополнительная информация</Tab>
+                    <Tab>Ещё Дополнительная информация</Tab>
                 </TabList>
 
                 <TabPanel>
@@ -87,9 +73,9 @@ const Product: React.FC = () => {
                 </TabPanel>
             </Tabs>
 
-            <Button variant="outlined">
+            <button className='button'>
                 Сохранить
-            </Button>
+            </button>
 
         </div>
     );

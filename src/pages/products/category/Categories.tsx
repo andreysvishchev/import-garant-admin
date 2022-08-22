@@ -11,6 +11,7 @@ import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Search from "../../../components/search/Search";
 
 const Categories: React.FC = () => {
     const [open, setOpen] = useState(false)
@@ -22,7 +23,10 @@ const Categories: React.FC = () => {
 
     return (
         <div className='content'>
-            <Button onClick={() => setOpen(true)} variant="outlined">Добавить</Button>
+            <div className="content__top">
+                <button className='button' onClick={() => setOpen(true)}>Добавить</button>
+                <Search/>
+            </div>
             <div className="content__list">
                 <div className={img ? 'content__captions img' : 'content__captions'}>
                     <div className="content__caption">Наименование группы</div>
@@ -37,7 +41,7 @@ const Categories: React.FC = () => {
                             <Link className='content__link'
                                   to={`/products/${id}/${el.id}`}>{el.name}</Link>
                             <div className='content__public content__col'>
-                                <Checkbox sx={{padding: '5px'}}/>
+                                <Checkbox sx={{padding: '5px'}} color="success"/>
                             </div>
                             <div className='content__edit content__col'>
                                 <IconButton sx={{padding: '5px'}}>

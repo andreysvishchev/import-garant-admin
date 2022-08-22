@@ -13,10 +13,8 @@ const ProductNew = () => {
     return (
         <div className='content'>
             <div className="content__top">
-                <Button variant="contained">
                     <Link className='content__back'
                           to={`/products/${id}/${groupId}`}>Назад</Link>
-                </Button>
             </div>
             <div className="content__fields">
                 {fields.map((el, i) => {
@@ -29,9 +27,9 @@ const ProductNew = () => {
 
             </div>
 
-            <Button variant="outlined">
+            <button className='button'>
                 Сохранить
-            </Button>
+            </button>
         </div>
     );
 };

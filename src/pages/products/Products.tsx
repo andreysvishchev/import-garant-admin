@@ -18,7 +18,7 @@ const Products: React.FC = () => {
     return (
         <div className='wrap'>
             <div className="nav">
-                <Button onClick={() => setOpen(true)} variant="outlined">Добавить</Button>
+                <button style={{marginLeft: '50px'}} className='button' onClick={() => setOpen(true)} >Добавить</button>
                 <div className="nav__list">
                     {state.map(el => {
                         return (
@@ -28,7 +28,6 @@ const Products: React.FC = () => {
                     })}
                 </div>
             </div>
-
             <Routes>
                 <Route path='/:id' element={<Categories/>}/>
                 <Route path='/:id/:groupId' element={<Group/>}/>
