@@ -5,7 +5,6 @@ import Modal from '@mui/material/Modal';
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import {useDispatch} from "react-redux";
-import {addSection} from "../../bll/productsReducer";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -30,9 +29,7 @@ const BaseModal: React.FC<PropsType> = ({open, setOpen}) => {
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setValue(e.currentTarget.value)
     }
-    const addNewSection = () => {
-        dispatch(addSection(value))
-    }
+
 
 
     return (
@@ -52,7 +49,7 @@ const BaseModal: React.FC<PropsType> = ({open, setOpen}) => {
                                    value={value}
                                    onChange={onChangeHandler}
                         />
-                        <Button onClick={addNewSection} variant="contained">Добавить</Button>
+                        <Button  variant="contained">Добавить</Button>
                     </div>
                 </Box>
             </Modal>

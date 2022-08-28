@@ -1,32 +1,40 @@
 import {Button} from '@mui/material';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
     Link,
     useParams,
 } from "react-router-dom";
-import {useAppSelector} from "../../../../bll/store";
+import {AppDispatchType, useAppSelector} from "../../../../bll/store";
 import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import {useDispatch} from "react-redux";
+import {fetchGroups, fetchProducts} from "../../../../bll/productsReducer";
+import {log} from "util";
 
 
 const Group: React.FC = () => {
     const {id, groupId} = useParams()
-    const state = useAppSelector(state => state.products)
-    const catIndex = state.findIndex(i => i.id === id)
-    const groupIndex = state[catIndex].categories.findIndex(i => i.id === groupId)
     const img = true;
+    const dispatch = useDispatch<AppDispatchType>()
+    const productsList = useAppSelector(state => state.products.productsList)
+    console.log(123)
+    useEffect(() => {
+        dispatch(fetchProducts(groupId))
+    }, [groupId])
+
+
     return (
         <div className='content'>
             <Link className='content__back'
-                  to={`/products/${id}`}>Назад</Link>
+                  to={`/${id}`}>Назад</Link>
             <div className="content__top">
                 <div
-                    className="content__title">{state[catIndex].categories[groupIndex].name}
+                    className="content__title">title
                 </div>
                 <Link className='button'
-                      to={`/products/${id}/${groupId}/new`}>Добавить</Link>
+                      to={`/${id}/${groupId}/new`}>Добавить</Link>
             </div>
             <div className="content__filters">
                 <div className="sort">
@@ -47,12 +55,12 @@ const Group: React.FC = () => {
                     <div className="content__caption">Редактировать</div>
                     <div className="content__caption">Удалить</div>
                 </div>
-                {state[catIndex].categories[groupIndex].list.map(el => {
+                {productsList.map(el => {
                     return (
-                        <div className={img ? 'content__item img' : 'content__item'} key={el.id}>
+                        <div className={img ? 'content__item img' : 'content__item'} key={el.Ref_Key}>
                             <div className='content__img'>картинка товара</div>
                             <Link className='content__link'
-                                  to={`/products/${id}/${groupId}/${el.id}`}>{el.name}</Link>
+                                  to={`/products/${id}/${groupId}/${el.id}`}>{el.Description}</Link>
                             <div className='content__public content__col'>
                                 <Checkbox sx={{padding: '5px'}}  color="success"/>
                             </div>

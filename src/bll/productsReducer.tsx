@@ -1,58 +1,66 @@
 import {v1} from "uuid";
 import {DATA_STATE} from "./Data";
+import {Dispatch} from "redux";
+import {api} from "../api/api";
+import {log} from "util";
 
 
-const initState: initStateType = DATA_STATE
+const initState: initStateType = {
+    categories: [],
+    groups: [],
+    productsList: []
+
+}
 export const productsReducer = (state: initStateType = initState, action: ActionsType): initStateType => {
     switch (action.type) {
-        case "ADD-SECTION": {
-            const newSection = {id: action.id, name: action.title, categories: []}
-            return [...state, newSection]
-        }
-        case "ADD-CATEGORY": {
-            /*   const copyState = state
-               const newCategory = {id: action.id, name: action.title, list: []}
-               const index = copyState.findIndex(i => i.id === action.sectionId)
-               if (index > -1) copyState[index].categories.push(newCategory)
-               return copyState*/
-            const newCategory = {id: action.id, name: action.title, list: []}
-            const index = state.findIndex(i => i.id === action.sectionId)
-            const copy = state
-            copy[index].categories.push(newCategory)
-            return copy
-        }
-
-
+        case "ADD-PRODUCTS":
+            return {...state, categories: action.data}
+        case "ADD-GROUPS":
+            return {...state, groups: action.data}
+        case "ADD-PRODUCTS-LIST":
+            return {...state, productsList: action.data}
         default:
             return state
     }
+
+
 }
 
-export const addSection = (title: string) => {
-    return {type: 'ADD-SECTION', id: v1(), title} as const
+export const addCategoriesToState = (data: any[]) => {
+    return {type: 'ADD-PRODUCTS', data} as const
 }
-export const addCategory = (title: string, sectionId: string) => {
-    return {type: 'ADD-CATEGORY', id: v1(), title, sectionId} as const
+export const addGroupsToState = (data: any[]) => {
+    return {type: 'ADD-GROUPS', data} as const
+}
+export const addProductsListToState = (data: any[]) => {
+    return {type: 'ADD-PRODUCTS-LIST', data} as const
 }
 
-export type FieldsType = {}
+export const fetchCategories = () => (dispatch: Dispatch) => {
+    api.getCategories().then(res => {
+        dispatch(addCategoriesToState(res.data.value))
+    })
+}
+export const fetchGroups = (Ref_Key: string | undefined) => (dispatch: Dispatch) => {
+    api.getGroups().then(res => {
+        const groups = res.data.value.filter((el: { Parent_Key: any; }) => el.Parent_Key === Ref_Key)
+        dispatch(addGroupsToState(groups))
+    })
+}
+export const fetchProducts = (Ref_Key: string | undefined) => (dispatch: Dispatch) => {
+    api.getProducts().then(res => {
+        const products = res.data.value.filter((el: { ВидНоменклатуры_Key: string | undefined; }) => el.ВидНоменклатуры_Key === Ref_Key)
+        dispatch(addProductsListToState(products))
+    })
+}
 
-export type ProductType = {
-    id: string
-    name: string
-    fields: any[]
+
+export type initStateType = {
+    categories: any[]
+    groups: any[]
+    productsList: any []
 }
-export type CategoryType = {
-    id: string
-    name: string
-    list: ProductType[]
-}
-export type ProductsType = {
-    id: string
-    name: string
-    categories: CategoryType[]
-}
-export type initStateType = ProductsType[]
 export type ActionsType =
-    ReturnType<typeof addSection> |
-    ReturnType<typeof addCategory>
+    | ReturnType<typeof addCategoriesToState>
+    | ReturnType<typeof addGroupsToState>
+    | ReturnType<typeof addProductsListToState>

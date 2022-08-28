@@ -1,25 +1,33 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     Link,
     useParams
 } from 'react-router-dom';
-import CategoryModal from "../../../components/Modal/CategoryModal";
-import {useAppSelector} from "../../../bll/store";
-import {Button} from "@mui/material";
-import Paper from "@mui/material/Paper";
-import Checkbox from "@mui/material/Checkbox";
-import IconButton from "@mui/material/IconButton";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
+import {AppDispatchType, useAppSelector} from "../../../bll/store";
 import Search from "../../../components/search/Search";
+import {useDispatch} from "react-redux";
+import {fetchGroups, fetchProducts} from "../../../bll/productsReducer";
+import {Checkbox} from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit'
+
 
 const Categories: React.FC = () => {
     const [open, setOpen] = useState(false)
-    const [render, setRender] = useState(true)
     const {id} = useParams()
-    let state = useAppSelector(state => state.products)
-    const index = state.findIndex(i => i.id === id)
-    const img = false;
+    const img = false
+    const groups = useAppSelector(state => state.products.groups)
+    const dispatch = useDispatch<AppDispatchType>()
+
+    useEffect(() => {
+        dispatch(fetchGroups(id))
+    }, [id])
+
+    useEffect(() => {
+
+    }, [id])
+
 
     return (
         <div className='content'>
@@ -34,12 +42,14 @@ const Categories: React.FC = () => {
                     <div className="content__caption">Редактировать</div>
                     <div className="content__caption">Удалить</div>
                 </div>
-                {state[index].categories.map(el => {
+                {groups.map(el => {
                     return (
+
                         <div className={img ? 'content__item img' : 'content__item'}
-                             key={el.id}>
+                             key={el.Ref_Key}>
+
                             <Link className='content__link'
-                                  to={`/products/${id}/${el.id}`}>{el.name}</Link>
+                                  to={`/${id}/${el.Ref_Key}`}>{el.Description}</Link>
                             <div className='content__public content__col'>
                                 <Checkbox sx={{padding: '5px'}} color="success"/>
                             </div>
@@ -54,12 +64,14 @@ const Categories: React.FC = () => {
                                 </IconButton>
                             </div>
                         </div>
+
+
                     )
                 })}
             </div>
 
-            <CategoryModal open={open} setOpen={setOpen} sectionId={id!}
-                           setRender={setRender} render={render}/>
+            {/*            <CategoryModal open={open} setOpen={setOpen} sectionId={id!}
+                           setRender={setRender} render={render}/>*/}
         </div>
     );
 };

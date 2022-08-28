@@ -27,24 +27,22 @@ body {
     color: $black;
     text-decoration: none;
     padding: 5px 15px;
-    border-radius: 5px;
-    transition: all .1s ease-in-out;
+    border-radius: 2px;
     position: relative;
 
     &.active {
-      &:before {
-        content: '';
-        width: calc(100% - 25px);
-        height: 2px;
-        position: absolute;
-        bottom: -1px;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: $blue;
-      }
-
+  /*    &:before {
+          content: '';
+          width: calc(100% - 25px);
+          height: 2px;
+          position: absolute;
+          bottom: -1px;
+          left: 50%;
+          transform: translateX(-50%);
+          background-color: $blue;
+        } */
+border: 1px solid $blue;
       color: $blue;
-      font-weight: 600;
     }
   }
 }
@@ -252,6 +250,7 @@ body {
 
   &__select {
     padding: 5px 10px;
+    outline: none;
   }
 }
 
@@ -311,4 +310,24 @@ body {
       border-radius: 2px;
     }
   }
+}
+
+.input {
+  &__caption {
+    font-size: 14px;
+    margin-bottom: 7px;
+    color: #494343;
+  }
+  &__field {
+    font-size: 14px;
+    padding: 10px;
+    outline: none;
+    width: 100%;
+    border: 2px solid $gray;
+    border-radius: 4px;
+    &:focus {
+      border-color: $blue;
+    }
+  }
+
 }

@@ -4,7 +4,6 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import {useDispatch} from "react-redux";
-import {addCategory, addSection} from "../../bll/productsReducer";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -32,10 +31,7 @@ const CategoryModal:React.FC<PropsType> = ({open, setOpen, sectionId, setRender,
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setValue(e.currentTarget.value)
     }
-    const addNewCategory = () => {
-        dispatch(addCategory(value, sectionId))
-        setRender(!render)
-    }
+
 
     return (
         <>
@@ -54,7 +50,7 @@ const CategoryModal:React.FC<PropsType> = ({open, setOpen, sectionId, setRender,
                                    value={value}
                                    onChange={onChangeHandler}
                         />
-                        <Button onClick={addNewCategory} variant="contained">Добавить</Button>
+                        <Button  variant="contained">Добавить</Button>
                     </div>
                 </Box>
             </Modal>

@@ -5,10 +5,7 @@ import {useAppSelector} from "../../../../../bll/store";
 
 const ProductNew = () => {
     const {id, groupId} = useParams()
-    const state = useAppSelector(state => state.products)
-    const catIndex = state.findIndex(i => i.id === id)
-    const groupIndex = state[catIndex].categories.findIndex(i => i.id === groupId)
-    const fields = state[catIndex].categories[groupIndex].list[0].fields
+
 
     return (
         <div className='content'>
@@ -17,13 +14,7 @@ const ProductNew = () => {
                           to={`/products/${id}/${groupId}`}>Назад</Link>
             </div>
             <div className="content__fields">
-                {fields.map((el, i) => {
-                    return (
-                        <TextField key={i} id="outlined-basic" label={el.name}
-                                   variant="outlined"
-                        />
-                    )
-                })}
+              1
 
             </div>
 
