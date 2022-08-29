@@ -3,12 +3,14 @@ import {DATA_STATE} from "./Data";
 import {Dispatch} from "redux";
 import {api} from "../api/api";
 import {log} from "util";
+import {setAppStatus} from "./appReducer";
 
 
 const initState: initStateType = {
     categories: [],
     groups: [],
-    productsList: []
+    productsList: [],
+    product: {}
 
 }
 export const productsReducer = (state: initStateType = initState, action: ActionsType): initStateType => {
@@ -19,6 +21,8 @@ export const productsReducer = (state: initStateType = initState, action: Action
             return {...state, groups: action.data}
         case "ADD-PRODUCTS-LIST":
             return {...state, productsList: action.data}
+        case "ADD-PRODUCT":
+            return {...state, product: action.data}
         default:
             return state
     }
@@ -35,22 +39,32 @@ export const addGroupsToState = (data: any[]) => {
 export const addProductsListToState = (data: any[]) => {
     return {type: 'ADD-PRODUCTS-LIST', data} as const
 }
+export const addProductToState = (data: any) => {
+    return {type: 'ADD-PRODUCT', data} as const
+}
 
 export const fetchCategories = () => (dispatch: Dispatch) => {
+    dispatch(setAppStatus('loading'))
     api.getCategories().then(res => {
+        dispatch(setAppStatus('idle'))
         dispatch(addCategoriesToState(res.data.value))
     })
 }
 export const fetchGroups = (Ref_Key: string | undefined) => (dispatch: Dispatch) => {
-    api.getGroups().then(res => {
-        const groups = res.data.value.filter((el: { Parent_Key: any; }) => el.Parent_Key === Ref_Key)
-        dispatch(addGroupsToState(groups))
+    dispatch(setAppStatus('loading'))
+    api.getGroups(Ref_Key).then(res => {
+        dispatch(setAppStatus('idle'))
+        dispatch(addGroupsToState(res.data.value))
     })
 }
 export const fetchProducts = (Ref_Key: string | undefined) => (dispatch: Dispatch) => {
-    api.getProducts().then(res => {
-        const products = res.data.value.filter((el: { ВидНоменклатуры_Key: string | undefined; }) => el.ВидНоменклатуры_Key === Ref_Key)
-        dispatch(addProductsListToState(products))
+    api.getProducts(Ref_Key).then(res => {
+        dispatch(addProductsListToState(res.data.value))
+    })
+}
+export const fetchProduct = (Ref_Key: string | undefined) => (dispatch: Dispatch) => {
+    api.getProduct(Ref_Key).then(res => {
+        dispatch(addProductToState(res.data))
     })
 }
 
@@ -58,9 +72,11 @@ export const fetchProducts = (Ref_Key: string | undefined) => (dispatch: Dispatc
 export type initStateType = {
     categories: any[]
     groups: any[]
-    productsList: any []
+    productsList: any [],
+    product: any
 }
 export type ActionsType =
     | ReturnType<typeof addCategoriesToState>
     | ReturnType<typeof addGroupsToState>
     | ReturnType<typeof addProductsListToState>
+    | ReturnType<typeof addProductToState>

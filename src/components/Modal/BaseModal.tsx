@@ -30,8 +30,6 @@ const BaseModal: React.FC<PropsType> = ({open, setOpen}) => {
         setValue(e.currentTarget.value)
     }
 
-
-
     return (
         <>
             <Modal

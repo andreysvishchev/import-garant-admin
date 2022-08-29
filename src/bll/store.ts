@@ -2,9 +2,11 @@ import {AnyAction, applyMiddleware, combineReducers, createStore} from "redux";
 import thunk, { ThunkDispatch } from 'redux-thunk';
 import {productsReducer} from "./productsReducer";
 import {TypedUseSelectorHook, useSelector} from "react-redux";
+import {appReducer} from "./appReducer";
 
 const rootReducer = combineReducers({
-    products: productsReducer
+    products: productsReducer,
+    app: appReducer
 
 });
 

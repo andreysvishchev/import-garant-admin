@@ -28,7 +28,7 @@ const Products = () => {
     return (
         <div className='wrap'>
             <div className="nav">
-                <button style={{marginLeft: '50px'}} className='button'
+                <button style={{marginLeft: '30px'}} className='button'
                         onClick={() => setOpen(true)}>Добавить
                 </button>
                 <div className="nav__list">

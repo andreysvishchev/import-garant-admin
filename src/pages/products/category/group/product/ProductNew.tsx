@@ -11,7 +11,7 @@ const ProductNew = () => {
         <div className='content'>
             <div className="content__top">
                     <Link className='content__back'
-                          to={`/products/${id}/${groupId}`}>Назад</Link>
+                          to={`/${id}/${groupId}`}>Назад</Link>
             </div>
             <div className="content__fields">
               1
