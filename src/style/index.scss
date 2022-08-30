@@ -1,5 +1,45 @@
 @import "vars";
 
+html {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+li,
+p,
+a,
+ul,
+li,
+button,
+textarea {
+  margin: 0;
+  padding: 0;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: inherit;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -179,9 +219,6 @@ body {
 
 
   &__fields {
-    gap: 20px;
-    display: flex;
-    flex-direction: column;
     margin-top: 40px;
     margin-bottom: 40px;
   }
@@ -312,6 +349,7 @@ body {
     padding: 7px 10px;
     font-weight: 400;
     cursor: pointer;
+    outline: none;
 
     &--selected {
       font-weight: 500;
@@ -323,6 +361,9 @@ body {
 }
 
 .input {
+  width: 100%;
+  margin-bottom: 15px;
+
   &__caption {
     font-size: 14px;
     margin-bottom: 7px;
@@ -341,7 +382,56 @@ body {
       border-color: $blue;
     }
   }
+}
 
+.input-list {
+  width: 100%;
+  margin-bottom: 15px;
+
+  &__caption {
+    font-size: 14px;
+    margin-bottom: 7px;
+    color: #494343;
+  }
+
+  &__field {
+    font-size: 14px;
+    padding: 10px;
+    outline: none;
+    width: 100%;
+    border: 2px solid $gray;
+    border-radius: 4px;
+
+    &:focus {
+      border-color: $blue;
+    }
+  }
+}
+
+.textarea {
+  width: 100%;
+  margin-bottom: 15px;
+
+  &__title {
+    font-size: 14px;
+    margin-bottom: 7px;
+    color: #494343;
+  }
+
+  &__field {
+    font-size: 14px;
+    padding: 10px;
+    outline: none;
+    width: 100%;
+    border: 2px solid $gray;
+    border-radius: 4px;
+    resize: none;
+    height: 100px;
+
+    &:focus {
+      border-color: $blue;
+    }
+  }
 }
 
 .breadcrumbs {
@@ -376,3 +466,46 @@ body {
     font-weight: 500;
   }
 }
+
+.form {
+  &__row {
+    display: flex;
+    gap: 15px;
+  }
+}
+
+.hidden {
+  position: absolute;
+  overflow: hidden;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  width: 1px;
+  height: 1px;
+  clip: rect(0 0 0 0);
+}
+
+.form {
+  &__row {
+    display: flex;
+    align-items: center;
+  }
+
+  &__caption {
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  &__parameter {
+    border-bottom: 2px solid $light-gray;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 12px;
+  }
+
+  &__params {
+    margin-top: 10px;
+  }
+}
+
+

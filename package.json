@@ -1,7 +1,7 @@
 {
   "name": "import-garant-admin",
   "version": "0.1.0",
-  "proxy": "https://192.168.226.6/",
+  "proxy": "https://192.168.226.6/importgarant_ut/odata/standard.odata/",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.0",

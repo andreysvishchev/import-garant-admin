@@ -30,7 +30,7 @@ const Group: React.FC = () => {
     const currentCategory = categories.find(el => el.Ref_Key === id)
     const currentGroup = groups.find(el => el.Ref_Key === groupId)
     const status = useAppSelector(state => state.app.status)
-    console.log(currentCategory.Description)
+/*    console.log(currentCategory.Description)*/
 
     return (
         <div className='content'>

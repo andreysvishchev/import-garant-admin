@@ -10,7 +10,12 @@ const initState: initStateType = {
     categories: [],
     groups: [],
     productsList: [],
-    product: {}
+    product: {},
+    manufacturer: [],
+    marks: [],
+    importer: [],
+    country: []
+
 
 }
 export const productsReducer = (state: initStateType = initState, action: ActionsType): initStateType => {
@@ -23,6 +28,10 @@ export const productsReducer = (state: initStateType = initState, action: Action
             return {...state, productsList: action.data}
         case "ADD-PRODUCT":
             return {...state, product: action.data}
+        case "ADD-MANUFACTURER":
+            return {...state, manufacturer: action.data}
+        case "ADD-MARKS":
+            return {...state, marks: action.data}
         default:
             return state
     }
@@ -42,6 +51,13 @@ export const addProductsListToState = (data: any[]) => {
 export const addProductToState = (data: any) => {
     return {type: 'ADD-PRODUCT', data} as const
 }
+export const addManufacturerToState = (data: any) => {
+    return {type: 'ADD-MANUFACTURER', data} as const
+}
+export const addMarksToState = (data: any) => {
+    return {type: 'ADD-MARKS', data} as const
+}
+
 
 export const fetchCategories = () => (dispatch: Dispatch) => {
     dispatch(setAppStatus('loading'))
@@ -67,16 +83,32 @@ export const fetchProduct = (Ref_Key: string | undefined) => (dispatch: Dispatch
         dispatch(addProductToState(res.data))
     })
 }
+export const fetchManufacturer = () => (dispatch: Dispatch) => {
+    api.getManufacturer().then(res => {
+        dispatch(addManufacturerToState(res.data.value))
+    })
+}
+export const fetchMarks = () => (dispatch: Dispatch) => {
+    api.getMarks().then(res => {
+        dispatch(addMarksToState(res.data.value))
+    })
+}
 
 
 export type initStateType = {
     categories: any[]
     groups: any[]
     productsList: any [],
-    product: any
+    product: any,
+    manufacturer: any[],
+    marks: any[],
+    importer: any[],
+    country: any[]
 }
 export type ActionsType =
     | ReturnType<typeof addCategoriesToState>
     | ReturnType<typeof addGroupsToState>
     | ReturnType<typeof addProductsListToState>
     | ReturnType<typeof addProductToState>
+    | ReturnType<typeof addManufacturerToState>
+    | ReturnType<typeof addMarksToState>

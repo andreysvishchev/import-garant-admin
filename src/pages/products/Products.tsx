@@ -11,7 +11,7 @@ import ProductNew from "./category/group/product/ProductNew";
 import {log} from "util";
 import axios from "axios";
 import {useDispatch} from "react-redux";
-import {fetchCategories} from "../../bll/productsReducer";
+import {fetchCategories, fetchManufacturer} from "../../bll/productsReducer";
 
 
 
@@ -22,6 +22,7 @@ const Products = () => {
 
     useEffect(() => {
         dispatch(fetchCategories())
+
     }, [])
 
 
