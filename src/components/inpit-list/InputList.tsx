@@ -4,7 +4,7 @@ import {v1} from "uuid";
 type PropsType = {
     data: any []
     title: string
-    value: string
+    value?: string
 }
 const InputList: React.FC<PropsType> = ({data,title, value}) => {
     const id = v1()
