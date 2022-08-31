@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import {
     Link,
     useParams
@@ -12,9 +12,10 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit'
 import FolderIcon from '@mui/icons-material/Folder';
+import GroupModal from "../../../components/Modal/GroupModal";
 
 
-const Categories: React.FC = () => {
+const Categories = memo(() => {
     const [open, setOpen] = useState(false)
     const {id} = useParams()
     const img = false
@@ -25,11 +26,6 @@ const Categories: React.FC = () => {
     useEffect(() => {
         dispatch(fetchGroups(id))
     }, [id])
-
-    useEffect(() => {
-
-    }, [id])
-
 
     return (
         <div className='content'>
@@ -50,11 +46,13 @@ const Categories: React.FC = () => {
                         ? <div className='content__message'>Таблица пустая </div>
                         : groups.map(el => {
                             return (
-                                <div className={img ? 'content__item img' : 'content__item'}
-                                     key={el.Ref_Key}>
+                                <div
+                                    className={img ? 'content__item img' : 'content__item'}
+                                    key={el.Ref_Key}>
                                     <Link className='content__link'
                                           to={`/${id}/${el.Ref_Key}`}>
-                                        <IconButton sx={{padding: '5px', marginRight: '10px'}}>
+                                        <IconButton
+                                            sx={{padding: '5px', marginRight: '10px'}}>
                                             <FolderIcon/>
                                         </IconButton>
                                         {el.Description}</Link>
@@ -73,15 +71,13 @@ const Categories: React.FC = () => {
                                     </div>
                                 </div>
 
-
                             )
                         })}
             </div>
 
-            {/*            <CategoryModal open={open} setOpen={setOpen} sectionId={id!}
-                           setRender={setRender} render={render}/>*/}
+            <GroupModal open={open} setOpen={setOpen} categoryId={id!}/>
         </div>
     );
-};
+});
 
 export default Categories;

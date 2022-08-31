@@ -35,6 +35,9 @@ export const api = {
     },
     getImporters () {
         return instance.get(`/Catalog_Контрагенты?$format=json`)
+    },
+    getCountries () {
+        return instance.get(`/Catalog_СтраныМира?$format=json`)
     }
 
 }

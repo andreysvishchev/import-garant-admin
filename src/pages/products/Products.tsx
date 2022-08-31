@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Route, Routes} from "react-router-dom";
 import {AppDispatchType, useAppSelector} from "../../bll/store";
-import BaseModal from "../../components/Modal/BaseModal";
+import CategoryModal from "../../components/Modal/CategoryModal";
 import Categories from "./category/Categories";
 import {NavLink} from 'react-router-dom';
 import Product from "./category/group/product/Product";
@@ -24,8 +24,7 @@ const Products = () => {
         dispatch(fetchCategories())
 
     }, [])
-
-
+    console.log(categories)
     return (
         <div className='wrap'>
             <div className="nav">
@@ -49,6 +48,7 @@ const Products = () => {
                 <Route path='/:id/:groupId/new'
                        element={<ProductNew/>}/>
             </Routes>
+            <CategoryModal open={open} setOpen={setOpen}/>
         </div>
     );
 };

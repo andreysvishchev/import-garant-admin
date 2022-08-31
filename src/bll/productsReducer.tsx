@@ -13,8 +13,8 @@ const initState: initStateType = {
     product: {},
     manufacturer: [],
     marks: [],
-    importer: [],
-    country: []
+    importers: [],
+    countries: []
 
 
 }
@@ -32,12 +32,26 @@ export const productsReducer = (state: initStateType = initState, action: Action
             return {...state, manufacturer: action.data}
         case "ADD-MARKS":
             return {...state, marks: action.data}
+        case "ADD-COUNTRIES":
+            return {...state, countries: action.data}
+        case "ADD-IMPORTERS":
+            return {...state, importers: action.data}
+        case "ADD-NEW-CATEGORY":
+            return {...state, categories: [...state.categories, action.data]}
+        case "ADD-NEW-GROUP":
+            return {...state, groups: [...state.groups, action.data]}
         default:
             return state
     }
-
-
 }
+
+export const addNewCategory = (data: any) => {
+    return {type: 'ADD-NEW-CATEGORY', data} as const
+}
+export const addNewGroup = (data: any) => {
+    return {type: 'ADD-NEW-GROUP', data} as const
+}
+
 
 export const addCategoriesToState = (data: any[]) => {
     return {type: 'ADD-PRODUCTS', data} as const
@@ -56,6 +70,12 @@ export const addManufacturerToState = (data: any) => {
 }
 export const addMarksToState = (data: any) => {
     return {type: 'ADD-MARKS', data} as const
+}
+export const addImportersToState = (data: any) => {
+    return {type: 'ADD-IMPORTERS', data} as const
+}
+export const addCountriesToState = (data: any) => {
+    return {type: 'ADD-COUNTRIES', data} as const
 }
 
 
@@ -93,6 +113,16 @@ export const fetchMarks = () => (dispatch: Dispatch) => {
         dispatch(addMarksToState(res.data.value))
     })
 }
+export const fetchImporters = () => (dispatch: Dispatch) => {
+    api.getImporters().then(res => {
+        dispatch(addImportersToState(res.data.value))
+    })
+}
+export const fetchCountries = () => (dispatch: Dispatch) => {
+    api.getCountries().then(res => {
+        dispatch(addCountriesToState(res.data.value))
+    })
+}
 
 
 export type initStateType = {
@@ -102,8 +132,8 @@ export type initStateType = {
     product: any,
     manufacturer: any[],
     marks: any[],
-    importer: any[],
-    country: any[]
+    importers: any[],
+    countries: any[]
 }
 export type ActionsType =
     | ReturnType<typeof addCategoriesToState>
@@ -112,3 +142,7 @@ export type ActionsType =
     | ReturnType<typeof addProductToState>
     | ReturnType<typeof addManufacturerToState>
     | ReturnType<typeof addMarksToState>
+    | ReturnType<typeof addImportersToState>
+    | ReturnType<typeof addCountriesToState>
+    | ReturnType<typeof addNewCategory>
+    | ReturnType<typeof addNewGroup>
