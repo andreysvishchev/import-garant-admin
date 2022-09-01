@@ -18,8 +18,8 @@ export const api = {
     getCategories() {
         return instance.get(`/Catalog_ВидыНоменклатуры?$filter=IsFolder?$format=json`)
     },
-    getGroups(Ref_Key: string | undefined) {
-        return instance.get(`/Catalog_ВидыНоменклатуры?$filter=Parent_Key eq guid'${Ref_Key}'?$format=json`)
+    getGroups() {
+        return instance.get(`/Catalog_ВидыНоменклатуры?$format=json`)
     },
     getProducts(Ref_Key: string | undefined) {
         return instance.get(`/Catalog_Номенклатура?$filter=ВидНоменклатуры_Key eq guid'${Ref_Key}'?$format=json`)
@@ -38,6 +38,7 @@ export const api = {
     },
     getCountries () {
         return instance.get(`/Catalog_СтраныМира?$format=json`)
-    }
+    },
+
 
 }

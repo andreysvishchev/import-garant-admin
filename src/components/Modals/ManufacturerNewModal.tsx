@@ -4,6 +4,8 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import {style} from "../../style/component-style";
 import Input from "../input/Input";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 
 type PropsType = {
     open: boolean
@@ -24,12 +26,21 @@ const ManufacturerNewModal: React.FC<PropsType> = ({open, setOpen}) => {
             >
                 <Box sx={style}>
                     <div className="modal">
+                        <IconButton onClick={handleClose} sx={{padding: '5px', position: 'absolute', top: '5px', right: '5px'}}>
+                            <CloseIcon/>
+                        </IconButton>
                         <div className='modal__title'>Добавить производителя</div>
                         <Input name={'Название производителя'} value={value}
                                setValue={setValue}/>
-                        <button style={{marginTop: '15px', width: '100%'}}
-                                className="button">Добавить
-                        </button>
+                        <div className="modal__buttons">
+                            <button style={{width: '100%'}}
+                                    onClick={handleClose}
+                                    className="button light">Закрыть
+                            </button>
+                            <button style={{ width: '100%'}}
+                                    className="button">Добавить
+                            </button>
+                        </div>
                     </div>
                 </Box>
             </Modal>

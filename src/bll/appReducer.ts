@@ -1,5 +1,5 @@
 const initState: InitStateType = {
-    status: 'idle' as RequestStatusType,
+    status: 'loading' as RequestStatusType,
 }
 export const appReducer = (state: InitStateType = initState, action: ActionsType): InitStateType => {
     switch (action.type) {
@@ -19,4 +19,4 @@ type InitStateType = {
     status: RequestStatusType
 }
 type ActionsType = ReturnType<typeof setAppStatus>
-export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
+export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed' | 'table-loading'

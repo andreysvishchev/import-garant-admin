@@ -1,31 +1,28 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import {Button, TextField} from "@mui/material";
 import {Link, useParams} from "react-router-dom";
-import {AppDispatchType, useAppSelector} from "../../../../../bll/store";
+import {AppDispatchType, useAppSelector} from "../../../bll/store";
 import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
-import BaseInfo from "./product-forms/BaseInfo";
-import PackInfo from "./product-forms/PackInfo";
-import Input from "../../../../../components/input/Input";
-import Textarea from "../../../../../components/textarea/Textarea";
-import InputList from "../../../../../components/inpit-list/InputList";
+import Input from "../../../components/input/Input";
+import Textarea from "../../../components/textarea/Textarea";
+import InputList from "../../../components/input-list/InputList";
 import {
     fetchCountries,
     fetchImporters,
     fetchManufacturer,
     fetchMarks
-} from "../../../../../bll/productsReducer";
+} from "../../../bll/productsReducer";
 import {useDispatch} from "react-redux";
-import ManufacturerNewModal from "../../../../../components/Modal/ManufacturerNewModal";
-import ManufacturersModal from "../../../../../components/Modal/ManufacturersModal";
-import MarkNewModal from "../../../../../components/Modal/MarkNewModal";
-import MarksModal from "../../../../../components/Modal/MarksModal";
-import ImporterNewModal from "../../../../../components/Modal/ImporterNewModal";
-import ImportersModal from "../../../../../components/Modal/ImportersModal";
-import CountryNewModal from "../../../../../components/Modal/CountryNewModal";
-import CountriesModal from "../../../../../components/Modal/CountriesModal";
+import ManufacturerNewModal from "../../../components/Modals/ManufacturerNewModal";
+import ManufacturersModal from "../../../components/Modals/ManufacturersModal";
+import MarkNewModal from "../../../components/Modals/MarkNewModal";
+import MarksModal from "../../../components/Modals/MarksModal";
+import ImporterNewModal from "../../../components/Modals/ImporterNewModal";
+import ImportersModal from "../../../components/Modals/ImportersModal";
+import CountryNewModal from "../../../components/Modals/CountryNewModal";
+import CountriesModal from "../../../components/Modals/CountriesModal";
 import Checkbox from "@mui/material/Checkbox";
 
-const ProductNew = () => {
+const ProductNewPage = () => {
     const {id, groupId} = useParams()
     const dispatch = useDispatch<AppDispatchType>()
 
@@ -76,6 +73,11 @@ const ProductNew = () => {
         setIndicateAreaInDoc(e.currentTarget.checked)
     }
 
+    const categories = useAppSelector(state => state.products.categories)
+    const groups = useAppSelector(state => state.products.groups)
+    const currentCategory = categories.find(el => el.Ref_Key === id)
+    const currentGroup = groups.find(el => el.Ref_Key === groupId)
+
 
     useEffect(() => {
         dispatch(fetchManufacturer())
@@ -88,15 +90,13 @@ const ProductNew = () => {
     return (
         <div className='content'>
             <div className="content__top">
-                <Link className='content__back'
-                      to={`/${id}/${groupId}`}>Назад</Link>
-                {/* <div className='breadcrumbs'>
+                 <div className='breadcrumbs'>
                     <Link className='breadcrumbs__link'
                           to={`/${id}`}>{currentCategory.Description}</Link>
                     <Link className='breadcrumbs__link'
                           to={`/${id}/${groupId}`}>{currentGroup.Description}</Link>
-                    <div className='breadcrumbs__item'>{product.Description}</div>
-                </div>*/}
+                    <div className='breadcrumbs__item'>Новый продукт</div>
+                </div>
             </div>
             <Tabs>
                 <TabList>
@@ -376,4 +376,4 @@ const ProductNew = () => {
     );
 };
 
-export default ProductNew;
+export default ProductNewPage;

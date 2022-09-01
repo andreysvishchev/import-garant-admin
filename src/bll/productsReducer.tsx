@@ -14,7 +14,8 @@ const initState: initStateType = {
     manufacturer: [],
     marks: [],
     importers: [],
-    countries: []
+    countries: [],
+    cur: ''
 
 
 }
@@ -40,6 +41,16 @@ export const productsReducer = (state: initStateType = initState, action: Action
             return {...state, categories: [...state.categories, action.data]}
         case "ADD-NEW-GROUP":
             return {...state, groups: [...state.groups, action.data]}
+        case "CHANGE-GROUP-TITLE":
+            return {
+                ...state,
+                groups: state.groups.map(el => el.Ref_Key === action.id ? {...el, Description: action.title} : el)
+            }
+        case "CHANGE-PRODUCT-TITLE":
+            return {
+                ...state,
+                productsList: state.productsList.map(el => el.Ref_Key === action.id ? {...el, Description: action.title} : el)
+            }
         default:
             return state
     }
@@ -79,23 +90,32 @@ export const addCountriesToState = (data: any) => {
 }
 
 
-export const fetchCategories = () => (dispatch: Dispatch) => {
-    dispatch(setAppStatus('loading'))
-    api.getCategories().then(res => {
-        dispatch(setAppStatus('idle'))
-        dispatch(addCategoriesToState(res.data.value))
-    })
+export const changeGroupTitle = (title: string, id: string) => {
+    return {type: 'CHANGE-GROUP-TITLE', title, id} as const
 }
-export const fetchGroups = (Ref_Key: string | undefined) => (dispatch: Dispatch) => {
-    dispatch(setAppStatus('loading'))
-    api.getGroups(Ref_Key).then(res => {
-        dispatch(setAppStatus('idle'))
-        dispatch(addGroupsToState(res.data.value))
+export const changeProductTitle = (title: string, id: string) => {
+    return {type: 'CHANGE-PRODUCT-TITLE', title, id} as const
+}
+
+
+export const baseDataLoading = () => (dispatch: Dispatch) => {
+    const categoriesPromise = api.getCategories()
+    const groupsPromise = api.getGroups()
+
+    Promise.all([categoriesPromise, groupsPromise])
+        .then(([categoriesPromise, groupsPromise]) => {
+            dispatch(addCategoriesToState(categoriesPromise.data.value))
+            dispatch(addGroupsToState(groupsPromise.data.value))
+            dispatch(setAppStatus('idle'))
+        }).catch(() => {
+        console.log('error')
     })
 }
 export const fetchProducts = (Ref_Key: string | undefined) => (dispatch: Dispatch) => {
+    dispatch(setAppStatus('table-loading'))
     api.getProducts(Ref_Key).then(res => {
         dispatch(addProductsListToState(res.data.value))
+        dispatch(setAppStatus('idle'))
     })
 }
 export const fetchProduct = (Ref_Key: string | undefined) => (dispatch: Dispatch) => {
@@ -133,7 +153,8 @@ export type initStateType = {
     manufacturer: any[],
     marks: any[],
     importers: any[],
-    countries: any[]
+    countries: any[],
+    cur: string
 }
 export type ActionsType =
     | ReturnType<typeof addCategoriesToState>
@@ -146,3 +167,5 @@ export type ActionsType =
     | ReturnType<typeof addCountriesToState>
     | ReturnType<typeof addNewCategory>
     | ReturnType<typeof addNewGroup>
+    | ReturnType<typeof changeGroupTitle>
+    | ReturnType<typeof changeProductTitle>

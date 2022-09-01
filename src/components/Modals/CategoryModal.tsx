@@ -8,17 +8,10 @@ import {useDispatch} from "react-redux";
 import {addNewCategory} from "../../bll/productsReducer";
 import Input from "../input/Input";
 import {v1} from "uuid";
-
-const style = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    boxShadow: 24,
-    p: 4,
-};
+import {style} from "../../style/component-style";
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from "@mui/material/IconButton";
+import EditIcon from "@mui/icons-material/Edit";
 
 type PropsType = {
     open: boolean
@@ -54,14 +47,22 @@ const CategoryModal: React.FC<PropsType> = ({open, setOpen}) => {
             >
                 <Box sx={style}>
                     <div className="modal">
+                        <IconButton onClick={handleClose} sx={{padding: '5px', position: 'absolute', top: '5px', right: '5px'}}>
+                            <CloseIcon/>
+                        </IconButton>
                         <div className='modal__title'>Новая категория</div>
-
                         <Input name={'Название категории'} value={value}
                                setValue={setValue}/>
-                        <button style={{marginTop: '25px', width: '100%'}}
-                                onClick={addNewCategoryHandler}
-                                className="button">Добавить
-                        </button>
+                        <div className="modal__buttons">
+                            <button style={{width: '100%'}}
+                                    onClick={handleClose}
+                                    className="button light">Закрыть
+                            </button>
+                            <button style={{ width: '100%'}}
+                                    onClick={addNewCategoryHandler}
+                                    className="button">Добавить
+                            </button>
+                        </div>
 
                     </div>
                 </Box>

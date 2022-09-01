@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useState} from 'react';
 import Checkbox from "@mui/material/Checkbox";
-import Input from "../../../../../../components/input/Input";
+import Input from "../../../../components/input/Input";
 
 type PropsType = {
     product: any

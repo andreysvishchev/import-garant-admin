@@ -1,25 +1,25 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import Checkbox from "@mui/material/Checkbox";
-import Input from "../../../../../../components/input/Input";
-import Textarea from "../../../../../../components/textarea/Textarea";
-import InputList from "../../../../../../components/inpit-list/InputList";
+import Input from "../../../../components/input/Input";
+import Textarea from "../../../../components/textarea/Textarea";
+import InputList from "../../../../components/input-list/InputList";
 import {
     fetchCountries,
     fetchImporters,
     fetchManufacturer,
     fetchMarks
-} from "../../../../../../bll/productsReducer";
-import {AppDispatchType, useAppSelector} from "../../../../../../bll/store";
+} from "../../../../bll/productsReducer";
+import {AppDispatchType, useAppSelector} from "../../../../bll/store";
 import {useDispatch} from "react-redux";
-import CountriesModal from "../../../../../../components/Modal/CountriesModal";
-import CountryNewModal from "../../../../../../components/Modal/CountryNewModal";
-import ImportersModal from "../../../../../../components/Modal/ImportersModal";
-import ImporterNewModal from "../../../../../../components/Modal/ImporterNewModal";
-import MarksModal from "../../../../../../components/Modal/MarksModal";
-import MarkNewModal from "../../../../../../components/Modal/MarkNewModal";
-import ManufacturersModal from "../../../../../../components/Modal/ManufacturersModal";
+import CountriesModal from "../../../../components/Modals/CountriesModal";
+import CountryNewModal from "../../../../components/Modals/CountryNewModal";
+import ImportersModal from "../../../../components/Modals/ImportersModal";
+import ImporterNewModal from "../../../../components/Modals/ImporterNewModal";
+import MarksModal from "../../../../components/Modals/MarksModal";
+import MarkNewModal from "../../../../components/Modals/MarkNewModal";
+import ManufacturersModal from "../../../../components/Modals/ManufacturersModal";
 import ManufacturerNewModal
-    from "../../../../../../components/Modal/ManufacturerNewModal";
+    from "../../../../components/Modals/ManufacturerNewModal";
 
 type PropsType = {
     product: any
