@@ -119,9 +119,21 @@ export const fetchProducts = (Ref_Key: string | undefined) => (dispatch: Dispatc
     })
 }
 export const fetchProduct = (Ref_Key: string | undefined) => (dispatch: Dispatch) => {
-    api.getProduct(Ref_Key).then(res => {
-        dispatch(addProductToState(res.data))
-    })
+
+    const product = api.getProduct(Ref_Key)
+    const manufacturers = api.getManufacturer()
+    const marks = api.getMarks()
+    const importers = api.getImporters()
+    const countries = api.getCountries()
+
+    Promise.all([product, manufacturers, marks, importers, countries])
+        .then(([product, manufacturers, marks, importers, countries]) => {
+            dispatch(addProductToState(product.data))
+            dispatch(addManufacturerToState(manufacturers.data.value))
+            dispatch(addImportersToState(importers.data.value))
+            dispatch(addMarksToState(marks.data.value))
+            dispatch(addCountriesToState(countries.data.value))
+        })
 }
 export const fetchManufacturer = () => (dispatch: Dispatch) => {
     api.getManufacturer().then(res => {

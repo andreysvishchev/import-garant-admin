@@ -34,31 +34,27 @@ const MarksModal: React.FC<PropsType> = ({open, setOpen, data}) => {
                             <CloseIcon/>
                         </IconButton>
                         <div className='modal__title'>Бренды</div>
+                        <div style={{marginTop: '0', marginBottom: '20px'}} className="modal__buttons">
+                            <button style={{padding: '5px 15px'}} className='button'>Выбрать</button>
+                            <button style={{padding: '5px 15px'}} className='button'>Создать</button>
+                            <input type={"search"} className={'modal__search'} placeholder={'Поиск'}/>
+                        </div>
                         <div className="modal__list">
-                            <div className="modal__captions">
-                                <div className="modal__caption">Наименование</div>
-                                <div className="modal__caption"></div>
-                                <div className="modal__caption"></div>
-                                <div className="modal__caption"></div>
-                            </div>
+                            <div className="modal__caption">Наименование</div>
                             <div className='modal__items'>
                                 {
                                     data.map(el => {
                                         return (
-
                                             <div className={'modal-item'} key={el.Ref_Key}>
                                                 <div className="modal-item__col"> {el.Description}</div>
                                                 <div className="modal-item__col">
-                                                    <Checkbox size='small' sx={{padding: '5px'}} color="success"/>
-                                                </div>
-                                                <div className="modal-item__col">
-                                                    <IconButton size='small' sx={{padding: '2px'}}>
-                                                        <EditIcon/>
+                                                    <IconButton size={'small'} sx={{padding: '2px'}}>
+                                                        <EditIcon style={{fontSize: '1.2rem'}}/>
                                                     </IconButton>
                                                 </div>
                                                 <div className="modal-item__col">
-                                                    <IconButton size='small' sx={{padding: '2px'}}>
-                                                        <DeleteIcon/>
+                                                    <IconButton size={'small'} sx={{padding: '2px'}}>
+                                                        <DeleteIcon style={{fontSize: '1.2rem'}}/>
                                                     </IconButton>
                                                 </div>
                                             </div>
@@ -66,15 +62,6 @@ const MarksModal: React.FC<PropsType> = ({open, setOpen, data}) => {
                                     })
                                 }
                             </div>
-                        </div>
-                        <div className="modal__buttons">
-                            <button style={{width: '100%'}}
-                                    onClick={handleClose}
-                                    className="button light">Закрыть
-                            </button>
-                            <button style={{width: '100%'}}
-                                    className="button">Сохранить
-                            </button>
                         </div>
                     </div>
                 </Box>

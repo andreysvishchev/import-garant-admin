@@ -13,6 +13,7 @@ import {
 } from "../../../bll/productsReducer";
 import BaseInfo from "./product-forms/BaseInfo";
 import PackInfo from "./product-forms/PackInfo";
+import AddInfo from "./product-forms/AddInfo";
 
 
 const ProductPage = memo(() => {
@@ -22,10 +23,6 @@ const ProductPage = memo(() => {
 
     useEffect(() => {
         dispatch(fetchProduct(productId))
-        dispatch(fetchManufacturer())
-        dispatch(fetchMarks())
-        dispatch(fetchImporters())
-        dispatch(fetchCountries())
     }, [productId])
 
     const product = useAppSelector(state => state.products.product)
@@ -69,9 +66,7 @@ const ProductPage = memo(() => {
 
                 <TabPanel>
                     <div className="content__fields">
-                        <button style={{marginTop: '40px'}} className='button'>
-                            Сохранить
-                        </button>
+                       <AddInfo/>
                     </div>
                 </TabPanel>
             </Tabs>

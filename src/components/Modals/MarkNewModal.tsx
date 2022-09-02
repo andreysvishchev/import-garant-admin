@@ -1,20 +1,23 @@
 import React, {useState} from 'react';
-import {useDispatch} from "react-redux";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import {style} from "../../style/component-style";
-import Input from "../input/Input";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import {useDispatch} from "react-redux";
+import Input from "../input/Input";
 
 type PropsType = {
     open: boolean
     setOpen: (open: boolean) => void
 }
-const MarkNewModal: React.FC<PropsType> = ({open, setOpen}) => {
+
+const MarkNewModal: React.FC<PropsType> = ({open, setOpen, }) => {
+
     const [value, setValue] = useState('')
     const dispatch = useDispatch()
     const handleClose = () => setOpen(false);
+
     return (
         <>
             <Modal
@@ -25,26 +28,22 @@ const MarkNewModal: React.FC<PropsType> = ({open, setOpen}) => {
             >
                 <Box sx={style}>
                     <div className="modal">
-                        <IconButton onClick={handleClose} sx={{padding: '5px', position: 'absolute', top: '5px', right: '5px'}}>
+                        <IconButton onClick={handleClose}
+                                    sx={{padding: '5px', position: 'absolute', top: '5px', right: '5px'}}>
                             <CloseIcon/>
                         </IconButton>
-                        <div className='modal__title'>Добавить бренд</div>
-                        <Input name={'Название бренда'} value={value}
-                               setValue={setValue}/>
+                        <div className='modal__title'>Новый бренд</div>
+                        <Input name={`Название бренда`}/>
                         <div className="modal__buttons">
-                            <button style={{width: '100%'}}
-                                    onClick={handleClose}
-                                    className="button light">Закрыть
-                            </button>
-                            <button style={{ width: '100%'}}
-                                    className="button">Добавить
-                            </button>
+                            <button style={{width: '100%'}} className="button light">Закрыть</button>
+                            <button style={{width: '100%'}} className="button">Добавить</button>
                         </div>
+
                     </div>
                 </Box>
             </Modal>
         </>
-    )
+    );
 };
 
 export default MarkNewModal;

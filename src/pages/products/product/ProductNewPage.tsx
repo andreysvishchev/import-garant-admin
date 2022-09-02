@@ -12,28 +12,22 @@ import {
     fetchMarks
 } from "../../../bll/productsReducer";
 import {useDispatch} from "react-redux";
-import ManufacturerNewModal from "../../../components/Modals/ManufacturerNewModal";
 import ManufacturersModal from "../../../components/Modals/ManufacturersModal";
-import MarkNewModal from "../../../components/Modals/MarkNewModal";
 import MarksModal from "../../../components/Modals/MarksModal";
-import ImporterNewModal from "../../../components/Modals/ImporterNewModal";
 import ImportersModal from "../../../components/Modals/ImportersModal";
-import CountryNewModal from "../../../components/Modals/CountryNewModal";
 import CountriesModal from "../../../components/Modals/CountriesModal";
 import Checkbox from "@mui/material/Checkbox";
+import BaseInfo from "./product-forms/BaseInfo";
+import AddInfo from "./product-forms/AddInfo";
 
 const ProductNewPage = () => {
     const {id, groupId} = useParams()
     const dispatch = useDispatch<AppDispatchType>()
 
     const [manufacturersModal, setManufacturersModal] = useState(false)
-    const [manufacturerModal, setManufacturerModal] = useState(false)
     const [marksModal, setMarksModal] = useState(false)
-    const [markModal, setMarkModal] = useState(false)
-    const [importerModal, setImporterModal] = useState(false)
     const [importersModal, setImportersModal] = useState(false)
     const [countriesModal, setCountriesModal] = useState(false)
-    const [countryModal, setCountryModal] = useState(false)
 
     const manufacturer = useAppSelector(state => state.products.manufacturer)
     const marks = useAppSelector(state => state.products.marks)
@@ -107,119 +101,7 @@ const ProductNewPage = () => {
 
                 <TabPanel>
                     <div className="content__fields">
-                        <form className='form'>
-                            <Input name={'Рабочее наименование'}/>
-                            <Input name={'Наименование для печати '}/>
-                            <Input name={'Артикул'}/>
-                            <div className="form__row">
-                                <Input name={'Код'}/>
-                                <Input name={'Код ТН ВЭД'} />
-                            </div>
-                            <Textarea name='Описание'/>
-                            <div className="form__row">
-                                <InputList
-                                    data={manufacturer}
-                                    title={'Производитель'}/>
-                                <button
-                                    style={{
-                                        marginTop: '6px',
-                                        padding: '8px 10px',
-                                        height: '40px'
-                                    }}
-                                    type='button'
-                                    onClick={() => setManufacturerModal(true)}
-                                    className='button'>Добавить
-                                </button>
-                                <button
-                                    style={{
-                                        marginTop: '6px',
-                                        padding: '8px 10px',
-                                        height: '40px'
-                                    }}
-                                    type='button'
-                                    onClick={() => setManufacturersModal(true)}
-                                    className='button'>Показать всех
-                                </button>
-                            </div>
-                            <div className="form__row">
-                                <InputList
-                                    data={marks}
-                                    title={'Бренд'}/>
-                                <button
-                                    style={{
-                                        marginTop: '6px',
-                                        padding: '8px 10px',
-                                        height: '40px'
-                                    }}
-                                    type='button'
-                                    onClick={() => setMarkModal(true)}
-                                    className='button'>Добавить
-                                </button>
-                                <button
-                                    style={{
-                                        marginTop: '6px',
-                                        padding: '8px 10px',
-                                        height: '40px'
-                                    }}
-                                    type='button'
-                                    onClick={() => setMarksModal(true)}
-                                    className='button'>Показать всех
-                                </button>
-                            </div>
-                            <div className="form__row">
-                                <InputList
-                                    data={importers}
-                                    title={'Импортер'}/>
-                                <button
-                                    style={{
-                                        marginTop: '6px',
-                                        padding: '8px 10px',
-                                        height: '40px'
-                                    }}
-                                    type='button'
-                                    onClick={() => setImporterModal(true)}
-                                    className='button'>Добавить
-                                </button>
-                                <button
-                                    style={{
-                                        marginTop: '6px',
-                                        padding: '8px 10px',
-                                        height: '40px'
-                                    }}
-                                    type='button'
-                                    onClick={() => setImportersModal(true)}
-                                    className='button'>Показать всех
-                                </button>
-                            </div>
-                            <div className="form__row">
-                                <InputList
-                                    data={countries}
-                                    title={'Страна происхождения'}/>
-                                <button
-                                    style={{
-                                        marginTop: '6px',
-                                        padding: '8px 10px',
-                                        height: '40px'
-                                    }}
-                                    type='button'
-                                    onClick={() => setCountryModal(true)}
-                                    className='button'>Добавить
-                                </button>
-                                <button
-                                    style={{
-                                        marginTop: '6px',
-                                        padding: '8px 10px',
-                                        height: '40px'
-                                    }}
-                                    type='button'
-                                    onClick={() => setCountriesModal(true)}
-                                    className='button'>Показать всех
-                                </button>
-                            </div>
-                            <button style={{marginTop: '40px'}} className='button'>
-                                Сохранить
-                            </button>
-                        </form>
+                     <BaseInfo />
                     </div>
                 </TabPanel>
 
@@ -350,25 +232,13 @@ const ProductNewPage = () => {
 
                 <TabPanel>
                     <div className="content__fields">
-                        3
-                        <button style={{marginTop: '40px'}} className='button'>
-                            Сохранить
-                        </button>
+                      <AddInfo/>
                     </div>
                 </TabPanel>
             </Tabs>
-
-
-            <ManufacturerNewModal open={manufacturerModal} setOpen={setManufacturerModal}/>
             <ManufacturersModal  open={manufacturersModal} setOpen={setManufacturersModal} data={manufacturer}/>
-
-            <MarkNewModal  open={markModal} setOpen={setMarkModal}/>
             <MarksModal open={marksModal} setOpen={setMarksModal} data={marks}/>
-
-            <ImporterNewModal open={importerModal} setOpen={setImporterModal}/>
             <ImportersModal open={importersModal} setOpen={setImportersModal} data={importers} />
-
-            <CountryNewModal open={countryModal} setOpen={setCountryModal}/>
             <CountriesModal open={countriesModal} setOpen={setCountriesModal}
                             data={countries}/>
         </div>

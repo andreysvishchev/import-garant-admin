@@ -6,7 +6,6 @@ const pass = 'Ufhfyn2022'
 
 
 const instance = axios.create({
-    /*    baseURL: 'https://192.168.226.6/importgarant_ut/odata/standard.odata/',*/
     headers: {
         'Authorization': "Basic " + window.btoa(uName + ':' + pass),
     },
@@ -30,13 +29,13 @@ export const api = {
     getManufacturer() {
         return instance.get(`/Catalog_Производители?$format=json`)
     },
-    getMarks () {
+    getMarks() {
         return instance.get('/Catalog_Марки?$format=json')
     },
-    getImporters () {
+    getImporters() {
         return instance.get(`/Catalog_Контрагенты?$format=json`)
     },
-    getCountries () {
+    getCountries() {
         return instance.get(`/Catalog_СтраныМира?$format=json`)
     },
 
