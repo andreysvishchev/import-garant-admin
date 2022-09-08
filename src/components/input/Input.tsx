@@ -1,29 +1,35 @@
 import React, {ChangeEvent, useState} from 'react';
 
 type PropsType = {
-    name: string
-    value?: string
-    setValue?: (value: string) => void
-    error?: boolean
-    errorText?: string
+    title: string
+    name?: string
+    value?: string | number
+    onBlur?: (e: any) => void
+    onChange?: (e: React.ChangeEvent<any>) => void
 }
 
 const Input: React.FC<PropsType> = (
     {
-        name, value, setValue,
-        error, errorText
+        title, value, name, onBlur, onChange
     }
 ) => {
+
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        if (setValue) {
-            setValue(e.currentTarget.value)
+        if (onChange) {
+            onChange(e)
         }
     }
+
+
     return (
         <div className='input'>
-            <div className='input__caption'>{name}</div>
-            <input onChange={onChangeHandler} className='input__field' type="text"
-                   value={value}/>
+            <div className='input__caption'>{title}</div>
+            <input className='input__field'
+                   onChange={onChangeHandler}
+                   onBlur={onBlur}
+                   value={value}
+                   name={name}
+            />
         </div>
     );
 };

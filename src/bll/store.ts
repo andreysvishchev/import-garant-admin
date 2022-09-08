@@ -3,10 +3,12 @@ import thunk, { ThunkDispatch } from 'redux-thunk';
 import {productsReducer} from "./productsReducer";
 import {TypedUseSelectorHook, useSelector} from "react-redux";
 import {appReducer} from "./appReducer";
+import {modalsReducer} from "./modalsReducer";
 
 const rootReducer = combineReducers({
     products: productsReducer,
-    app: appReducer
+    app: appReducer,
+    modals: modalsReducer
 
 });
 

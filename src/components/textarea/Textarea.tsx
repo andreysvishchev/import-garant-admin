@@ -1,29 +1,33 @@
 import React, {ChangeEvent} from 'react';
 
 type PropsType = {
-    name: string
-    value?: string
-    setValue?: (value: string) => void
-    error?: boolean
-    errorText?: string
+    title: string
+    name?: string
+    value?: string | number
+    onBlur?: (e: any) => void
+    onChange?: (e: React.ChangeEvent<any>) => void
 }
 
 const Textarea: React.FC<PropsType> = (
     {
-        name, value, setValue,
-        error, errorText
+        title, value, name, onBlur, onChange
     }
 ) => {
+
     const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        if (setValue) {
-            setValue(e.currentTarget.value)
+        if (onChange) {
+            onChange(e)
         }
     }
+
     return (
         <div className='textarea'>
-            <div className='textarea__title'>{name}</div>
-            <textarea onChange={onChangeHandler} className='textarea__field'
-                      value={value}/>
+            <div className='textarea__title'>{title}</div>
+            <textarea className='textarea__field'
+                      onChange={onChangeHandler}
+                      onBlur={onBlur}
+                      value={value}
+                      name={name}/>
         </div>
 
 

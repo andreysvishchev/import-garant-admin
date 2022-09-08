@@ -49,6 +49,13 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+.preloader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .header {
   padding: 20px;
   background-color: $green;
@@ -64,23 +71,23 @@ body {
     font-size: 16px;
     font-weight: 500;
     background-color: transparent;
-    color: $black;
+    color: #fff;
     text-decoration: none;
     padding: 5px 15px;
     border-radius: 2px;
     position: relative;
 
     &.active {
-      /*    &:before {
-              content: '';
-              width: calc(100% - 25px);
-              height: 2px;
-              position: absolute;
-              bottom: -1px;
-              left: 50%;
-              transform: translateX(-50%);
-              background-color: $blue;
-            } */
+      &:before {
+        content: '';
+        width: 50%;
+        height: 2px;
+        position: absolute;
+        bottom: -3px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #fff;
+      }
     }
   }
 }
@@ -116,22 +123,27 @@ body {
 
 .button {
   width: max-content;
- white-space: nowrap;
-  padding: 8px 20px;
+  white-space: nowrap;
   background-color: $dark-green;
+  padding: 10px 20px;
   color: white;
   font-size: 16px;
   font-weight: 500;
-  border: none;
   cursor: pointer;
   border-radius: 2px;
   text-decoration: none;
+  border: 2px solid transparent;
+
+  &.light {
+    background-color: transparent;
+    border: 2px solid $dark-green;
+    color: $dark-green;
+  }
 }
 
 .content {
   width: calc(100% - 290px);
   padding: 40px 40px 20px 20px;
-  border-radius: 5px;
 
 
   &__list {
@@ -140,7 +152,7 @@ body {
     flex-direction: column;
     margin-top: 40px;
     border: 1px solid $dark-grey;
-    border-radius: 4px;
+    border-radius: 2px;
   }
 
   &__captions {
@@ -160,6 +172,7 @@ body {
   &__caption {
     font-size: 16px;
     font-weight: 500;
+    text-align: center;
   }
 
   &__top {
@@ -201,7 +214,6 @@ body {
     text-decoration: none;
     color: $black;
     cursor: pointer;
-    border-bottom: 1px solid $dark-grey;
 
     &:nth-child(odd) {
       background-color: $grey;
@@ -215,7 +227,6 @@ body {
       border: none;
     }
   }
-
 
   &__fields {
     margin-top: 40px;
@@ -251,27 +262,8 @@ body {
     align-items: center;
     font-weight: 500;
   }
-
-  &__back {
-    text-decoration: none;
-    color: $black;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-
-
-    &:before {
-      content: '';
-      width: 20px;
-      height: 20px;
-      display: block;
-      background-image: url("../img/back.svg");
-      background-size: cover;
-      margin-right: 5px;
-    }
-  }
-
 }
+
 
 .search {
   display: flex;
@@ -285,6 +277,7 @@ body {
     padding: 5px 10px;
   }
 }
+
 
 .sort {
   display: flex;
@@ -312,7 +305,7 @@ body {
     outline: none;
     cursor: pointer;
     padding: 20px;
-    border-radius: 4px;
+    border-radius: 2px;
     border: none;
     box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
 
@@ -329,9 +322,84 @@ body {
 
   &__title {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     font-size: 18px;
     font-weight: 500;
+  }
+
+  &__buttons {
+    display: flex;
+    align-items: stretch;
+    gap: 10px;
+    margin-top: 15px;
+  }
+
+  &__list {
+    min-width: 600px;
+    max-width: 900px;
+    border: 1px solid $dark-grey;
+    margin-bottom: 20px;
+  }
+
+  &__items {
+    overflow: auto;
+    height: 500px;
+  }
+
+  &__caption {
+    padding: 6px 20px;
+    font-weight: 500;
+    background-color: #a1a1a140;
+    border-bottom: 1px solid $dark-grey;
+  }
+
+  &__search {
+    font-size: 14px;
+    padding: 6px;
+    outline: none;
+    width: 100%;
+    border: 2px solid $dark-grey;
+    border-radius: 2px;
+    color: $black;
+
+    &:focus {
+      border-color: $dark-green;
+    }
+
+  }
+}
+
+.modal-item {
+  padding: 8px 20px;
+  font-size: 14px;
+  border-bottom: 1px solid $dark-grey;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 1fr 35px 35px;
+  gap: 20px;
+  align-items: center;
+
+  &.active {
+    background-color: #60b31b8c;
+    font-weight: 500;
+  }
+}
+
+.modal-item-type {
+  padding: 8px 20px;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid $dark-grey;
+  cursor: pointer;
+
+  &__list {
+    margin-left: 20px;
+    margin-top: 5px;
+  }
+
+  &__element {
+    padding: 5px;
   }
 }
 
@@ -344,7 +412,7 @@ body {
   }
 
   &__tab {
-    padding: 10px 40px;
+    padding: 10px 80px;
     font-weight: 500;
     cursor: pointer;
     outline: none;
@@ -355,7 +423,6 @@ body {
     &--selected {
       background-color: $dark-green;
       color: white;
-      border-radius: 2px;
     }
   }
 }
@@ -366,6 +433,7 @@ body {
 
   &__caption {
     font-size: 14px;
+    font-weight: 500;
     margin-bottom: 7px;
     color: #494343;
   }
@@ -376,11 +444,22 @@ body {
     outline: none;
     width: 100%;
     border: 2px solid $dark-grey;
+    color: $black;
+
 
     &:focus {
       border-color: $dark-green;
     }
   }
+}
+
+.edit-input {
+  border: none;
+  border-bottom: 1px solid $black;
+  background-color: transparent;
+  outline: none;
+  font-weight: 500;
+
 }
 
 .input-list {
@@ -390,6 +469,7 @@ body {
   &__caption {
     font-size: 14px;
     margin-bottom: 7px;
+    font-weight: 500;
     color: #494343;
   }
 
@@ -399,7 +479,6 @@ body {
     outline: none;
     width: 100%;
     border: 2px solid $dark-grey;
-    border-radius: 4px;
 
     &:focus {
       border-color: $dark-green;
@@ -414,6 +493,7 @@ body {
   &__title {
     font-size: 14px;
     margin-bottom: 7px;
+    font-weight: 500;
     color: #494343;
   }
 
@@ -423,7 +503,6 @@ body {
     outline: none;
     width: 100%;
     border: 2px solid $dark-grey;
-    border-radius: 4px;
     resize: none;
     height: 100px;
 
@@ -470,24 +549,14 @@ body {
   &__row {
     display: flex;
     gap: 15px;
+    align-items: center;
   }
-}
 
-.hidden {
-  position: absolute;
-  overflow: hidden;
-  margin: -1px;
-  border: 0;
-  padding: 0;
-  width: 1px;
-  height: 1px;
-  clip: rect(0 0 0 0);
-}
-
-.form {
-  &__row {
+  &__col {
     display: flex;
     align-items: center;
+    width: 50%;
+    gap: 10px;
   }
 
   &__caption {
@@ -505,6 +574,21 @@ body {
   &__params {
     margin-top: 10px;
   }
+
 }
+
+.hidden {
+  position: absolute;
+  overflow: hidden;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  width: 1px;
+  height: 1px;
+  clip: rect(0 0 0 0);
+}
+
+
+
 
 
