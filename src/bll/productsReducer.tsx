@@ -1,9 +1,6 @@
 import {Dispatch} from "redux";
 import {api} from "../api/api";
-import {setAppStatus, setAppStatus2} from "./appReducer";
-import {v1} from "uuid";
-import exp from "constants";
-
+import {setAppStatus, setGroupPageStatus, setProductPageStatus} from "./appReducer";
 
 const initState: initStateType = {
     categories: [],
@@ -15,6 +12,7 @@ const initState: initStateType = {
     importers: [],
     countries: [],
 }
+
 export const productsReducer = (state: initStateType = initState, action: ActionsType): initStateType => {
     switch (action.type) {
         case "ADD-PRODUCTS":
@@ -132,29 +130,38 @@ export const changeProductTitle = (title: string, id: string) => {
     return {type: 'CHANGE-PRODUCT-TITLE', title, id} as const
 }
 
-
 export const baseDataLoading = () => (dispatch: Dispatch) => {
-    const categoriesPromise = api.getCategories()
-    const groupsPromise = api.getGroups()
+    const categories = api.getCategories()
+    const groups = api.getGroups()
+    const manufacturers = api.getManufacturer()
+    const marks = api.getMarks()
+    const importers = api.getImporters()
+    const countries = api.getCountries()
 
-    Promise.all([categoriesPromise, groupsPromise])
-        .then(([categoriesPromise, groupsPromise]) => {
-            dispatch(addCategoriesToState(categoriesPromise.data.value))
-            dispatch(addGroupsToState(groupsPromise.data.value))
+    Promise.all([categories, groups, manufacturers, marks, importers, countries])
+        .then(([categories, groups, manufacturers, marks, importers, countries]) => {
+            dispatch(addCategoriesToState(categories.data.value))
+            dispatch(addGroupsToState(groups.data.value))
             dispatch(setAppStatus('idle'))
+            dispatch(addManufacturerToState(manufacturers.data.value))
+            dispatch(addImportersToState(importers.data.value))
+            dispatch(addMarksToState(marks.data.value))
+            dispatch(addCountriesToState(countries.data.value))
         }).catch(() => {
         console.log('error')
     })
 }
 export const fetchProducts = (Ref_Key: string | undefined) => (dispatch: Dispatch) => {
+    dispatch(setGroupPageStatus('loading'))
     api.getProducts(Ref_Key).then(res => {
         dispatch(addProductsListToState(res.data.value))
+      dispatch(setGroupPageStatus('idle'))
     })
 }
 
 export const fetchProduct = (Ref_Key: string | undefined) => (dispatch: Dispatch) => {
-    dispatch(setAppStatus2('loading'))
-    const product = api.getProduct(Ref_Key)
+    dispatch(setProductPageStatus('loading'))
+/*    const product = api.getProduct(Ref_Key)
     const manufacturers = api.getManufacturer()
     const marks = api.getMarks()
     const importers = api.getImporters()
@@ -168,8 +175,16 @@ export const fetchProduct = (Ref_Key: string | undefined) => (dispatch: Dispatch
             dispatch(addMarksToState(marks.data.value))
             dispatch(addCountriesToState(countries.data.value))
             dispatch(setAppStatus2('idle'))
-        })
+        })*/
+    api.getProduct(Ref_Key).then((res) => {
+        dispatch(addProductToState(res.data))
+        dispatch(setProductPageStatus('idle'))
+    })
 }
+
+
+// удалить потом
+
 export const fetchManufacturer = () => (dispatch: Dispatch) => {
     api.getManufacturer().then(res => {
         dispatch(addManufacturerToState(res.data.value))

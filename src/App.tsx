@@ -1,33 +1,33 @@
-import {Route, Routes} from "react-router-dom";
-import React, {useEffect} from "react";
+import { Route, Routes } from "react-router-dom";
+import React, { useEffect } from "react";
 import Header from "./components/header/Header";
 import Main from "./pages/main/Main";
 import ProductsPage from "./pages/products/ProductsPage";
-import {AppDispatchType, useAppSelector} from "./bll/store";
-import {useDispatch} from "react-redux";
-import {baseDataLoading} from "./bll/productsReducer";
-import {CircularProgress} from "@mui/material";
+import { AppDispatchType, useAppSelector } from "./bll/store";
+import { useDispatch } from "react-redux";
+import { baseDataLoading } from "./bll/productsReducer";
+import { CircularProgress } from "@mui/material";
 
 
 function App() {
-    const status = useAppSelector(state => state.app.status)
-    const dispatch = useDispatch<AppDispatchType>()
+   const status = useAppSelector(state => state.app.appStatus)
+   const dispatch = useDispatch<AppDispatchType>()
 
-       useEffect(() => {
-           dispatch(baseDataLoading())
-       }, [])
+   useEffect(() => {
+      dispatch(baseDataLoading())
+   }, [])
 
-    return status !== 'loading' ? (
-        <div className="App">
-            <Header/>
-            <Routes>
-                <Route path="/main" element={<Main/>}/>
-                <Route path="/products/*" element={<ProductsPage/>}/>
-            </Routes>
-        </div>
-    ) : <div className='preloader'>
-        <CircularProgress/>
-    </div>;
+   return status !== 'loading'
+      ? <div className="App">
+         <Header />
+         <Routes>
+            <Route path="/main" element={<Main />} />
+            <Route path="/products/*" element={<ProductsPage />} />
+         </Routes>
+      </div>
+      : <div className='preloader'>
+         <CircularProgress />
+      </div>;
 }
 
 export default App;

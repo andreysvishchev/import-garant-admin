@@ -15,7 +15,7 @@ import ManufacturerNewModal from "../../../../components/modals/ManufacturerNewM
 import ProductTypeModal from "../../../../components/modals/ProductTypeModal";
 import {
     openCountriesModal, openManufacturersModal, openMarksModal,
-    openNewCountryModal, openNewManufacturerModal, openNewMarkModal,
+    openNewCountryModal, openNewManufacturerModal, openNewMarkModal, openNoticeModal,
     openProductTypeModal
 } from "../../../../bll/modalsReducer";
 import {useFormik} from "formik";
@@ -154,6 +154,12 @@ const BaseInfo = ({product}: PropsType) => {
                 values.ВидНоменклатуры_Key = groupKey
                 values.Марка_Key = markKey
                 dispatch(updateProduct(values))
+                if (product) {
+                    dispatch(openNoticeModal(true, `Товар ${values.Description} сохранен`))
+                } else {
+                    dispatch(openNoticeModal(true, `Товар ${values.Description} добавлен`))
+                }
+
                 console.log(values)
             },
         })

@@ -24,11 +24,8 @@ const TypeList = (props: PropsType) => {
                         })
                     }
                 </div>
-
             </div>
-
         </>
-
     );
 };
 

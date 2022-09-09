@@ -55,6 +55,12 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+.page-preloader {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .header {
   padding: 20px;
@@ -412,7 +418,9 @@ body {
   }
 
   &__tab {
-    padding: 10px 80px;
+    padding: 10px 30px;
+    width: calc(100% / 3);
+    text-align: center;
     font-weight: 500;
     cursor: pointer;
     outline: none;
@@ -455,11 +463,11 @@ body {
 
 .edit-input {
   border: none;
-  border-bottom: 1px solid $black;
+  border-bottom: 2px solid $black;
   background-color: transparent;
   outline: none;
   font-weight: 500;
-
+  padding-bottom: 3px;
 }
 
 .input-list {

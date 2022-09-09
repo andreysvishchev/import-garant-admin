@@ -17,20 +17,19 @@ import PackInfo from "./product-forms/PackInfo";
 const ProductNewPage = () => {
     const {id, groupId} = useParams()
     const dispatch = useDispatch<AppDispatchType>()
-
     const categories = useAppSelector(state => state.products.categories)
     const groups = useAppSelector(state => state.products.groups)
     const currentCategory = categories.find(el => el.Ref_Key === id)
     const currentGroup = groups.find(el => el.Ref_Key === groupId)
 
 
-    useEffect(() => {
+/*    useEffect(() => {
         dispatch(fetchManufacturer())
         dispatch(fetchMarks())
         dispatch(fetchImporters())
         dispatch(fetchCountries())
-    }, [])
-    console.log(123)
+    }, [])*/
+
 
     return (
         <div className='content'>

@@ -10,13 +10,14 @@ import BaseInfo from "./product-forms/BaseInfo";
 import AddInfo from "./product-forms/AddInfo";
 import {CircularProgress} from "@mui/material";
 import PackInfo from "./product-forms/PackInfo";
+import NoticeModal from "../../../components/modals/NoticeModal";
 
 
 const ProductPage = () => {
     const {id, groupId, productId} = useParams()
     const dispatch = useDispatch<AppDispatchType>()
     const product = useAppSelector(state => state.products.product)
-    const status = useAppSelector(state => state.app.status2)
+    const status = useAppSelector(state => state.app.productPageStatus)
     const categories = useAppSelector(state => state.products.categories)
     const groups = useAppSelector(state => state.products.groups)
     const currentCategory = categories.find(el => el.Ref_Key === id)
@@ -43,28 +44,26 @@ const ProductPage = () => {
                         <Tab>Информация об упаковке</Tab>
                         <Tab>Информация для сайта</Tab>
                     </TabList>
-
                     <TabPanel>
                         <div className="content__fields">
                             <BaseInfo product={product}/>
                         </div>
                     </TabPanel>
-
                     <TabPanel>
                         <div className="content__fields">
                             <PackInfo product={product}/>
                         </div>
                     </TabPanel>
-
                     <TabPanel>
                         <div className="content__fields">
                             <AddInfo/>
                         </div>
                     </TabPanel>
                 </Tabs>
+                <NoticeModal/>
             </div>
         ) :
-        <div className='preloader'>
+        <div className='page-preloader'>
             <CircularProgress/>
         </div>;
 };
