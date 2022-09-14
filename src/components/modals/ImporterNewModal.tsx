@@ -5,8 +5,6 @@ import {style} from "../../style/component-style";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import {useDispatch} from "react-redux";
-import Input from "../input/Input";
-import BaseModal from "./BaseModal";
 
 type PropsType = {
     open: boolean

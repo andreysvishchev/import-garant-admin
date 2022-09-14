@@ -1,30 +1,50 @@
 import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
 import BaseModal from "./BaseModal";
-import {AppDispatchType, useAppSelector} from "../../bll/store";
-import {openManufacturersModal, openNewManufacturerModal} from "../../bll/modalsReducer";
+import {AppDispatchType, useAppSelector} from "../../store/store";
+import {openManufacturersModal, openNewManufacturerModal} from "../../store/modalsReducer";
 import ModalItem from "../modal-item/ModalItem";
+import {Description} from "@mui/icons-material";
 
+type PropsType = {
+    changeManufacturer: (data: any) => void
+}
 
-const ManufacturersModal = () => {
+export type SelectedType = {
+    Ref_Key: string,
+    Description: string
+}
+
+const ManufacturersModal = (props: PropsType) => {
     const dispatch = useDispatch<AppDispatchType>()
     const open = useAppSelector(state => state.modals.manufacturers)
-    const manufacturers = useAppSelector(state => state.products.manufacturer)
-    const [selected, setSelected] = useState('')
+    const manufacturers = useAppSelector(state => state.additionally.manufacturer)
+    const [selected, setSelected] = useState<SelectedType>({
+        Ref_Key: '',
+        Description: ''
+    })
 
   /*  useEffect(() => {
         dispatch(fetchManufacturer())
     }, [])*/
 
     const handleClose = () => dispatch(openManufacturersModal(false));
-    const selectedHandler = (id: string) => setSelected(id)
 
+    const selectedHandler = (id: string, title: string) => {
+        setSelected({Ref_Key: id, Description: title})
+    }
+    const changeItemHandler = ()=> {
+      if(selected.Ref_Key && selected.Description !== '') {
+          props.changeManufacturer(selected)
+      }
+    handleClose()
+    }
 
     return (
         <BaseModal open={open} handleClose={handleClose} title={'Производители'}>
             <div style={{marginTop: '0', marginBottom: '20px'}}
                  className="modal__buttons">
-   {/*             <button style={{padding: '5px 15px'}} className='button'>Выбрать</button>*/}
+                <button style={{padding: '5px 15px'}} onClick={changeItemHandler} className='button'>Выбрать</button>
                 <button style={{padding: '5px 15px'}}
                         onClick={() => dispatch(openNewManufacturerModal(true))}
                         className='button'>Создать

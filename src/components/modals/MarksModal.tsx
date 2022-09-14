@@ -1,20 +1,23 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
-import IconButton from "@mui/material/IconButton";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
 import BaseModal from "./BaseModal";
-import {AppDispatchType, useAppSelector} from "../../bll/store";
-import {openMarksModal, openNewMarkModal} from "../../bll/modalsReducer";
-import {fetchMarks} from "../../bll/productsReducer";
+import {AppDispatchType, useAppSelector} from "../../store/store";
+import {openMarksModal, openNewMarkModal} from "../../store/modalsReducer";
 import ModalItem from "../modal-item/ModalItem";
+import {SelectedType} from "./ManufacturersModal";
 
+type PropsType = {
+    changeMark: (data: any) => void
+}
 
-const MarksModal = () => {
+const MarksModal = (props: PropsType) => {
     const dispatch = useDispatch<AppDispatchType>()
-    const marks = useAppSelector(state => state.products.marks)
+    const marks = useAppSelector(state => state.additionally.marks)
     const open = useAppSelector(state => state.modals.marks)
-    const [selected, setSelected] = useState('')
+    const [selected, setSelected] = useState<SelectedType>({
+        Ref_Key: '',
+        Description: ''
+    })
 
   /*  console.log(123)
     useEffect(() => {
@@ -22,13 +25,21 @@ const MarksModal = () => {
     }, [])*/
 
     const handleClose = () => dispatch(openMarksModal(false));
-    const selectedHandler = (id: string) => setSelected(id)
+    const selectedHandler = (id: string, title: string) => {
+        setSelected({Ref_Key: id, Description: title})
+    }
+    const changeItemHandler = ()=> {
+        if(selected.Ref_Key && selected.Description !== '') {
+            props.changeMark(selected)
+        }
+        handleClose()
+    }
 
     return (
         <BaseModal open={open} handleClose={handleClose} title={'Бренды'}>
             <div style={{marginTop: '0', marginBottom: '20px'}}
                  className="modal__buttons">
-  {/*              <button style={{padding: '5px 15px'}} className='button'>Выбрать</button>*/}
+                <button style={{padding: '5px 15px'}} onClick={changeItemHandler} className='button'>Выбрать</button>
                 <button style={{padding: '5px 15px'}} onClick={()=> dispatch(openNewMarkModal(true))} className='button'>Создать</button>
                 <input type={"search"} className={'modal__search'} placeholder={'Поиск'}/>
             </div>

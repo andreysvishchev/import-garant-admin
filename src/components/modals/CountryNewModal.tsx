@@ -1,10 +1,11 @@
 import React, {ChangeEvent, useState} from 'react';
 import {useDispatch} from "react-redux";
 import BaseModal from "./BaseModal";
-import {AppDispatchType, useAppSelector} from "../../bll/store";
-import {openNewCountryModal} from "../../bll/modalsReducer";
+import {AppDispatchType, useAppSelector} from "../../store/store";
+import {openNewCountryModal} from "../../store/modalsReducer";
 import {v1} from "uuid";
-import {addNewCountry} from "../../bll/productsReducer";
+import {addNewCountry} from "../../store/additionalReducer";
+
 
 type PropsType = {
     changeCountry: (data: any) => void

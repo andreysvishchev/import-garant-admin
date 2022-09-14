@@ -1,8 +1,9 @@
 import * as React from 'react';
 import {NavLink} from "react-router-dom";
+import Search from "../search/Search";
 
 
-export default function SearchAppBar() {
+export default function Header() {
     const setActive = ({isActive}: { isActive: boolean }): string => {
         return `header__link ${isActive ? 'active' : ''}`;
     }

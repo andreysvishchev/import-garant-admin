@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Routes } from "react-router-dom";
-import { AppDispatchType, useAppSelector } from "../../bll/store";
+import { AppDispatchType, useAppSelector } from "../../store/store";
 import CategoryPage from "./category-page/CategoryPage";
 import { NavLink } from 'react-router-dom';
 import ProductPage from "./product/ProductPage";
@@ -8,14 +8,14 @@ import GroupPage from "./group-page/GroupPage";
 import ProductNewPage from "./product/ProductNewPage";
 import { useDispatch } from "react-redux";
 import CategoryModal from "../../components/modals/CategoryModal";
-import { openCategoriesModal } from "../../bll/modalsReducer";
+import { openCategoriesModal } from "../../store/modalsReducer";
 import EditModal from "../../components/modals/EditModal";
 
 
 const ProductsPage = () => {
   const dispatch = useDispatch<AppDispatchType>()
   const categories = useAppSelector(state => state.products.categories)
-
+   // console.log(categories)
   return (
     <div className='wrap'>
       <div className="nav">

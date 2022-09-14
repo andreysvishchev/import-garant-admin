@@ -1,10 +1,10 @@
 import React, {ChangeEvent, useState} from 'react';
 import BaseModal from "./BaseModal";
-import {AppDispatchType, useAppSelector} from "../../bll/store";
+import {AppDispatchType, useAppSelector} from "../../store/store";
 import {useDispatch} from "react-redux";
-import {openCategoriesModal} from "../../bll/modalsReducer";
+import {openCategoriesModal} from "../../store/modalsReducer";
 import Input from "../input/Input";
-import {addNewCategory} from "../../bll/productsReducer";
+import {addNewCategory} from "../../store/productsReducer";
 import {v1} from "uuid";
 
 const CategoryModal = () => {

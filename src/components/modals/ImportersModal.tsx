@@ -3,10 +3,8 @@ import {useDispatch} from "react-redux";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import {style} from "../../style/component-style";
-import Input from "../input/Input";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-import {Checkbox} from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 

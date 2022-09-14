@@ -15,7 +15,11 @@ const initState = {
     newManufacturer: false,
     marks: false,
     newMark: false,
-    productType: false
+    productType: false,
+    notice: {
+        status: false,
+        title: ''
+    }
 
 }
 export const modalsReducer = (state: InitStateType = initState, action: ActionsType): InitStateType => {
@@ -49,6 +53,8 @@ export const modalsReducer = (state: InitStateType = initState, action: ActionsT
             return {...state, newMark: action.status}
         case "MODAL/PRODUCT-TYPE":
             return {...state, productType: action.status}
+        case "MODAL/NOTICE":
+            return {...state, notice: {status: action.status, title: action.title}}
         default:
             return state
     }
@@ -84,6 +90,9 @@ export const openNewMarkModal = (status: boolean) => {
 export const openProductTypeModal = (status: boolean) => {
     return {type: 'MODAL/PRODUCT-TYPE', status} as const
 }
+export const openNoticeModal = (status: boolean, title: string) => {
+    return {type: 'MODAL/NOTICE', status, title} as const
+}
 
 
 type InitStateType = typeof initState
@@ -98,3 +107,4 @@ type ActionsType =
     | ReturnType<typeof openMarksModal>
     | ReturnType<typeof openNewMarkModal>
     | ReturnType<typeof openProductTypeModal>
+    | ReturnType<typeof openNoticeModal>

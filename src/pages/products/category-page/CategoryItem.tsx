@@ -8,8 +8,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditModal from "../../../components/modals/EditModal";
 import PackIcon from '../../../img/pack.svg'
 import {useDispatch} from "react-redux";
-import {AppDispatchType} from "../../../bll/store";
-import {openEditModal} from "../../../bll/modalsReducer";
+import {AppDispatchType} from "../../../store/store";
+import {openEditModal} from "../../../store/modalsReducer";
 
 type PropsType = {
     data: any

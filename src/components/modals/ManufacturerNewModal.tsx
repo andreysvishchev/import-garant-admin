@@ -1,10 +1,10 @@
 import React, {ChangeEvent, useState} from 'react';
 import {useDispatch} from "react-redux";
-import {AppDispatchType, useAppSelector} from "../../bll/store";
-import {openNewManufacturerModal} from "../../bll/modalsReducer";
+import {AppDispatchType, useAppSelector} from "../../store/store";
+import {openNewManufacturerModal} from "../../store/modalsReducer";
 import BaseModal from "./BaseModal";
 import {v1} from "uuid";
-import {addNewManufacturer} from "../../bll/productsReducer";
+import {addNewManufacturer} from "../../store/additionalReducer";
 
 type PropsType = {
     changeManufacturer: (data: any) => void

@@ -7,6 +7,6 @@ export const style = {
     bgcolor: 'background.paper',
     boxShadow: 24,
     p: 4,
-    padding: '35px 25px 25px 25px',
-    borderRadius: '4px'
+    padding: '45px 25px 25px 25px',
+    borderRadius: '2px'
 };

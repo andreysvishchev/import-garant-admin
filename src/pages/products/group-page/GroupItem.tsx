@@ -6,8 +6,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditModal from "../../../components/modals/EditModal";
 import {useDispatch} from "react-redux";
-import {AppDispatchType} from "../../../bll/store";
-import {openEditModal} from "../../../bll/modalsReducer";
+import {AppDispatchType} from "../../../store/store";
+import {openEditModal} from "../../../store/modalsReducer";
 
 type PropsType = {
     data: any

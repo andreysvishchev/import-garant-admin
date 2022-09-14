@@ -4,12 +4,13 @@ import {productsReducer} from "./productsReducer";
 import {TypedUseSelectorHook, useSelector} from "react-redux";
 import {appReducer} from "./appReducer";
 import {modalsReducer} from "./modalsReducer";
+import {additionalReducer} from "./additionalReducer";
 
 const rootReducer = combineReducers({
     products: productsReducer,
     app: appReducer,
-    modals: modalsReducer
-
+    modals: modalsReducer,
+    additionally: additionalReducer
 });
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));

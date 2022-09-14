@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {useParams} from 'react-router-dom';
-import {AppDispatchType, useAppSelector} from "../../../bll/store";
+import {AppDispatchType, useAppSelector} from "../../../store/store";
 import Search from "../../../components/search/Search";
 import {useDispatch} from "react-redux";
 import GroupModal from "../../../components/modals/GroupModal";
 import CategoryItem from "./CategoryItem";
-import {openGroupModal} from "../../../bll/modalsReducer";
+import {openGroupModal} from "../../../store/modalsReducer";
 import EditModal from "../../../components/modals/EditModal";
 
 
@@ -16,12 +16,12 @@ const CategoryPage = () => {
     const filterGroups = groups.filter(el => el.Parent_Key === id)
     const dispatch = useDispatch<AppDispatchType>()
 
-
+   console.log(filterGroups)
     return (
         <div className='content'>
             <div className="content__top">
                 <button className='button' onClick={() => dispatch(openGroupModal(true))}>Добавить</button>
-                <Search/>
+                <Search id={id!}/>
             </div>
             <div className="content__list">
                 <div className={img ? 'content__captions img' : 'content__captions'}>
@@ -44,3 +44,5 @@ const CategoryPage = () => {
 };
 
 export default CategoryPage;
+
+

@@ -1,10 +1,10 @@
 import React, {ChangeEvent, useState} from 'react';
 import {useDispatch} from "react-redux";
 import BaseModal from "./BaseModal";
-import {AppDispatchType, useAppSelector} from "../../bll/store";
-import {openNewMarkModal} from "../../bll/modalsReducer";
+import {AppDispatchType, useAppSelector} from "../../store/store";
+import {openNewMarkModal} from "../../store/modalsReducer";
 import {v1} from "uuid";
-import {addNewMark} from "../../bll/productsReducer";
+import {addNewMark} from "../../store/additionalReducer";
 
 type PropsType = {
     changeMark: (data: any) => void
