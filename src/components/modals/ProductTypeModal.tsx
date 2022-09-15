@@ -21,11 +21,12 @@ const ProductTypeModal = (props: PropsType) => {
 
   const [selected, setSelected] = useState<SelectedType>({
     Ref_Key: '',
-    Description: ''
+    Description: '',
+    Parent_Key: '',
   })
 
-  const selectedHandler = (id: string, title: string) => {
-    setSelected({ Ref_Key: id, Description: title })
+  const selectedHandler = (id: string, title: string, parentId: string) => {
+    setSelected({ Ref_Key: id, Description: title, Parent_Key: parentId })
   }
 
   const changeItemHandler = () => {

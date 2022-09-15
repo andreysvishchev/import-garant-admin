@@ -2,7 +2,7 @@ import { Dispatch } from "redux";
 import { api } from "../api/api";
 import { setAppStatus, setGroupPageStatus, setProductPageStatus } from "./appReducer";
 import { openNoticeModal } from "./modalsReducer";
-import {addCountriesToState, addImportersToState, addManufacturerToState, addMarksToState} from "./additionalReducer";
+import { addClassifiersToState, addCountriesToState, addImportersToState, addManufacturerToState, addMarksToState, addRatesToState } from "./additionalReducer";
 
 const initState: initStateType = {
   categories: [],
@@ -105,9 +105,11 @@ export const baseDataLoading = () => (dispatch: Dispatch) => {
   const marks = api.getMarks()
   const importers = api.getImporters()
   const countries = api.getCountries()
+  const rates = api.getRatesNDS()
+  const classifiers = api.getClassifiers()
 
-  Promise.all([categories, groups, manufacturers, marks, importers, countries])
-    .then(([categories, groups, manufacturers, marks, importers, countries]) => {
+  Promise.all([categories, groups, manufacturers, marks, importers, countries, rates, classifiers])
+    .then(([categories, groups, manufacturers, marks, importers, countries, rates, classifiers]) => {
       dispatch(addCategoriesToState(categories.data.value))
       dispatch(addGroupsToState(groups.data.value))
       dispatch(setAppStatus('idle'))
@@ -115,6 +117,8 @@ export const baseDataLoading = () => (dispatch: Dispatch) => {
       dispatch(addImportersToState(importers.data.value))
       dispatch(addMarksToState(marks.data.value))
       dispatch(addCountriesToState(countries.data.value))
+      dispatch(addRatesToState(rates.data.value))
+      dispatch(addClassifiersToState(classifiers.data.value))
     }).catch(() => {
       console.log('error')
     })

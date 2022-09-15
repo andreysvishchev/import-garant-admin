@@ -21,14 +21,16 @@ import {
 import { useFormik } from "formik";
 import { addNewProduct, changeDataProduct, updateProduct } from "../../../../store/productsReducer";
 import Checkbox from '@mui/material/Checkbox';
+import { PropaneSharp } from '@mui/icons-material';
 
 type PropsType = {
   product?: any
   currentGroup: any
+  currentCategory: any
 }
 
 
-const BaseInfo = ({ product, currentGroup }: PropsType) => {
+const BaseInfo = ({ product, currentGroup, currentCategory }: PropsType) => {
   const dispatch = useDispatch<AppDispatchType>()
 
   const [importersModal, setImportersModal] = useState(false)
@@ -39,6 +41,8 @@ const BaseInfo = ({ product, currentGroup }: PropsType) => {
   const marks = useAppSelector(state => state.additionally.marks)
   const importers = useAppSelector(state => state.additionally.importers)
   const countries = useAppSelector(state => state.additionally.countries)
+  const rates = useAppSelector(state => state.additionally.rates)
+
 
   const baseParam = '00000000-0000-0000-0000-000000000000';
   let manufacturerValue = '';
@@ -46,6 +50,7 @@ const BaseInfo = ({ product, currentGroup }: PropsType) => {
   let importerValue = '';
   let groupsValue = currentGroup.Description;
   let countryValue = '';
+  let ratesValue = '';
 
 
   if (product) {
@@ -71,14 +76,19 @@ const BaseInfo = ({ product, currentGroup }: PropsType) => {
     if (currentImporter !== undefined) {
       importerValue = currentImporter.Description
     }
+    const currentRate = rates.find(el => el.Ref_Key === product.СтавкаНДС_Key)
+    if (currentRate !== undefined) {
+      ratesValue = currentRate.Description
+    }
   }
-
 
 
   const [manufacturerKey, setManufacturerKey] = useState(product ? product.Производитель_Key : baseParam)
   const [countryKey, setCountryKey] = useState(product ? product.СтранаПроисхождения_Key : baseParam)
   const [groupKey, setGroupKey] = useState(product ? product.ВидНоменклатуры_Key : baseParam)
   const [markKey, setMarkKey] = useState(product ? product.Марка_Key : baseParam)
+  const [currentCategoryKey, setCurrentCategoryKey] = useState(currentCategory.Ref_Key)
+  const [rateKey, setRateKey] = useState(product ? product.СтавкаНДС_Key : baseParam)
 
 
   const [manufacturerField, setManufacturerField] = useState(manufacturerValue)
@@ -92,6 +102,8 @@ const BaseInfo = ({ product, currentGroup }: PropsType) => {
     const currentView = groups.find(el => el.Description === e.currentTarget.value)
     if (currentView !== undefined) {
       setGroupKey(currentView.Ref_Key)
+      setCurrentCategoryKey(currentView.Parent_Key)
+      console.log(currentCategoryKey);
     }
   }
 
@@ -137,22 +149,26 @@ const BaseInfo = ({ product, currentGroup }: PropsType) => {
     setMarkField(data.Description)
   }
 
-
   const changeGroup = (data: any) => {
     setGroupKey(data.Ref_Key)
     setViewField(data.Description)
+    setCurrentCategoryKey(data.Parent_Key)
   }
 
+  const rateChangeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
+    setRateKey(e.currentTarget.value)
+  }
 
   const formik = useFormik({
     initialValues: {
+      Parent_Key: currentCategoryKey,
       // Ref_Key: product ? product.Ref_Key : v1(),
       Description: product ? product.Description : '',
       ТипНоменклатуры: product ? product.ТипНоменклатуры : '',
       НаименованиеПолное: product ? product.НаименованиеПолное : '',
       Артикул: product ? product.Артикул : '',
       Code: product ? product.Code : '',
-      // КодТНВЭД_Key: product ? product.КодТНВЭД_Key : '',
+      КодТНВЭД_Key: product ? product.КодТНВЭД_Key : '',
       Описание: product ? product.Описание : '',
       Производитель_Key: manufacturerKey,
       СтранаПроисхождения_Key: countryKey,
@@ -173,19 +189,29 @@ const BaseInfo = ({ product, currentGroup }: PropsType) => {
       ДлинаЗнаменатель: product ? product.ДлинаЗнаменатель : '',
       ДлинаЧислитель: product ? product.ДлинаЧислитель : '',
       ПлощадьЗнаменатель: product ? product.ПлощадьЗнаменатель : '',
-      ПлощадьЧислитель: product ? product.ПлощадьЧислитель : ''
+      ПлощадьЧислитель: product ? product.ПлощадьЧислитель : '',
+      СтавкаНДС_Key: rateKey
+
+
     },
 
     onSubmit: values => {
+      values.Parent_Key = currentCategoryKey
+      values.ВидНоменклатуры_Key = groupKey
       values.Производитель_Key = manufacturerKey
       values.СтранаПроисхождения_Key = countryKey
       values.ВидНоменклатуры_Key = groupKey
       values.Марка_Key = markKey
+      values.СтавкаНДС_Key = rateKey
 
       if (product) {
         dispatch(updateProduct(values, product.Ref_Key))
+        // console.log(values);
+
+        // alert('Товар сохранен')
       } else {
-        dispatch(addNewProduct(values))
+        // dispatch(addNewProduct(values))
+        alert('Товар сохранен')
       }
     },
   })
@@ -219,20 +245,37 @@ const BaseInfo = ({ product, currentGroup }: PropsType) => {
               onChange={formik.handleChange}
               value={formik.values.ТипНоменклатуры} />
           </div>
+          <div className="form__col">
+            <Input title={'Код'}
+              placeholder={'Поле заполнится автоматически'}
+              disabled={true}
+              name="Code"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              value={formik.values.Code} />
+          </div>
         </div>
         <div className="form__row">
-          <Input title={'Код'}
-            placeholder={'Поле заполнится автоматически'}
-            disabled={true}
-            name="Code"
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-            value={formik.values.Code} />
-          {/* <Input title={'Код ТН ВЭД'}
-            name="КодТНВЭД_Key"
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-            value={formik.values.КодТНВЭД_Key} /> */}
+          <div className="form__col">
+            <div className='select'>
+              <div className='select__caption'>Ставка НДС</div>
+              <select className='select__field' onChange={rateChangeHandler}>
+                {rates.map(el => {
+                  return (
+                    <option key={el.Ref_Key} id={el.Ref_Key} value={el.Ref_Key}>{el.Description}</option>
+                  )
+                })}
+              </select>
+            </div>
+
+          </div>
+          <div className="form__col">
+            <Input title={'Код ТН ВЭД'}
+              name="КодТНВЭД_Key"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              value={formik.values.КодТНВЭД_Key} />
+          </div>
         </div>
         <Textarea title='Описание'
           name="Описание"

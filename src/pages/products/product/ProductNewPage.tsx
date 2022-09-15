@@ -43,7 +43,7 @@ const ProductNewPage = () => {
 
         <TabPanel>
           <div className="content__fields">
-            <BaseInfo currentGroup={currentGroup} />
+            <BaseInfo currentGroup={currentGroup} currentCategory={currentCategory} />
           </div>
         </TabPanel>
 

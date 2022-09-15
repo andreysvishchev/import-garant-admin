@@ -25,9 +25,9 @@ export const api = {
   getProducts(Ref_Key: string | undefined) {
     return instance.get(`/Catalog_Номенклатура?$filter=ВидНоменклатуры_Key eq guid'${Ref_Key}'?$format=json`)
   },
-  test (id: string) {
-    return instance.get(`/Catalog_Номенклатура?$filter=Parent_Key eq guid'71c5584e-02cb-11ed-801e-e0d55e051ed2'?$format=json`)
-    // return instance.get(`/Catalog_Номенклатура?$filter=Parent_Key eq guid'${id}'?$format=json`)
+  test(id: string) {
+    // return instance.get(`/Catalog_Номенклатура?$filter=Parent_Key eq guid'71c5584e-02cb-11ed-801e-e0d55e051ed2'?$format=json`)
+    return instance.get(`/Catalog_Номенклатура?$filter=Parent_Key eq guid'${id}'?$format=json`)
   },
   getProduct(Ref_Key: string | undefined) {
     return instance.get(`/Catalog_Номенклатура(guid'${Ref_Key}')?$format=json`)
@@ -43,6 +43,12 @@ export const api = {
   },
   getCountries() {
     return instance.get(`/Catalog_СтраныМира?$format=json`)
+  },
+  getRatesNDS() {
+    return instance.get(`/Catalog_СтавкиНДС?$format=json`)
+  },
+  getClassifiers() {
+    return instance.get(`/Catalog_КлассификаторТНВЭД?$format=json`)
   },
   postNewProduct(product: any) {
     return instance.post(`/Catalog_Номенклатура`, product)

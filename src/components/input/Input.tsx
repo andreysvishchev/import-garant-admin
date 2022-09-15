@@ -35,5 +35,3 @@ const Input: React.FC<PropsType> = ({ title, value, name, onBlur, onChange, disa
 };
 
 export default Input;
-
-
