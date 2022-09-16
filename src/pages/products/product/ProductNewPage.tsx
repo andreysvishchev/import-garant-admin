@@ -34,6 +34,7 @@ const ProductNewPage = () => {
           <div className='breadcrumbs__item'>Новый продукт</div>
         </div>
       </div>
+      <div className="content__main">
       <Tabs>
         <TabList>
           <Tab>Основная информация</Tab>
@@ -57,6 +58,7 @@ const ProductNewPage = () => {
           </div>
         </TabPanel>
       </Tabs>
+      </div>
     </div>
 
   );

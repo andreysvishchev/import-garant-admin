@@ -6,10 +6,11 @@ type PropsType = {
     title: string
     value: string
     handler: (e: ChangeEvent<HTMLInputElement>) => void
+   placeholder: string
 }
 const InputList: React.FC<PropsType> = (
     {
-        data, title, value, handler
+        data, title, value, handler, placeholder
     }) => {
         const id = v1()
         const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -20,6 +21,7 @@ const InputList: React.FC<PropsType> = (
             <div className='input-list'>
                 <div className='input-list__caption'>{title}</div>
                 <input onChange={onChangeHandler}
+                       placeholder={placeholder}
                        className='input-list__field'
                        list={id}
                        value={value}/>

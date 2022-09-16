@@ -6,11 +6,12 @@ type PropsType = {
     value?: string | number
     onBlur?: (e: any) => void
     onChange?: (e: React.ChangeEvent<any>) => void
+    placeholder: string
 }
 
 const Textarea: React.FC<PropsType> = (
     {
-        title, value, name, onBlur, onChange
+        title, value, name, onBlur, onChange, placeholder
     }
 ) => {
 
@@ -24,6 +25,7 @@ const Textarea: React.FC<PropsType> = (
         <div className='textarea'>
             <div className='textarea__title'>{title}</div>
             <textarea className='textarea__field'
+                      placeholder={placeholder}
                       onChange={onChangeHandler}
                       onBlur={onBlur}
                       value={value}

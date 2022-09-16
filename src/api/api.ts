@@ -32,6 +32,9 @@ export const api = {
   getProduct(Ref_Key: string | undefined) {
     return instance.get(`/Catalog_Номенклатура(guid'${Ref_Key}')?$format=json`)
   },
+  getUnits() {
+    return instance.get(`/Catalog_УпаковкиЕдиницыИзмерения?$format=json`)
+  },
   getManufacturer() {
     return instance.get(`/Catalog_Производители?$format=json`)
   },
