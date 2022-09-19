@@ -24,8 +24,8 @@ import {useFormik} from "formik";
 import {addNewProduct, changeDataProduct, updateProduct} from "../../../../store/productsReducer";
 import Checkbox from '@mui/material/Checkbox';
 import {PropaneSharp} from '@mui/icons-material';
-import ClassifierModal from "../../../../components/modals/classifierModal";
-import BarcodeModal from "../../../../components/modals/barcodeModal";
+import ClassifierModal from "../../../../components/modals/ClassifierModal";
+import BarcodeModal from "../../../../components/modals/BarcodeModal";
 
 type PropsType = {
    product?: any
@@ -269,6 +269,14 @@ const BaseInfo = ({product, currentGroup, currentCategory}: PropsType) => {
                   </div>
                </div>
                <div className="form__row">
+                  {product &&
+                     <button className="button"
+                             style={{
+                                marginTop: '7px',
+                                padding: '8px 15px',
+                                height: '40px'
+                             }}
+                             onClick={() => dispatch(openBarcodeModal(true))}>Штрихкоды</button>}
                   <div className="form__col">
                      <div className='select'>
                         <div className='select__caption'>Ставка НДС</div>
@@ -295,7 +303,7 @@ const BaseInfo = ({product, currentGroup, currentCategory}: PropsType) => {
                         type={'button'}
                         onClick={() => dispatch(openClassifierModal(true))}
                         style={{
-                           marginTop: '6px',
+                           marginTop: '7px',
                            padding: '8px 15px',
                            height: '40px'
                         }}
@@ -322,15 +330,15 @@ const BaseInfo = ({product, currentGroup, currentCategory}: PropsType) => {
                         type={'button'}
                         onClick={() => dispatch(openNewManufacturerModal(true))}
                         style={{
-                           marginTop: '6px',
+                           marginTop: '7px',
                            padding: '8px 15px',
                            height: '40px'
                         }}
                         className="button">+
                      </button>
                      <button style={{
-                        marginTop: '6px',
-                        padding: '8px 10px',
+                        marginTop: '7px',
+                        padding: '8px 15px',
                         height: '40px'
                      }}
                              type='button'
@@ -349,7 +357,7 @@ const BaseInfo = ({product, currentGroup, currentCategory}: PropsType) => {
                         type={'button'}
                         onClick={() => dispatch(openNewMarkModal(true))}
                         style={{
-                           marginTop: '6px',
+                           marginTop: '7px',
                            padding: '8px 15px',
                            height: '40px'
                         }}
@@ -357,8 +365,8 @@ const BaseInfo = ({product, currentGroup, currentCategory}: PropsType) => {
                      </button>
                      <button
                         style={{
-                           marginTop: '6px',
-                           padding: '8px 10px',
+                           marginTop: '7px',
+                           padding: '8px 15px',
                            height: '40px'
                         }}
                         type='button'
@@ -377,8 +385,8 @@ const BaseInfo = ({product, currentGroup, currentCategory}: PropsType) => {
                         title={'Вид продукции'}/>
                      <button
                         style={{
-                           marginTop: '6px',
-                           padding: '8px 10px',
+                           marginTop: '7px',
+                           padding: '8px 15px',
                            height: '40px'
                         }}
                         type='button'
@@ -422,7 +430,7 @@ const BaseInfo = ({product, currentGroup, currentCategory}: PropsType) => {
                         type={'button'}
                         onClick={() => dispatch(openNewCountryModal(true))}
                         style={{
-                           marginTop: '6px',
+                           marginTop: '7px',
                            padding: '8px 15px',
                            height: '40px'
                         }}
@@ -430,8 +438,8 @@ const BaseInfo = ({product, currentGroup, currentCategory}: PropsType) => {
                      </button>
                      <button
                         style={{
-                           marginTop: '6px',
-                           padding: '8px 10px',
+                           marginTop: '7px',
+                           padding: '8px 15px',
                            height: '40px'
                         }}
                         type='button'
@@ -440,6 +448,7 @@ const BaseInfo = ({product, currentGroup, currentCategory}: PropsType) => {
                      </button>
                   </div>
                </div>
+
                <div className="form__parameter">
                   <div className="form__row">
                      <div className='form__caption'>Вес</div>
@@ -581,7 +590,10 @@ const BaseInfo = ({product, currentGroup, currentCategory}: PropsType) => {
                </button>
             </form>
 
-            <BarcodeModal/>
+            {product &&
+               <BarcodeModal productId={product.Ref_Key} productTitle={product.Description}/>
+            }
+
             <ProductTypeModal changeGroup={changeGroup}
                               currentGroup={currentGroup}/>
             <ClassifierModal changeClassifier={changeClassifier}

@@ -35,6 +35,9 @@ export const api = {
   getUnits() {
     return instance.get(`/Catalog_УпаковкиЕдиницыИзмерения?$format=json`)
   },
+  getBarCode () {
+    return instance.get(`/InformationRegister_ШтрихкодыНоменклатуры?$format=json`)
+  },
   getManufacturer() {
     return instance.get(`/Catalog_Производители?$format=json`)
   },
@@ -66,6 +69,7 @@ export const api = {
     return instance.patch(`/Catalog_ВидыНоменклатуры(guid'${id}')?$format=json`, data)
   },
   createNewManufacturer() {
+
   },
   createNewCountry() {
 

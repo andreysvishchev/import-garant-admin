@@ -8,7 +8,8 @@ const initState = {
    countries: [],
    rates: [],
    classifiers: [],
-   units: []
+   units: [],
+   barcode: [],
 }
 
 export const additionalReducer = (state: InitStateType = initState, action: ActionsType): InitStateType => {
@@ -35,6 +36,8 @@ export const additionalReducer = (state: InitStateType = initState, action: Acti
          return {...state, units: action.data}
       case "ADD-NEW-CLASSIFIER":
          return {...state, classifiers: [...state.classifiers, action.data]}
+      case "ADD-BARCODE":
+         return  {...state, barcode: action.data}
       default:
          return state
    }
@@ -73,6 +76,10 @@ export const addUnitsToState = (data: any) => {
 export const addNewClassifier = (data: any) => {
    return {type: 'ADD-NEW-CLASSIFIER', data} as const
 }
+export const addBarcodeToState = (data: any) => {
+   return {type: 'ADD-BARCODE', data} as const
+}
+
 
 
 export const fetchManufacturer = () => (dispatch: Dispatch) => {
@@ -103,7 +110,8 @@ type InitStateType = {
    countries: any[],
    rates: any[],
    classifiers: any[],
-   units: any[]
+   units: any[],
+   barcode: any[]
 }
 type ActionsType =
    | ReturnType<typeof addManufacturerToState>
@@ -117,3 +125,5 @@ type ActionsType =
    | ReturnType<typeof addClassifiersToState>
    | ReturnType<typeof addUnitsToState>
    | ReturnType<typeof addNewClassifier>
+   | ReturnType<typeof addBarcodeToState>
+

@@ -413,7 +413,7 @@ body {
 
   &__list {
     min-width: 600px;
-    max-width: 900px;
+    //max-width: 900px;
     border: 1px solid $dark-grey;
     margin-bottom: 20px;
   }
@@ -439,7 +439,14 @@ body {
     }
   }
 
+  &__captions {
+    display: grid;
+    grid-template-columns: 200px 1fr 200px;
+  }
+
   &__caption {
+    width: 100%;
+    word-break: break-word;
     padding: 6px 20px;
     font-weight: 500;
     background-color: #a1a1a140;
@@ -719,6 +726,7 @@ body {
     width: 100%;
     border: 2px solid $dark-grey;
     color: $black;
+    cursor: pointer;
 
     &:focus {
       border-color: $dark-green;
@@ -735,4 +743,20 @@ body {
   text-decoration: underline;
   cursor: pointer;
   margin: 15px 0;
+}
+
+.barcode-item {
+  display: grid;
+  grid-template-columns: 200px 1fr 200px;
+  align-items: center;
+  border-bottom: 1px solid #C1C1C1;
+  cursor: pointer;
+  &:hover {
+    background-color: #60b31b8c;
+  }
+
+  &__col {
+    padding: 6px 20px;
+
+  }
 }

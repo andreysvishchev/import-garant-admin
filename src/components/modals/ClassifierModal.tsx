@@ -27,6 +27,7 @@ const ClassifierModal: React.FC<PropsType> = ({id, unitId, changeClassifier}) =>
    const changeUnits = (e: ChangeEvent<HTMLSelectElement>) => {
       setValue(e.currentTarget.value)
    }
+   console.log(units)
    const formik = useFormik({
       initialValues: {
          Ref_Key: v1(),

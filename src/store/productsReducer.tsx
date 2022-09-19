@@ -3,6 +3,7 @@ import { api } from "../api/api";
 import { setAppStatus, setGroupPageStatus, setProductPageStatus } from "./appReducer";
 import { openNoticeModal } from "./modalsReducer";
 import {
+  addBarcodeToState,
   addClassifiersToState,
   addCountriesToState,
   addImportersToState,
@@ -116,11 +117,12 @@ export const baseDataLoading = () => (dispatch: Dispatch) => {
   const rates = api.getRatesNDS()
   const classifiers = api.getClassifiers()
   const units = api.getUnits()
+  const barcode = api.getBarCode()
 
-  Promise.all([categories, groups, manufacturers, marks, importers, countries, rates, classifiers, units])
+  Promise.all([categories, groups, manufacturers, marks, importers, countries, rates, classifiers, units, barcode])
     .then(([categories, groups, manufacturers,
              marks, importers, countries,
-             rates, classifiers, units]) => {
+             rates, classifiers, units, barcode]) => {
       dispatch(addCategoriesToState(categories.data.value))
       dispatch(addGroupsToState(groups.data.value))
       dispatch(setAppStatus('idle'))
@@ -131,6 +133,8 @@ export const baseDataLoading = () => (dispatch: Dispatch) => {
       dispatch(addRatesToState(rates.data.value))
       dispatch(addClassifiersToState(classifiers.data.value))
       dispatch(addUnitsToState(units.data.value))
+     dispatch(addBarcodeToState(barcode.data.value))
+
     }).catch(() => {
       console.log('error')
     })

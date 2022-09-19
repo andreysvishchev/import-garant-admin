@@ -23,7 +23,14 @@ const initState = {
    classifier: {
       status: false
    },
-   barcode: false
+   barcode: false,
+   barcodeEdit: {
+      status: false,
+      barcode: '',
+      productTitle: '',
+      packageKey: '',
+      productId: ''
+   }
 
 }
 export const modalsReducer = (state: InitStateType = initState, action: ActionsType): InitStateType => {
@@ -62,7 +69,17 @@ export const modalsReducer = (state: InitStateType = initState, action: ActionsT
       case "MODAL/CLASSIFIER":
          return {...state, classifier: {status: action.status}}
       case "MODAL/BARCODE":
-         return  {...state, barcode: action.status}
+         return {...state, barcode: action.status}
+      case "MODAL/BARCODE-EDIT":
+         return {
+            ...state, barcodeEdit: {
+               status: action.data.status,
+               barcode: action.data.barcode,
+               productTitle: action.data.productTitle,
+               packageKey: action.data.packageKey,
+               productId: action.data.productId
+            }
+         }
       default:
          return state
    }
@@ -107,6 +124,9 @@ export const openClassifierModal = (status: boolean,) => {
 export const openBarcodeModal = (status: boolean) => {
    return {type: 'MODAL/BARCODE', status} as const
 }
+export const openBarcodeEditModal = (data: any) => {
+   return {type: 'MODAL/BARCODE-EDIT', data} as const
+}
 
 
 type InitStateType = typeof initState
@@ -124,3 +144,4 @@ type ActionsType =
    | ReturnType<typeof openNoticeModal>
    | ReturnType<typeof openClassifierModal>
    | ReturnType<typeof openBarcodeModal>
+   | ReturnType<typeof openBarcodeEditModal>
