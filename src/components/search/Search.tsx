@@ -37,7 +37,7 @@ const Search = (props: PropsType) => {
   }
 
   useEffect(() => {
-    api.test(props.id).then(res => {
+    api.getProductsForCategory(props.id).then(res => {
       setState(res.data.value)
     });
   }, [props.id])
@@ -63,7 +63,7 @@ const Search = (props: PropsType) => {
           {
             filteredProducts.map(el => {
               return (
-                <Link key={el.Ref_Key} className='search__item' to={`/products/${props.id}/${el.ВидНоменклатуры_Key}/${el.Ref_Key}`}>{el.Description}</Link>
+                <Link key={el.Ref_Key} className='search__item' to={`/${props.id}/${el.ВидНоменклатуры_Key}/${el.Ref_Key}`}>{el.Description}</Link>
               )
             })
           }

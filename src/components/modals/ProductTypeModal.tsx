@@ -11,7 +11,7 @@ type PropsType = {
   changeGroup: (data: any) => void
 }
 
-const ProductTypeModal = (props: PropsType) => {
+const ProductTypeModal = React.memo( (props: PropsType) => {
   const dispatch = useDispatch<AppDispatchType>()
   const open = useAppSelector(state => state.modals.productType)
   const groups = useAppSelector(state => state.products.groups)
@@ -58,6 +58,6 @@ const ProductTypeModal = (props: PropsType) => {
       </div>
     </BaseModal>
   );
-};
+});
 
 export default ProductTypeModal;

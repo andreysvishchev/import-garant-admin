@@ -141,6 +141,32 @@ body {
   border-radius: 2px;
   text-decoration: none;
   border: 2px solid transparent;
+  position: relative;
+
+  &:before {
+    content: '';
+    width: 30px;
+    height: 30px;
+    display: block;
+    background-image: url('../img/load.svg');
+    background-size: cover;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+  }
+  &:disabled {
+    pointer-events: none;
+  }
+
+  &.load {
+    color: transparent;
+
+    &:before {
+      opacity: 1;
+    }
+  }
 
   &.light {
     background-color: transparent;
@@ -751,6 +777,7 @@ body {
   align-items: center;
   border-bottom: 1px solid #C1C1C1;
   cursor: pointer;
+
   &:hover {
     background-color: #60b31b8c;
   }

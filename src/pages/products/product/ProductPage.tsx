@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link, useParams } from "react-router-dom";
 import { AppDispatchType, useAppSelector } from "../../../store/store";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
@@ -12,7 +12,7 @@ import { CircularProgress } from "@mui/material";
 import NoticeModal from "../../../components/modals/NoticeModal";
 
 
-const ProductPage = () => {
+const ProductPage = React.memo ( () => {
   const { id, groupId, productId } = useParams()
   const dispatch = useDispatch<AppDispatchType>()
   const product = useAppSelector(state => state.products.product)
@@ -32,10 +32,10 @@ const ProductPage = () => {
       <div className="content__top">
         <div className='breadcrumbs'>
           <Link className='breadcrumbs__link'
-            to={`/products/${id}`}>{currentCategory.Description}</Link>
+            to={`/${id}`}>{currentCategory.Description}</Link>
           <Link className='breadcrumbs__link'
-            to={`/products/${id}/${groupId}`}>{currentGroup.Description}</Link>
-          <div className='breadcrumbs__item'>{product.Description}</div>
+            to={`/${id}/${groupId}`}>{currentGroup.Description}</Link>
+          <div className='breadcrumbs__item'>{product!.Description}</div>
         </div>
       </div>
       <div className="content__main">
@@ -62,6 +62,6 @@ const ProductPage = () => {
     <div className='page-preloader'>
       <CircularProgress />
     </div>;
-};
+});
 
 export default ProductPage;

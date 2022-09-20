@@ -10,7 +10,8 @@ import {addNewCountry} from "../../store/additionalReducer";
 type PropsType = {
     changeCountry: (data: any) => void
 }
-const CountryNewModal: React.FC<PropsType> = ({changeCountry}) => {
+
+const CountryNewModal: React.FC<PropsType> = React.memo ( ({changeCountry}) => {
     const dispatch = useDispatch<AppDispatchType>()
     const open = useAppSelector(state => state.modals.newCountry)
     const [value, setValue] = useState('')
@@ -52,6 +53,6 @@ const CountryNewModal: React.FC<PropsType> = ({changeCountry}) => {
             </div>
         </BaseModal>
     );
-};
+});
 
 export default CountryNewModal;

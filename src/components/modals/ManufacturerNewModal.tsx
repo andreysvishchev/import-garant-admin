@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, memo, useState} from 'react';
 import {useDispatch} from "react-redux";
 import {AppDispatchType, useAppSelector} from "../../store/store";
 import {openNewManufacturerModal} from "../../store/modalsReducer";
@@ -10,7 +10,7 @@ type PropsType = {
     changeManufacturer: (data: any) => void
 }
 
-const ManufacturerNewModal = (props: PropsType) => {
+const ManufacturerNewModal = memo( (props: PropsType) => {
     const dispatch = useDispatch<AppDispatchType>()
     const open = useAppSelector(state => state.modals.newManufacturer)
     const [value, setValue] = useState('')
@@ -21,20 +21,15 @@ const ManufacturerNewModal = (props: PropsType) => {
     const addManufacturer = () => {
         const data = {
             Ref_Key: v1(),
-            DataVersion: "AAAAAAAAAAA=",
-            DeletionMark: false,
             Parent_Key: "00000000-0000-0000-0000-000000000000",
             IsFolder: false,
             Description: value,
-            Predefined: false,
-            PredefinedDataName: ""
         }
         dispatch(addNewManufacturer(data))
         props.changeManufacturer(data)
         setValue('')
         handleClose()
     }
-
 
     return (
         <BaseModal open={open} handleClose={handleClose} title={'Новый производитель'}>
@@ -54,6 +49,6 @@ const ManufacturerNewModal = (props: PropsType) => {
             </div>
         </BaseModal>
     );
-};
+});
 
 export default ManufacturerNewModal;

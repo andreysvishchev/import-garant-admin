@@ -4,7 +4,7 @@ import {AppDispatchType, useAppSelector} from "../../store/store";
 import {useDispatch} from "react-redux";
 import {openCategoriesModal} from "../../store/modalsReducer";
 import Input from "../input/Input";
-import {addNewCategory} from "../../store/productsReducer";
+import {addNewCategory, createNewCategory} from "../../store/productsReducer";
 import {v1} from "uuid";
 
 const CategoryModal = () => {
@@ -15,12 +15,11 @@ const CategoryModal = () => {
 
     const addNewCategoryHandler = () => {
         if (value !== '') {
-            dispatch(addNewCategory({
+            const data = {
                 Description: value,
-                IsFolder: true,
-                Parent_Key: v1(),
-                Ref_Key: v1(),
-            }))
+                IsFolder: true
+            }
+            dispatch(createNewCategory(data))
             setValue('')
             handleClose()
         }

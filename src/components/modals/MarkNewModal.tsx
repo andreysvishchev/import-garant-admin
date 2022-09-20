@@ -9,7 +9,7 @@ import {addNewMark} from "../../store/additionalReducer";
 type PropsType = {
     changeMark: (data: any) => void
 }
-const MarkNewModal: React.FC<PropsType> = ({changeMark}) => {
+const MarkNewModal: React.FC<PropsType> = React.memo ( ({changeMark}) => {
     const dispatch = useDispatch<AppDispatchType>()
     const open = useAppSelector(state => state.modals.newMark)
     const [value, setValue] = useState('')
@@ -53,6 +53,6 @@ const MarkNewModal: React.FC<PropsType> = ({changeMark}) => {
             </div>
         </BaseModal>
     );
-};
+});
 
 export default MarkNewModal;

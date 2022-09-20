@@ -10,7 +10,7 @@ type PropsType = {
     changeMark: (data: any) => void
 }
 
-const MarksModal = (props: PropsType) => {
+const MarksModal = React.memo((props: PropsType) => {
     const dispatch = useDispatch<AppDispatchType>()
     const marks = useAppSelector(state => state.additionally.marks)
     const open = useAppSelector(state => state.modals.marks)
@@ -19,17 +19,17 @@ const MarksModal = (props: PropsType) => {
         Description: ''
     })
 
-  /*  console.log(123)
-    useEffect(() => {
-        dispatch(fetchMarks())
-    }, [])*/
+    /*  console.log(123)
+      useEffect(() => {
+          dispatch(fetchMarks())
+      }, [])*/
 
     const handleClose = () => dispatch(openMarksModal(false));
     const selectedHandler = (id: string, title: string) => {
         setSelected({Ref_Key: id, Description: title})
     }
-    const changeItemHandler = ()=> {
-        if(selected.Ref_Key && selected.Description !== '') {
+    const changeItemHandler = () => {
+        if (selected.Ref_Key && selected.Description !== '') {
             props.changeMark(selected)
         }
         handleClose()
@@ -40,7 +40,9 @@ const MarksModal = (props: PropsType) => {
             <div style={{marginTop: '0', marginBottom: '20px'}}
                  className="modal__buttons">
                 <button style={{padding: '5px 15px'}} onClick={changeItemHandler} className='button'>Выбрать</button>
-                <button style={{padding: '5px 15px'}} onClick={()=> dispatch(openNewMarkModal(true))} className='button'>Создать</button>
+                <button style={{padding: '5px 15px'}} onClick={() => dispatch(openNewMarkModal(true))}
+                        className='button'>Создать
+                </button>
                 <input type={"search"} className={'modal__search'} placeholder={'Поиск'}/>
             </div>
             <div className="modal__list">
@@ -59,6 +61,6 @@ const MarksModal = (props: PropsType) => {
         </BaseModal>
 
     )
-};
+});
 
 export default MarksModal;

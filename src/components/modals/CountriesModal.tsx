@@ -9,7 +9,7 @@ import {SelectedType} from "./ManufacturersModal";
 type PropsType = {
     changeCountry: (data: any) => void
 }
-const CountriesModal = (props: PropsType) => {
+const CountriesModal = React.memo ( (props: PropsType) => {
     const countries = useAppSelector(state => state.additionally.countries)
     const open = useAppSelector(state => state.modals.countries)
     const dispatch = useDispatch<AppDispatchType>()
@@ -52,6 +52,6 @@ const CountriesModal = (props: PropsType) => {
             </div>
         </BaseModal>
     );
-};
+});
 
 export default CountriesModal;

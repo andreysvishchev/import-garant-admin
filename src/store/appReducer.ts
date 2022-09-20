@@ -1,7 +1,8 @@
 const initState: InitStateType = {
     appStatus: 'loading' as AppStatusType,
-    productPageStatus: 'loading' as ProductPageStatusType,
-    groupPageStatus: 'loading' as GroupPageStatusType
+    productPageStatus: 'loading' as AppStatusType,
+    groupPageStatus: 'loading' as AppStatusType,
+    buttonStatus: 'idle' as AppStatusType
 }
 export const appReducer = (state: InitStateType = initState, action: ActionsType): InitStateType => {
     switch (action.type) {
@@ -11,6 +12,8 @@ export const appReducer = (state: InitStateType = initState, action: ActionsType
             return {...state, productPageStatus: action.status}
         case "CHANGE-GROUP-PAGE-STATUS":
             return {...state, groupPageStatus: action.status}
+        case "CHANGE-BUTTON-STATUS":
+            return  {...state, buttonStatus: action.status}
         default:
             return state
     }
@@ -19,23 +22,27 @@ export const appReducer = (state: InitStateType = initState, action: ActionsType
 export const setAppStatus = (status: AppStatusType) => {
     return {type: 'CHANGE-APP-STATUS', status} as const
 }
-export const setProductPageStatus = (status: ProductPageStatusType) => {
+export const setProductPageStatus = (status: AppStatusType) => {
     return {type: 'CHANGE-PRODUCT-PAGE-STATUS', status} as const
 }
-export const setGroupPageStatus = (status: GroupPageStatusType) => {
+export const setGroupPageStatus = (status: AppStatusType) => {
     return {type: 'CHANGE-GROUP-PAGE-STATUS', status} as const
+}
+export const setButtonStatus = (status: AppStatusType) => {
+    return {type: 'CHANGE-BUTTON-STATUS', status} as const
 }
 
 type InitStateType = {
     appStatus: AppStatusType
-    productPageStatus: ProductPageStatusType
-    groupPageStatus: GroupPageStatusType
+    productPageStatus: AppStatusType
+    groupPageStatus: AppStatusType
+    buttonStatus: AppStatusType
 }
 type ActionsType =
     ReturnType<typeof setAppStatus>
     | ReturnType<typeof setProductPageStatus>
     | ReturnType<typeof setGroupPageStatus>
+    | ReturnType<typeof setButtonStatus>
 export type AppStatusType = 'idle' | 'loading'
-export type ProductPageStatusType = 'idle' | 'loading'
-export type GroupPageStatusType = 'idle' | 'loading'
+
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {memo, useState} from 'react';
 import { useDispatch } from "react-redux";
 import BaseModal from "./BaseModal";
 import { AppDispatchType, useAppSelector } from "../../store/store";
@@ -16,7 +16,7 @@ export type SelectedType = {
   Parent_Key?: string
 }
 
-const ManufacturersModal = (props: PropsType) => {
+const ManufacturersModal = React.memo ((props: PropsType) => {
   const dispatch = useDispatch<AppDispatchType>()
   const open = useAppSelector(state => state.modals.manufacturers)
   const manufacturers = useAppSelector(state => state.additionally.manufacturer)
@@ -24,10 +24,6 @@ const ManufacturersModal = (props: PropsType) => {
     Ref_Key: '',
     Description: ''
   })
-
-  /*  useEffect(() => {
-        dispatch(fetchManufacturer())
-    }, [])*/
 
   const handleClose = () => dispatch(openManufacturersModal(false));
 
@@ -67,6 +63,6 @@ const ManufacturersModal = (props: PropsType) => {
       </div>
     </BaseModal>
   )
-};
+});
 
 export default ManufacturersModal;

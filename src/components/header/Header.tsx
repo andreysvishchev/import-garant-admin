@@ -12,7 +12,7 @@ export default function Header() {
         <div className='header'>
             <div className="header__nav">
                 <NavLink className={setActive} to='/main'>Главная</NavLink>
-                <NavLink className={setActive} to='/products'>Продукция</NavLink>
+                <NavLink className={setActive} to='/'>Продукция</NavLink>
             </div>
         </div>
     );
