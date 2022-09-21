@@ -193,7 +193,6 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
             ПлощадьЧислитель: product ? product.ПлощадьЧислитель : '',
             СтавкаНДС_Key: rateKey
         },
-
         onSubmit: values => {
             values.Parent_Key = currentCategoryKey
             values.КодТНВЭД_Key = classifierKey
@@ -206,10 +205,8 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
 
             if (product) {
                 dispatch(updateProduct(values, product.Ref_Key))
-                console.log(values);
             } else {
                 dispatch(addNewProduct(values))
-                console.log(values);
             }
         },
     })
@@ -218,61 +215,34 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
     return (
         <>
             <form className='form' onSubmit={formik.handleSubmit}>
-                <Input title={'Наименование для печати '}
-                       placeholder={'Введите наименование'}
-                       name="Description"
-                       onBlur={formik.handleBlur}
-                       onChange={formik.handleChange}
-                       value={formik.values.Description}/>
-                <Input title={'Рабочее наименование'}
-                       placeholder={'Введите наименование'}
-                       name="НаименованиеПолное"
-                       onBlur={formik.handleBlur}
-                       onChange={formik.handleChange}
+                <Input title={'Наименование для печати '} placeholder={'Введите наименование'} name="Description"
+                       onBlur={formik.handleBlur} onChange={formik.handleChange} value={formik.values.Description}/>
+                <Input title={'Рабочее наименование'} placeholder={'Введите наименование'} name="НаименованиеПолное"
+                       onBlur={formik.handleBlur} onChange={formik.handleChange}
                        value={formik.values.НаименованиеПолное}/>
                 <div className="form__row">
                     <div className="form__col">
-                        <Input title={'Артикул'}
-                               placeholder={'Введите артикул'}
-                               name="Артикул"
-                               onBlur={formik.handleBlur}
-                               onChange={formik.handleChange}
-                               value={formik.values.Артикул}/>
+                        <Input title={'Артикул'} placeholder={'Введите артикул'} name="Артикул"
+                               onBlur={formik.handleBlur} onChange={formik.handleChange} value={formik.values.Артикул}/>
                     </div>
                     <div className="form__col">
-                        <Input title={'Тип номенклатуры'}
-                               placeholder={'Введите тип номенклатуры'}
+                        <Input title={'Тип номенклатуры'} placeholder={'Введите тип номенклатуры'}
                                name="ТипНоменклатуры"
-                               onBlur={formik.handleBlur}
-                               onChange={formik.handleChange}
+                               onBlur={formik.handleBlur} onChange={formik.handleChange}
                                value={formik.values.ТипНоменклатуры}/>
                     </div>
                     <div className="form__col">
-                        <Input title={'Код'}
-                               placeholder={'Поле заполнится автоматически'}
-                               disabled={true}
-                               name="Code"
-                               onBlur={formik.handleBlur}
-                               onChange={formik.handleChange}
+                        <Input title={'Код'} placeholder={'Поле заполнится автоматически'} disabled={true}
+                               name="Code" onBlur={formik.handleBlur} onChange={formik.handleChange}
                                value={formik.values.Code}/>
                     </div>
                 </div>
                 <div className="form__row">
-                    {/*{product &&*/}
-                    {/*   <button className="button"*/}
-                    {/*           style={{*/}
-                    {/*              marginTop: '7px',*/}
-                    {/*              padding: '8px 15px',*/}
-                    {/*              height: '40px'*/}
-                    {/*           }}*/}
-                    {/*           onClick={() => dispatch(openBarcodeModal(true))}>Штрихкоды</button>}*/}
                     <div className="form__col">
                         <div className='select'>
                             <div className='select__caption'>Ставка НДС</div>
-                            <select className='select__field'
-                                    value={rateKey}
-                                    name='СтавкаНДС_Key'
-                                    onChange={rateChangeHandler}>
+                            <select className='select__field' value={rateKey}
+                                    name='СтавкаНДС_Key' onChange={rateChangeHandler}>
                                 <option value={baseParam}>Выберите ставку</option>
                                 {rates.map(el => {
                                     return (
@@ -284,161 +254,59 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
                         </div>
                     </div>
                     <div className="form__col">
-                        <Input title={'Код ТН ВЭД'}
-                               placeholder={'Создайте кот ТНВЭД'}
-                               name="КодТНВЭД_Key"
-                               disabled
-                               value={classifierField}/>
-                        <button
-                            type={'button'}
-                            onClick={() => dispatch(openClassifierModal(true))}
-                            style={{
-                                marginTop: '7px',
-                                padding: '8px 15px',
-                                height: '40px'
-                            }}
-                            className="button">+
+                        <Input title={'Код ТН ВЭД'} placeholder={'Создайте кот ТНВЭД'}
+                               name="КодТНВЭД_Key" disabled value={classifierField}/>
+                        <button type={'button'} onClick={() => dispatch(openClassifierModal(true))}
+                                style={{marginTop: '7px', padding: '8px 15px', height: '40px'}}
+                                className="button">+
                         </button>
                     </div>
                 </div>
-                <Textarea title='Описание'
-                          name="Описание"
-                          placeholder={'Заполните описание'}
-                          onBlur={formik.handleBlur}
-                          onChange={formik.handleChange}
-                          value={formik.values.Описание}
-                />
+                <Textarea title='Описание' name="Описание" placeholder={'Заполните описание'}
+                          onBlur={formik.handleBlur} onChange={formik.handleChange} value={formik.values.Описание}/>
                 <div className="form__row">
                     <div className="form__col">
-                        <InputList
-                            placeholder={'Выберте производителя'}
-                            value={manufacturerField}
-                            handler={manufacturerFieldHandler}
-                            data={manufacturer}
-                            title={'Производитель'}/>
-                        <button
-                            type={'button'}
-                            onClick={() => dispatch(openNewManufacturerModal(true))}
-                            style={{
-                                marginTop: '7px',
-                                padding: '8px 15px',
-                                height: '40px'
-                            }}
-                            className="button">+
+                        <InputList placeholder={'Выберте производителя'} value={manufacturerField}
+                                   handler={manufacturerFieldHandler} data={manufacturer} title={'Производитель'}/>
+                        <button type={'button'} onClick={() => dispatch(openNewManufacturerModal(true))}
+                                style={{marginTop: '7px', padding: '8px 15px', height: '40px'}} className="button">+
                         </button>
-                        <button style={{
-                            marginTop: '7px',
-                            padding: '8px 15px',
-                            height: '40px'
-                        }}
-                                type='button'
-                                onClick={() => dispatch(openManufacturersModal(true))}
+                        <button style={{marginTop: '7px', padding: '8px 15px', height: '40px'}}
+                                type='button' onClick={() => dispatch(openManufacturersModal(true))}
                                 className='button'>Показать все
                         </button>
                     </div>
                     <div className="form__col">
-                        <InputList
-                            handler={markFieldHandler}
-                            placeholder={'Выберте Марку/Бренд'}
-                            value={markField}
-                            data={marks}
-                            title={'Марка/Бренд'}/>
-                        <button
-                            type={'button'}
-                            onClick={() => dispatch(openNewMarkModal(true))}
-                            style={{
-                                marginTop: '7px',
-                                padding: '8px 15px',
-                                height: '40px'
-                            }}
-                            className="button">+
+                        <InputList handler={markFieldHandler} placeholder={'Выберте Марку/Бренд'}
+                                   value={markField} data={marks} title={'Марка/Бренд'}/>
+                        <button type={'button'} onClick={() => dispatch(openNewMarkModal(true))}
+                                style={{marginTop: '7px', padding: '8px 15px', height: '40px'}} className="button">+
                         </button>
-                        <button
-                            style={{
-                                marginTop: '7px',
-                                padding: '8px 15px',
-                                height: '40px'
-                            }}
-                            type='button'
-                            onClick={() => dispatch(openMarksModal(true))}
-                            className='button'>Показать все
+                        <button style={{marginTop: '7px', padding: '8px 15px', height: '40px'}} type='button'
+                                onClick={() => dispatch(openMarksModal(true))} className='button'>Показать все
                         </button>
                     </div>
                 </div>
                 <div className="form__row">
                     <div className="form__col">
-                        <InputList
-                            placeholder={'Выберте тип Продукции'}
-                            value={viewField}
-                            data={groups}
-                            handler={viewFieldHandler}
-                            title={'Вид продукции'}/>
-                        <button
-                            style={{
-                                marginTop: '7px',
-                                padding: '8px 15px',
-                                height: '40px'
-                            }}
-                            type='button'
-                            onClick={() => dispatch(openProductTypeModal(true))}
-                            className='button'>Показать все
+                        <InputList placeholder={'Выберте тип Продукции'} value={viewField} data={groups}
+                                   handler={viewFieldHandler} title={'Вид продукции'}/>
+                        <button style={{marginTop: '7px', padding: '8px 15px', height: '40px'}} type='button'
+                                onClick={() => dispatch(openProductTypeModal(true))} className='button'>Показать все
                         </button>
-                        {/* <InputList
-              handler={importerFieldHandler}
-              value={importerField}
-              data={importers}
-              title={'Импортер (Контрагент)'} />
-            <button
-              type={'button'}
-              onClick={() => setImporterNewModal(true)}
-              style={{
-                marginTop: '6px',
-                padding: '8px 15px',
-                height: '40px'
-              }}
-              className="button">+
-            </button>
-            <button
-              style={{
-                marginTop: '6px',
-                padding: '8px 10px',
-                height: '40px'
-              }}
-              type='button'
-              onClick={() => setImportersModal(true)}
-              className='button'>Показать все
-            </button> */}
                     </div>
                     <div className="form__col">
-                        <InputList
-                            placeholder={'Выберте страну Происхождения'}
-                            handler={countryFieldHandler}
-                            value={countryField}
-                            data={countries}
-                            title={'Страна происхождения'}/>
-                        <button
-                            type={'button'}
-                            onClick={() => dispatch(openNewCountryModal(true))}
-                            style={{
-                                marginTop: '7px',
-                                padding: '8px 15px',
-                                height: '40px'
-                            }}
-                            className="button">+
+                        <InputList placeholder={'Выберте страну Происхождения'} handler={countryFieldHandler}
+                                   value={countryField} data={countries} title={'Страна происхождения'}/>
+                        <button type={'button'} onClick={() => dispatch(openNewCountryModal(true))}
+                                style={{marginTop: '7px', padding: '8px 15px', height: '40px'}}
+                                className="button">+
                         </button>
-                        <button
-                            style={{
-                                marginTop: '7px',
-                                padding: '8px 15px',
-                                height: '40px'
-                            }}
-                            type='button'
-                            onClick={() => dispatch(openCountriesModal(true))}
-                            className='button'>Показать все
+                        <button style={{marginTop: '7px', padding: '8px 15px', height: '40px'}} type='button'
+                                onClick={() => dispatch(openCountriesModal(true))} className='button'>Показать все
                         </button>
                     </div>
                 </div>
-
                 <div className="form__parameter">
                     <div className="form__row">
                         <div className='form__caption'>Вес</div>
@@ -449,24 +317,16 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
                     {formik.values.ВесИспользовать &&
                         <div className='form__params'>
                             <div className="form__row">
-                                <Input title='Вес единицы'
-                                       name="ВесЗнаменатель"
-                                       onBlur={formik.handleBlur}
-                                       onChange={formik.handleChange}
-                                       value={formik.values.ВесЗнаменатель}/>
-                                <Input title='Вес упаковки'
-                                       name="ВесЧислитель"
-                                       onBlur={formik.handleBlur}
-                                       onChange={formik.handleChange}
-                                       value={formik.values.ВесЧислитель}/>
+                                <Input title='Вес единицы' name="ВесЗнаменатель" onBlur={formik.handleBlur}
+                                       onChange={formik.handleChange} value={formik.values.ВесЗнаменатель}/>
+                                <Input title='Вес упаковки' name="ВесЧислитель" onBlur={formik.handleBlur}
+                                       onChange={formik.handleChange} value={formik.values.ВесЧислитель}/>
                             </div>
                             <div className="form__row">
                                 <div className='form__headline'>
                                     Указывать вес в документах
                                 </div>
-                                <Checkbox sx={{padding: '5px'}}
-                                          size='small'
-                                          color="success"
+                                <Checkbox sx={{padding: '5px'}} size='small' color="success"
                                           checked={formik.values.ВесМожноУказыватьВДокументах}
                                           {...formik.getFieldProps('ВесМожноУказыватьВДокументах')} />
                             </div>
@@ -476,31 +336,22 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
                 <div className="form__parameter">
                     <div className="form__row">
                         <div className='form__caption'>Обем</div>
-                        <Checkbox sx={{padding: '5px'}}
-                                  checked={formik.values.ОбъемИспользовать}
+                        <Checkbox sx={{padding: '5px'}} checked={formik.values.ОбъемИспользовать}
                                   {...formik.getFieldProps('ОбъемИспользовать')} />
                     </div>
                     {formik.values.ОбъемИспользовать &&
                         <div className='form__params'>
                             <div className='form__row'>
-                                <Input title='Обем еденицы'
-                                       name="ОбъемЗнаменатель"
-                                       onBlur={formik.handleBlur}
-                                       onChange={formik.handleChange}
-                                       value={formik.values.ОбъемЗнаменатель}/>
-                                <Input title='Обем упаковки'
-                                       name="ОбъемЧислитель"
-                                       onBlur={formik.handleBlur}
-                                       onChange={formik.handleChange}
-                                       value={formik.values.ОбъемЧислитель}/>
+                                <Input title='Обем еденицы' name="ОбъемЗнаменатель" onBlur={formik.handleBlur}
+                                       onChange={formik.handleChange} value={formik.values.ОбъемЗнаменатель}/>
+                                <Input title='Обем упаковки' name="ОбъемЧислитель" onBlur={formik.handleBlur}
+                                       onChange={formik.handleChange} value={formik.values.ОбъемЧислитель}/>
                             </div>
                             <div className='form__row'>
                                 <div>
                                     указывать объём в документах
                                 </div>
-                                <Checkbox sx={{padding: '5px'}}
-                                          size='small'
-                                          color="success"
+                                <Checkbox sx={{padding: '5px'}} size='small' color="success"
                                           checked={formik.values.ОбъемМожноУказыватьВДокументах}
                                           {...formik.getFieldProps('ОбъемМожноУказыватьВДокументах')} />
                             </div>
@@ -510,32 +361,21 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
                 <div className="form__parameter">
                     <div className="form__row">
                         <div className='form__caption'>Длина</div>
-                        <Checkbox sx={{padding: '5px'}}
-                                  checked={formik.values.ДлинаИспользовать}
+                        <Checkbox sx={{padding: '5px'}} checked={formik.values.ДлинаИспользовать}
                                   {...formik.getFieldProps('ДлинаИспользовать')} />
                     </div>
                     {formik.values.ДлинаИспользовать &&
                         <div className='form__params'>
                             <div className="form__row">
-                                <Input title='Длина еденицы'
-                                       name="ДлинаЗнаменатель"
-                                       onBlur={formik.handleBlur}
-                                       onChange={formik.handleChange}
-                                       value={formik.values.ДлинаЗнаменатель}/>
-                                <Input title='Длина упаковки'
-                                       name="ДлинаЧислитель"
-                                       onBlur={formik.handleBlur}
-                                       onChange={formik.handleChange}
-                                       value={formik.values.ДлинаЧислитель}/>
+                                <Input title='Длина еденицы' name="ДлинаЗнаменатель" onBlur={formik.handleBlur}
+                                       onChange={formik.handleChange} value={formik.values.ДлинаЗнаменатель}/>
+                                <Input title='Длина упаковки' name="ДлинаЧислитель" onBlur={formik.handleBlur}
+                                       onChange={formik.handleChange} value={formik.values.ДлинаЧислитель}/>
                             </div>
                             <div className="form__row">
-                                <div>
-                                    Указывать длину в документах
-                                </div>
-                                <Checkbox sx={{padding: '5px'}}
-                                          checked={formik.values.ДлинаМожноУказыватьВДокументах}
-                                          size='small'
-                                          color="success"
+                                <div>Указывать длину в документах</div>
+                                <Checkbox sx={{padding: '5px'}} checked={formik.values.ДлинаМожноУказыватьВДокументах}
+                                          size='small' color="success"
                                           {...formik.getFieldProps('ДлинаМожноУказыватьВДокументах')} />
                             </div>
                         </div>
@@ -551,25 +391,15 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
                     {formik.values.ПлощадьИспользовать &&
                         <div className='form__params'>
                             <div className="form__row">
-                                <Input title='Площадь еденицы'
-                                       name="ПлощадьЗнаменатель"
-                                       onBlur={formik.handleBlur}
-                                       onChange={formik.handleChange}
-                                       value={formik.values.ПлощадьЗнаменатель}/>
-                                <Input title='Площадь упаковки'
-                                       name="ПлощадьЧислитель"
-                                       onBlur={formik.handleBlur}
-                                       onChange={formik.handleChange}
-                                       value={formik.values.ПлощадьЧислитель}/>
+                                <Input title='Площадь еденицы' name="ПлощадьЗнаменатель" onBlur={formik.handleBlur}
+                                       onChange={formik.handleChange} value={formik.values.ПлощадьЗнаменатель}/>
+                                <Input title='Площадь упаковки' name="ПлощадьЧислитель" onBlur={formik.handleBlur}
+                                       onChange={formik.handleChange} value={formik.values.ПлощадьЧислитель}/>
                             </div>
                             <div className="form__row">
-                                <div>
-                                    Указывать площадь в документах
-                                </div>
-                                <Checkbox sx={{padding: '5px'}}
-                                          checked={formik.values.ПлощадьМожноУказыватьВДокументах}
-                                          size='small'
-                                          color="success"
+                                <div>Указывать площадь в документах</div>
+                                <Checkbox sx={{padding: '5px'}} checked={formik.values.ПлощадьМожноУказыватьВДокументах}
+                                          size='small' color="success"
                                           {...formik.getFieldProps('ПлощадьМожноУказыватьВДокументах')} />
                             </div>
                         </div>
@@ -581,14 +411,8 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
                 </button>
             </form>
 
-            {/*{product &&*/}
-            {/*   <BarcodeModal productId={product.Ref_Key} productTitle={product.Description}/>*/}
-            {/*}*/}
-
-            <ProductTypeModal changeGroup={changeGroup}
-                              currentGroup={currentGroup}/>
-            <ClassifierModal changeClassifier={changeClassifier}
-                             id={product ? product.КодТНВЭД_Key : ''}
+            <ProductTypeModal changeGroup={changeGroup} currentGroup={currentGroup}/>
+            <ClassifierModal changeClassifier={changeClassifier} id={product ? product.КодТНВЭД_Key : ''}
                              unitId={product ? product.ЕдиницаИзмеренияТНВЭД_Key : ''}/>
             <ManufacturerNewModal changeManufacturer={changeManufacturer}/>
             <ManufacturersModal changeManufacturer={changeManufacturer}/>
@@ -596,11 +420,8 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
             <MarksModal changeMark={changeMark}/>
             <CountryNewModal changeCountry={changeCountry}/>
             <CountriesModal changeCountry={changeCountry}/>
-            <ImporterNewModal open={importerNewModal}
-                              setOpen={setImporterNewModal}/>
-            <ImportersModal open={importersModal}
-                            setOpen={setImportersModal}
-                            data={importers}/>
+            <ImporterNewModal open={importerNewModal} setOpen={setImporterNewModal}/>
+            <ImportersModal open={importersModal} setOpen={setImportersModal} data={importers}/>
         </>
 
     )

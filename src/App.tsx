@@ -7,28 +7,37 @@ import {AppDispatchType, useAppSelector} from "./store/store";
 import {useDispatch} from "react-redux";
 import {baseDataLoading} from "./store/productsReducer";
 import {CircularProgress} from "@mui/material";
-import CategoryPage from "./pages/products/category-page/CategoryPage";
-
+import {login} from "./store/appReducer";
 
 function App() {
     const status = useAppSelector(state => state.app.appStatus)
+    const isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
     const dispatch = useDispatch<AppDispatchType>()
 
     useEffect(() => {
         dispatch(baseDataLoading())
     }, [])
 
-    return status !== 'loading' ? (
+    console.log(isLoggedIn)
+    return (
         <div className="App">
-            <Header/>
-            <Routes>
-                <Route path="/main" element={<Main/>}/>
-                <Route path="/*" element={<ProductsPage/>}/>
-            </Routes>
+            {
+                !isLoggedIn ? <div onClick={() => dispatch(login(true))}>login</div>
+                    :
+                    status !== 'loading' ?
+                        <>
+                            <Header/>
+                            <Routes>
+                                <Route path="main" element={<Main/>}/>
+                                <Route path="products/*" element={<ProductsPage/>}/>
+                            </Routes>
+                        </> :
+                        <div className='preloader'>
+                            <CircularProgress/>
+                        </div>
+            }
         </div>
-    ) : <div className='preloader'>
-        <CircularProgress/>
-    </div>;
+    )
 }
 
 export default App;

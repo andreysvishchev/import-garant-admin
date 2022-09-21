@@ -26,7 +26,7 @@ const ProductsPage = () => {
                     {categories.map(el => {
                         return (
                             <NavLink className='nav__link' key={el.Ref_Key}
-                                     to={`/${el.Ref_Key}`}>{el.Description}</NavLink>
+                                     to={`/products/${el.Ref_Key}`}>{el.Description}</NavLink>
                         )
                     })}
                 </div>

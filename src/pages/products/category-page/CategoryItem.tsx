@@ -24,7 +24,7 @@ const CategoryItem: React.FC<PropsType> = React.memo(({data}) => {
             className={img ? 'content__item img' : 'content__item'}
             key={data.Ref_Key}>
             <Link className='content__link'
-                  to={`/${id}/${data.Ref_Key}`}>
+                  to={`/products/${id}/${data.Ref_Key}`}>
                 <img style={{marginRight: '15px'}} src={PackIcon} alt="icon"/>
                 {data.Description}</Link>
             <div className='content__public content__col'>

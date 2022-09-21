@@ -6,7 +6,7 @@ const pass = 'Ufhfyn2022'
 
 
 const instance = axios.create({
-    // baseURL: "/importgarant_ut/odata/standard.odata/",
+    baseURL: "/importgarant_ut/odata/standard.odata/",
 
     headers: {
         'Authorization': "Basic " + window.btoa(uName + ':' + pass),

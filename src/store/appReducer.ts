@@ -1,4 +1,5 @@
 const initState: InitStateType = {
+    isLoggedIn: false,
     appStatus: 'loading' as AppStatusType,
     productPageStatus: 'loading' as AppStatusType,
     groupPageStatus: 'loading' as AppStatusType,
@@ -6,6 +7,8 @@ const initState: InitStateType = {
 }
 export const appReducer = (state: InitStateType = initState, action: ActionsType): InitStateType => {
     switch (action.type) {
+        case "LOGIN":
+            return  {...state, isLoggedIn: action.status}
         case "CHANGE-APP-STATUS":
             return {...state, appStatus: action.status}
         case "CHANGE-PRODUCT-PAGE-STATUS":
@@ -13,12 +16,15 @@ export const appReducer = (state: InitStateType = initState, action: ActionsType
         case "CHANGE-GROUP-PAGE-STATUS":
             return {...state, groupPageStatus: action.status}
         case "CHANGE-BUTTON-STATUS":
-            return  {...state, buttonStatus: action.status}
+            return {...state, buttonStatus: action.status}
         default:
             return state
     }
 }
 
+export const login = (status: boolean) => {
+    return {type: 'LOGIN', status} as const
+}
 export const setAppStatus = (status: AppStatusType) => {
     return {type: 'CHANGE-APP-STATUS', status} as const
 }
@@ -33,6 +39,7 @@ export const setButtonStatus = (status: AppStatusType) => {
 }
 
 type InitStateType = {
+    isLoggedIn: boolean
     appStatus: AppStatusType
     productPageStatus: AppStatusType
     groupPageStatus: AppStatusType
@@ -43,6 +50,7 @@ type ActionsType =
     | ReturnType<typeof setProductPageStatus>
     | ReturnType<typeof setGroupPageStatus>
     | ReturnType<typeof setButtonStatus>
+    | ReturnType<typeof login>
 export type AppStatusType = 'idle' | 'loading'
 
 

@@ -26,12 +26,12 @@ const GroupPage = React.memo(() => {
       <div className="content__top">
         <div className='breadcrumbs'>
           <Link className='breadcrumbs__link'
-            to={`/${id}`}>{currentCategory.Description}</Link>
+            to={`/products/${id}`}>{currentCategory.Description}</Link>
           <div className='breadcrumbs__item'>{currentGroup.Description}</div>
         </div>
         <div className="content__row">
           <Link className='button'
-            to={`/${id}/${groupId}/new`}>Добавить</Link>
+            to={`/products/${id}/${groupId}/new`}>Добавить</Link>
           <div className="sort">
             <div className='sort__caption'>Сортировать по:</div>
             <select className='sort__select'>

@@ -21,7 +21,7 @@ const GroupItem: React.FC<PropsType> = React.memo(({data}) => {
         <div className={img ? 'content__item img' : 'content__item'} key={data.Ref_Key}>
             <div className='content__img'>картинка товара</div>
             <Link className='content__link'
-                  to={`/${id}/${groupId}/${data.Ref_Key}`}>
+                  to={`/products/${id}/${groupId}/${data.Ref_Key}`}>
                 {data.Description}
             </Link>
             <div className='content__public content__col'>
