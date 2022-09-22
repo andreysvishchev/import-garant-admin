@@ -1,8 +1,8 @@
 import React, { ChangeEvent, MutableRefObject, useEffect, useRef, useState } from 'react';
 import { useOnClickOutside } from "../../functions/useOnClickOutside";
-import { api } from "../../api/api";
+import {api as apiF} from "../../api/api";
 import { Link } from "react-router-dom";
-
+import {store} from "../../store/store";
 
 type PropsType = {
   id: string
@@ -15,6 +15,8 @@ const Search = (props: PropsType) => {
   const [value, setValue] = useState('')
   const ref = useRef() as MutableRefObject<HTMLDivElement>
 
+  useOnClickOutside(ref, () => setOpen(false))
+
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.currentTarget.value)
   }
@@ -24,8 +26,6 @@ const Search = (props: PropsType) => {
       setOpen(true)
     }
   }
-
-  useOnClickOutside(ref, () => setOpen(false))
 
   const filterHandler = (searchValue: string, productList: any[]) => {
     if (!searchValue) {
@@ -37,6 +37,7 @@ const Search = (props: PropsType) => {
   }
 
   useEffect(() => {
+    const api = apiF(store.getState().app.instance)
     api.getProductsForCategory(props.id).then(res => {
       setState(res.data.value)
     });

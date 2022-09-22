@@ -787,3 +787,22 @@ body {
 
   }
 }
+
+.login {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &__form {
+    width: 100%;
+    max-width: 400px;
+  }
+}
+
+.error {
+  font-size: 18px;
+  color: red;
+  font-weight: 500;
+  margin-bottom: 15px;
+  text-align: center;
+}

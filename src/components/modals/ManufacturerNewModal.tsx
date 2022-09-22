@@ -4,7 +4,7 @@ import {AppDispatchType, useAppSelector} from "../../store/store";
 import {openNewManufacturerModal} from "../../store/modalsReducer";
 import BaseModal from "./BaseModal";
 import {v1} from "uuid";
-import {addNewManufacturer} from "../../store/additionalReducer";
+import {addNewManufacturer, createManufacturer} from "../../store/additionalReducer";
 
 type PropsType = {
     changeManufacturer: (data: any) => void
@@ -20,12 +20,11 @@ const ManufacturerNewModal = memo( (props: PropsType) => {
     }
     const addManufacturer = () => {
         const data = {
-            Ref_Key: v1(),
             Parent_Key: "00000000-0000-0000-0000-000000000000",
             IsFolder: false,
             Description: value,
         }
-        dispatch(addNewManufacturer(data))
+        dispatch(createManufacturer(data))
         props.changeManufacturer(data)
         setValue('')
         handleClose()

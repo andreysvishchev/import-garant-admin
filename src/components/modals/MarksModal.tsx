@@ -8,17 +8,18 @@ import {SelectedType} from "./ManufacturersModal";
 
 type PropsType = {
     changeMark: (data: any) => void
+    currentManufacturer: string
 }
 
 const MarksModal = React.memo((props: PropsType) => {
     const dispatch = useDispatch<AppDispatchType>()
     const marks = useAppSelector(state => state.additionally.marks)
+    const currentMarks = marks.filter(el=> el.Производитель_Key === props.currentManufacturer)
     const open = useAppSelector(state => state.modals.marks)
     const [selected, setSelected] = useState<SelectedType>({
         Ref_Key: '',
         Description: ''
     })
-
     /*  console.log(123)
       useEffect(() => {
           dispatch(fetchMarks())
@@ -49,7 +50,7 @@ const MarksModal = React.memo((props: PropsType) => {
                 <div className="modal__caption">Наименование</div>
                 <div className='modal__items'>
                     {
-                        marks.map(el => {
+                        currentMarks.map(el => {
                             return (
                                 <ModalItem key={el.Ref_Key} data={el} selected={selected}
                                            setSelected={selectedHandler}/>

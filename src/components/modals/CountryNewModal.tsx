@@ -3,8 +3,7 @@ import {useDispatch} from "react-redux";
 import BaseModal from "./BaseModal";
 import {AppDispatchType, useAppSelector} from "../../store/store";
 import {openNewCountryModal} from "../../store/modalsReducer";
-import {v1} from "uuid";
-import {addNewCountry} from "../../store/additionalReducer";
+import {createCountry} from "../../store/additionalReducer";
 
 
 type PropsType = {
@@ -19,18 +18,26 @@ const CountryNewModal: React.FC<PropsType> = React.memo ( ({changeCountry}) => {
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setValue(e.currentTarget.value)
     }
+    // Predefined	false
+    // Ref_Key	"366b14a2-3a5c-11ed-80e4-00505680a75b"
+    // КодАльфа2	""
+    // МеждународноеНаименование	""
+    // DeletionMark	false
+    // КодАльфа3	""
+    // УчастникЕАЭС	false
+    // НаименованиеПолное	""
+    // Code	"--"
+    // DataVersion	"AAAAAAAAAAA="
+    // Description	"Россия тест"
+    // PredefinedDataName	""
+
     const addCountry = () => {
         const data = {
-            Ref_Key: v1(),
-            DataVersion: "AAAAAAAAAAA=",
-            DeletionMark: false,
             Parent_Key: "00000000-0000-0000-0000-000000000000",
             IsFolder: false,
             Description: value,
-            Predefined: false,
-            PredefinedDataName: ""
         }
-        dispatch(addNewCountry(data))
+        dispatch(createCountry(data))
         changeCountry(data)
         setValue('')
         handleClose()

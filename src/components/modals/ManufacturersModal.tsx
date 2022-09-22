@@ -8,6 +8,7 @@ import { Description } from "@mui/icons-material";
 
 type PropsType = {
   changeManufacturer: (data: any) => void
+
 }
 
 export type SelectedType = {

@@ -44,6 +44,7 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
     const classifiers = useAppSelector(state => state.additionally.classifiers)
     const buttonStatus = useAppSelector(state => state.app.buttonStatus)
 
+
     const baseParam = '00000000-0000-0000-0000-000000000000';
     let manufacturerValue = '';
     let markValue = '';
@@ -416,8 +417,8 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
                              unitId={product ? product.ЕдиницаИзмеренияТНВЭД_Key : ''}/>
             <ManufacturerNewModal changeManufacturer={changeManufacturer}/>
             <ManufacturersModal changeManufacturer={changeManufacturer}/>
-            <MarkNewModal changeMark={changeMark}/>
-            <MarksModal changeMark={changeMark}/>
+            <MarkNewModal changeMark={changeMark}  manufacturer={manufacturer}/>
+            <MarksModal changeMark={changeMark} currentManufacturer={manufacturerKey} />
             <CountryNewModal changeCountry={changeCountry}/>
             <CountriesModal changeCountry={changeCountry}/>
             <ImporterNewModal open={importerNewModal} setOpen={setImporterNewModal}/>
