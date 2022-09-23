@@ -185,6 +185,7 @@ export const updateProduct = (product: any, id: string) => (dispatch: Dispatch) 
    const api = apiF(store.getState().app.instance)
    dispatch(setButtonStatus("loading"))
    api.updateProduct(product, id).then(res => {
+      console.log(res.data)
       dispatch(changeDataProduct(res.data, id))
       dispatch(setButtonStatus("idle"))
       dispatch(openNoticeModal(true, `Товар ${res.data.Description} изменен`))

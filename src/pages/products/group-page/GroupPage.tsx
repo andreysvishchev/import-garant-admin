@@ -32,14 +32,6 @@ const GroupPage = React.memo(() => {
         <div className="content__row">
           <Link className='button'
             to={`/products/${id}/${groupId}/new`}>Добавить</Link>
-          <div className="sort">
-            <div className='sort__caption'>Сортировать по:</div>
-            <select className='sort__select'>
-              <option value="">По возрастнаию</option>
-              <option value="">По убыванию</option>
-              <option value="">По цене</option>
-            </select>
-          </div>
         </div>
       </div>
       <div className="content__main">

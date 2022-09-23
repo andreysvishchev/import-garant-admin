@@ -3,7 +3,7 @@ import BaseModal from "./BaseModal";
 import {AppDispatchType, useAppSelector} from "../../store/store";
 import {useDispatch} from "react-redux";
 import {openClassifierModal} from "../../store/modalsReducer";
-import {createClassifier} from "../../store/additionalReducer";
+import {createClassifier, updateClassifier} from "../../store/additionalReducer";
 
 type PropsType = {
    id: string
@@ -57,7 +57,7 @@ const ClassifierModal: React.FC<PropsType> = memo(({id, unitId, changeClassifier
       }
       const foundEl = classifiers.find(el => el.Code === data.Code)
       if (foundEl !== undefined) {
-         console.log('ok')
+         dispatch(updateClassifier(data, classifier.Ref_Key))
          changeClassifier(data)
          handleClose()
       } else {

@@ -22,6 +22,10 @@ import {useFormik} from "formik";
 import {addNewProduct, updateProduct} from "../../../../store/productsReducer";
 import Checkbox from '@mui/material/Checkbox';
 import ClassifierModal from "../../../../components/modals/ClassifierModal";
+import Print from "../../../../components/print/Print";
+
+
+
 
 type PropsType = {
     product?: any
@@ -64,12 +68,6 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
         if (currentMark !== undefined) {
             markValue = currentMark.Description
         }
-        /*  const currentGroups = groups.find(el => el.Ref_Key === product.ВидНоменклатуры_Key)
-          console.log(currentGroups);
-
-          if (currentGroups !== undefined) {
-            groupsValue = currentGroups.Description
-          }*/
         const currentCountry = countries.find(el => el.Ref_Key === product.СтранаПроисхождения_Key)
         if (currentCountry !== undefined) {
             countryValue = currentCountry.Description
@@ -184,14 +182,14 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
             ДлинаМожноУказыватьВДокументах: product ? product.ДлинаМожноУказыватьВДокументах : false,
             ПлощадьИспользовать: product ? product.ПлощадьИспользовать : false,
             ПлощадьМожноУказыватьВДокументах: product ? product.ПлощадьМожноУказыватьВДокументах : false,
-            ВесЗнаменатель: product ? product.ВесЗнаменатель : '',
-            ВесЧислитель: product ? product.ВесЧислитель : '',
-            ОбъемЗнаменатель: product ? product.ОбъемЗнаменатель : '',
-            ОбъемЧислитель: product ? product.ОбъемЧислитель : '',
-            ДлинаЗнаменатель: product ? product.ДлинаЗнаменатель : '',
-            ДлинаЧислитель: product ? product.ДлинаЧислитель : '',
-            ПлощадьЗнаменатель: product ? product.ПлощадьЗнаменатель : '',
-            ПлощадьЧислитель: product ? product.ПлощадьЧислитель : '',
+            ВесЗнаменатель: product ? product.ВесЗнаменатель : 0,
+            ВесЧислитель: product ? product.ВесЧислитель : 0,
+            ОбъемЗнаменатель: product ? product.ОбъемЗнаменатель : 0,
+            ОбъемЧислитель: product ? product.ОбъемЧислитель : 0,
+            ДлинаЗнаменатель: product ? product.ДлинаЗнаменатель : 0,
+            ДлинаЧислитель: product ? product.ДлинаЧислитель : 0,
+            ПлощадьЗнаменатель: product ? product.ПлощадьЗнаменатель : 0,
+            ПлощадьЧислитель: product ? product.ПлощадьЧислитель : 0,
             СтавкаНДС_Key: rateKey
         },
         onSubmit: values => {
@@ -203,7 +201,7 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
             values.ВидНоменклатуры_Key = groupKey
             values.Марка_Key = markKey
             values.СтавкаНДС_Key = rateKey
-
+            console.log(values)
             if (product) {
                 dispatch(updateProduct(values, product.Ref_Key))
             } else {
@@ -211,6 +209,10 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
             }
         },
     })
+
+    const printHandler = () => {
+        window.print()
+    }
 
 
     return (
@@ -318,9 +320,9 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
                     {formik.values.ВесИспользовать &&
                         <div className='form__params'>
                             <div className="form__row">
-                                <Input title='Вес единицы' name="ВесЗнаменатель" onBlur={formik.handleBlur}
+                                <Input title='Количество штук' name="ВесЗнаменатель" onBlur={formik.handleBlur}
                                        onChange={formik.handleChange} value={formik.values.ВесЗнаменатель}/>
-                                <Input title='Вес упаковки' name="ВесЧислитель" onBlur={formik.handleBlur}
+                                <Input title='Вес еденицы' name="ВесЧислитель" onBlur={formik.handleBlur}
                                        onChange={formik.handleChange} value={formik.values.ВесЧислитель}/>
                             </div>
                             <div className="form__row">
@@ -343,9 +345,9 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
                     {formik.values.ОбъемИспользовать &&
                         <div className='form__params'>
                             <div className='form__row'>
-                                <Input title='Обем еденицы' name="ОбъемЗнаменатель" onBlur={formik.handleBlur}
+                                <Input title='Количество штук' name="ОбъемЗнаменатель" onBlur={formik.handleBlur}
                                        onChange={formik.handleChange} value={formik.values.ОбъемЗнаменатель}/>
-                                <Input title='Обем упаковки' name="ОбъемЧислитель" onBlur={formik.handleBlur}
+                                <Input title='Обем еденицы' name="ОбъемЧислитель" onBlur={formik.handleBlur}
                                        onChange={formik.handleChange} value={formik.values.ОбъемЧислитель}/>
                             </div>
                             <div className='form__row'>
@@ -368,9 +370,9 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
                     {formik.values.ДлинаИспользовать &&
                         <div className='form__params'>
                             <div className="form__row">
-                                <Input title='Длина еденицы' name="ДлинаЗнаменатель" onBlur={formik.handleBlur}
+                                <Input title='Количество штук' name="ДлинаЗнаменатель" onBlur={formik.handleBlur}
                                        onChange={formik.handleChange} value={formik.values.ДлинаЗнаменатель}/>
-                                <Input title='Длина упаковки' name="ДлинаЧислитель" onBlur={formik.handleBlur}
+                                <Input title='Длина еденицы' name="ДлинаЧислитель" onBlur={formik.handleBlur}
                                        onChange={formik.handleChange} value={formik.values.ДлинаЧислитель}/>
                             </div>
                             <div className="form__row">
@@ -392,9 +394,9 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
                     {formik.values.ПлощадьИспользовать &&
                         <div className='form__params'>
                             <div className="form__row">
-                                <Input title='Площадь еденицы' name="ПлощадьЗнаменатель" onBlur={formik.handleBlur}
+                                <Input title='Количество штук' name="ПлощадьЗнаменатель" onBlur={formik.handleBlur}
                                        onChange={formik.handleChange} value={formik.values.ПлощадьЗнаменатель}/>
-                                <Input title='Площадь упаковки' name="ПлощадьЧислитель" onBlur={formik.handleBlur}
+                                <Input title='Площадь еденицы' name="ПлощадьЧислитель" onBlur={formik.handleBlur}
                                        onChange={formik.handleChange} value={formik.values.ПлощадьЧислитель}/>
                             </div>
                             <div className="form__row">
@@ -406,10 +408,16 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
                         </div>
                     }
                 </div>
-                <button type={'submit'} style={{marginTop: '40px'}} disabled={buttonStatus === 'loading'}
-                        className={buttonStatus === 'loading' ? 'button load' : 'button'}>
-                    Сохранить
-                </button>
+                <div className="form__buttons">
+                    <button type={'submit'} disabled={buttonStatus === 'loading'}
+                            className={buttonStatus === 'loading' ? 'button load' : 'button'}>
+                        Сохранить
+                    </button>
+                    <Print formik={formik.values} rateValue={ratesValue} code={classifierField}
+                           manufacturer={manufacturerField} country={countryField} mark={markField} view={viewField}/>
+                </div>
+
+
             </form>
 
             <ProductTypeModal changeGroup={changeGroup} currentGroup={currentGroup}/>
@@ -417,8 +425,8 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
                              unitId={product ? product.ЕдиницаИзмеренияТНВЭД_Key : ''}/>
             <ManufacturerNewModal changeManufacturer={changeManufacturer}/>
             <ManufacturersModal changeManufacturer={changeManufacturer}/>
-            <MarkNewModal changeMark={changeMark}  manufacturer={manufacturer}/>
-            <MarksModal changeMark={changeMark} currentManufacturer={manufacturerKey} />
+            <MarkNewModal changeMark={changeMark} manufacturer={manufacturer}/>
+            <MarksModal changeMark={changeMark} currentManufacturer={manufacturerKey}/>
             <CountryNewModal changeCountry={changeCountry}/>
             <CountriesModal changeCountry={changeCountry}/>
             <ImporterNewModal open={importerNewModal} setOpen={setImporterNewModal}/>

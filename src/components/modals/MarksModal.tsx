@@ -5,6 +5,7 @@ import {AppDispatchType, useAppSelector} from "../../store/store";
 import {openMarksModal, openNewMarkModal} from "../../store/modalsReducer";
 import ModalItem from "../modal-item/ModalItem";
 import {SelectedType} from "./ManufacturersModal";
+import {updateManufacturer, updateMark} from "../../store/additionalReducer";
 
 type PropsType = {
     changeMark: (data: any) => void
@@ -36,6 +37,10 @@ const MarksModal = React.memo((props: PropsType) => {
         handleClose()
     }
 
+    const updateMarkHandler = (data: any, id: string) => {
+        dispatch(updateMark(data, id))
+    }
+
     return (
         <BaseModal open={open} handleClose={handleClose} title={'Бренды'}>
             <div style={{marginTop: '0', marginBottom: '20px'}}
@@ -53,7 +58,7 @@ const MarksModal = React.memo((props: PropsType) => {
                         currentMarks.map(el => {
                             return (
                                 <ModalItem key={el.Ref_Key} data={el} selected={selected}
-                                           setSelected={selectedHandler}/>
+                                           setSelected={selectedHandler} changeTitle={updateMarkHandler}/>
                             )
                         })
                     }

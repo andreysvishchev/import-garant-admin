@@ -156,6 +156,7 @@ body {
     transform: translate(-50%, -50%);
     opacity: 0;
   }
+
   &:disabled {
     pointer-events: none;
   }
@@ -719,6 +720,12 @@ body {
   &__params {
     margin-top: 10px;
   }
+
+  &__buttons {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+  }
 }
 
 .hidden {
@@ -793,6 +800,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+
   &__form {
     width: 100%;
     max-width: 400px;
@@ -805,4 +813,16 @@ body {
   font-weight: 500;
   margin-bottom: 15px;
   text-align: center;
+}
+
+.table {
+  padding: 20px;
+  td {
+    padding: 5px;
+    border: 1px solid black;
+  }
+
+  .no-border {
+    border: none;
+  }
 }

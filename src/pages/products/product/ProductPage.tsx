@@ -26,6 +26,7 @@ const ProductPage = React.memo ( () => {
     dispatch(fetchProduct(productId))
   }, [productId])
 
+  console.log(product)
 
   return status !== "loading" ? (
     <div className='content'>
