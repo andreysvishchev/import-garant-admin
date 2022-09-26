@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { fetchProducts } from "../../../store/productsReducer";
 import GroupItem from "./GroupItem";
 import { CircularProgress } from "@mui/material";
+import Search from "../../../components/search/Search";
 
 const GroupPage = React.memo(() => {
   const { id, groupId } = useParams()
@@ -17,6 +18,7 @@ const GroupPage = React.memo(() => {
   const currentCategory = categories.find(el => el.Ref_Key === id)
   const currentGroup = groups.find(el => el.Ref_Key === groupId)
 
+
   useEffect(() => {
     dispatch(fetchProducts(groupId))
   }, [])
@@ -26,12 +28,13 @@ const GroupPage = React.memo(() => {
       <div className="content__top">
         <div className='breadcrumbs'>
           <Link className='breadcrumbs__link'
-            to={`/products/${id}`}>{currentCategory.Description}</Link>
+            to={`/admin/${id}`}>{currentCategory.Description}</Link>
           <div className='breadcrumbs__item'>{currentGroup.Description}</div>
         </div>
         <div className="content__row">
           <Link className='button'
-            to={`/products/${id}/${groupId}/new`}>Добавить</Link>
+            to={`/admin/${id}/${groupId}/new`}>Добавить</Link>
+          <Search categoryId={id!} groupId={groupId!} productList={productsList}/>
         </div>
       </div>
       <div className="content__main">

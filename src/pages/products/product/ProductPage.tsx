@@ -33,9 +33,9 @@ const ProductPage = React.memo ( () => {
       <div className="content__top">
         <div className='breadcrumbs'>
           <Link className='breadcrumbs__link'
-            to={`/products/${id}`}>{currentCategory.Description}</Link>
+            to={`/admin/${id}`}>{currentCategory.Description}</Link>
           <Link className='breadcrumbs__link'
-            to={`/products/${id}/${groupId}`}>{currentGroup.Description}</Link>
+            to={`/admin/${id}/${groupId}`}>{currentGroup.Description}</Link>
           <div className='breadcrumbs__item'>{product!.Description}</div>
         </div>
       </div>

@@ -46,7 +46,7 @@ export const api = (instance: AxiosInstance) => ({
         return instance.get(`/Catalog_Номенклатура?$filter=ВидНоменклатуры_Key eq guid'${Ref_Key}'?$format=json`)
     },
     getProductsForCategory(id: string) {
-        return instance.get(`/Catalog_Номенклатура?$filter=Parent_Key eq guid'${id}'?$format=json`)
+        return instance.get(`/Catalog_Номенклатура?$filter=Parent_Key eq guid'${id}' and IsFolder ne true?$format=json`)
     },
     getProduct(Ref_Key: string | undefined) {
         return instance.get(`/Catalog_Номенклатура(guid'${Ref_Key}')?$format=json`)
@@ -89,6 +89,12 @@ export const api = (instance: AxiosInstance) => ({
     },
     updateClassifier(data: any, id: string) {
         return instance.put(`/Catalog_КлассификаторТНВЭД(guid'${id}')`, data)
+    },
+    createBarcode(barcode: string, id: string) {
+        return instance.post(`/InformationRegister_ШтрихкодыНоменклатуры`, {Штрихкод: barcode, Номенклатура_Key: id})
+    },
+    updateBarcode(barcode: string, id: string) {
+        return instance.put(`/InformationRegister_ШтрихкодыНоменклатуры(guid'${id}')?$format=json`, {Штрихкод: barcode})
     }
 })
 

@@ -29,7 +29,8 @@ const initState = {
       barcode: '',
       productTitle: '',
       packageKey: '',
-      productId: ''
+      productId: '',
+      typeModal: ''
    }
 
 }
@@ -77,7 +78,8 @@ export const modalsReducer = (state: InitStateType = initState, action: ActionsT
                barcode: action.data.barcode,
                productTitle: action.data.productTitle,
                packageKey: action.data.packageKey,
-               productId: action.data.productId
+               productId: action.data.productId,
+               typeModal: action.data.typeModal
             }
          }
       default:

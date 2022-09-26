@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
 import {changeErrorStatus, changeLoginStatus, setAppStatus, setButtonStatus, setGroupPageStatus, setProductPageStatus} from "./appReducer";
-import {openNoticeModal} from "./modalsReducer";
+import {openCategoriesModal, openEditModal, openGroupModal, openNoticeModal} from "./modalsReducer";
 import {
    addBarcodeToState,
    addClassifiersToState,
@@ -143,9 +143,9 @@ export const baseDataLoading = () => (dispatch: Dispatch) => {
          dispatch(changeErrorStatus(false))
       }).catch((error) => {
       if (error.response.status === 401) {
-       dispatch(changeErrorStatus(true))
+         dispatch(changeErrorStatus(true))
       }
-   }).finally(()=> {
+   }).finally(() => {
       dispatch(setAppStatus('idle'))
       dispatch(setButtonStatus("idle"))
    })
@@ -168,8 +168,12 @@ export const fetchProduct = (Ref_Key: string | undefined) => (dispatch: Dispatch
 }
 export const createNewCategory = (data: any) => (dispatch: Dispatch) => {
    const api = apiF(store.getState().app.instance)
+   dispatch(setButtonStatus("loading"))
    api.createCategory(data).then(res => {
       dispatch(addNewCategory(res.data))
+      dispatch(openCategoriesModal(false))
+   }).finally(() => {
+      dispatch(setButtonStatus("idle"))
    })
 }
 export const addNewProduct = (product: any) => (dispatch: Dispatch) => {
@@ -177,37 +181,49 @@ export const addNewProduct = (product: any) => (dispatch: Dispatch) => {
    dispatch(setButtonStatus("loading"))
    api.createProduct(product).then(res => {
       dispatch(addNewProductToState(res.data))
-      dispatch(setButtonStatus("idle"))
       dispatch(openNoticeModal(true, `Товар ${res.data.Description} добавлен`))
+   }).finally(() => {
+      dispatch(setButtonStatus("idle"))
    })
 }
 export const updateProduct = (product: any, id: string) => (dispatch: Dispatch) => {
    const api = apiF(store.getState().app.instance)
    dispatch(setButtonStatus("loading"))
    api.updateProduct(product, id).then(res => {
-      console.log(res.data)
       dispatch(changeDataProduct(res.data, id))
-      dispatch(setButtonStatus("idle"))
       dispatch(openNoticeModal(true, `Товар ${res.data.Description} изменен`))
+   }).finally(() => {
+      dispatch(setButtonStatus("idle"))
    })
 }
 export const createNewGroup = (data: any) => (dispatch: Dispatch) => {
    const api = apiF(store.getState().app.instance)
-
+   dispatch(setButtonStatus("loading"))
    api.createGroup(data).then(res => {
       dispatch(addNewGroup(res.data))
-   })
+      dispatch(openGroupModal(false))
+   }).finally(() => {
+         dispatch(setButtonStatus("idle"))
+      })
 }
 export const updateGroupTitle = (data: any, id: string) => (dispatch: Dispatch) => {
+   dispatch(setButtonStatus("loading"))
    const api = apiF(store.getState().app.instance)
    api.updateGroup(data, id).then(res => {
       dispatch(changeGroupTitle(res.data, id))
+      dispatch(openEditModal(false, '', '', '', ''));
+   }).finally(() => {
+      dispatch(setButtonStatus("idle"))
    })
 }
 export const updateProductTitle = (data: any, id: string) => (dispatch: Dispatch) => {
+   dispatch(setButtonStatus("loading"))
    const api = apiF(store.getState().app.instance)
    api.updateProduct(data, id).then(res => {
       dispatch(changeProductTitle(res.data, id))
+      dispatch(openEditModal(false, '', '', '', ''));
+   }).finally(() => {
+      dispatch(setButtonStatus("idle"))
    })
 }
 

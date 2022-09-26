@@ -14,26 +14,32 @@ const MarkNewModal: React.FC<PropsType> = React.memo(({changeMark, manufacturer}
    const baseParam = '00000000-0000-0000-0000-000000000000';
    const dispatch = useDispatch<AppDispatchType>()
    const open = useAppSelector(state => state.modals.newMark)
+   const buttonStatus = useAppSelector(state => state.app.buttonStatus)
+
    const [value, setValue] = useState('')
+   const [error, setError] = useState(false)
    const [selectValue, setSelectValue] = useState(baseParam)
+
    const handleClose = () => dispatch(openNewMarkModal(false));
+
    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
       setValue(e.currentTarget.value)
+      setError(false)
    }
+
    const onSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
       setSelectValue(e.currentTarget.value)
    }
+
    const addMark = () => {
-      const data = {
-         DeletionMark: false,
-         Производитель_Key: selectValue,
-         IsFolder: false,
-         Description: value,
+      if (value !== '') {
+         const data = {DeletionMark: false, Производитель_Key: selectValue, IsFolder: false, Description: value}
+         dispatch(createMark(data))
+         changeMark(data)
+         setValue('')
+      } else {
+         setError(true)
       }
-      dispatch(createMark(data))
-      changeMark(data)
-      setValue('')
-      handleClose()
    }
 
    return (
@@ -41,6 +47,7 @@ const MarkNewModal: React.FC<PropsType> = React.memo(({changeMark, manufacturer}
          <div className='input'>
             <div className='input__caption'>Название бренда</div>
             <input className='input__field' value={value} onChange={onChangeHandler}/>
+            {error && <div className='input__error'>Поле не может быть пустым</div>}
          </div>
          <div className="select">
             <div className="select__caption">Производитель</div>
@@ -59,8 +66,8 @@ const MarkNewModal: React.FC<PropsType> = React.memo(({changeMark, manufacturer}
             <button style={{width: '100%'}} onClick={handleClose}
                     className="button light">Закрыть
             </button>
-            <button style={{width: '100%'}} onClick={addMark}
-                    className="button">Добавить
+            <button style={{width: '100%'}} onClick={addMark} disabled={buttonStatus === 'loading'}
+                    className={buttonStatus === 'loading' ? 'button load' : 'button'}>Добавить
             </button>
          </div>
       </BaseModal>

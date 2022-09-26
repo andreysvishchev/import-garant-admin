@@ -25,7 +25,6 @@ const CategoryPage = () => {
         </div>
         <div className="content__row">
           <button className='button' onClick={() => dispatch(openGroupModal(true))}>Добавить</button>
-          <Search id={id!} />
         </div>
       </div>
       <div className="content__main">

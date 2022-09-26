@@ -39,17 +39,17 @@ const CountriesModal = React.memo((props: PropsType) => {
             <div style={{marginTop: '0', marginBottom: '20px'}}
                  className="modal__buttons">
                 <button style={{padding: '5px 15px'}} onClick={changeItemHandler} className='button'>Выбрать</button>
-                <button style={{padding: '5px 15px'}} onClick={() => dispatch(openNewCountryModal(true))}
-                        className='button'>Создать
-                </button>
-                <input type={"search"} className={'modal__search'} placeholder={'Поиск'}/>
+                {/*<button style={{padding: '5px 15px'}} onClick={() => dispatch(openNewCountryModal(true))}*/}
+                {/*        className='button'>Создать*/}
+                {/*</button>*/}
+                {/*<input type={"search"} className={'modal__search'} placeholder={'Поиск'}/>*/}
             </div>
             <div className="modal__list">
                 <div className="modal__caption">Наименование</div>
                 <div className='modal__items'>
                     {countries.map(el => {
                         return (
-                            <ModalItem key={el.Ref_Key} data={el} selected={selected}
+                            <ModalItem key={el.Ref_Key} data={el} selected={selected} country={true}
                                        setSelected={selectedHandler} changeTitle={updateCountryHandler}/>
                         )
                     })}

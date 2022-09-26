@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 
 type PropsType = {
    barcode: string
@@ -7,15 +7,15 @@ type PropsType = {
    editBarcode: (barcode: string, productTitle: string, packageKey: string,  productId: string) => void
 };
 
-const BarcodeItem: React.FC<PropsType> = ({productTitle, barcode, editBarcode, productId}) => {
+const BarcodeItem: React.FC<PropsType> = memo( ({productTitle, barcode, editBarcode, productId}) => {
+   // onClick={()=>editBarcode( barcode, productTitle, 'pack',  productId )}
    return (
-      <div className='barcode-item' id={barcode} onClick={()=>editBarcode( barcode, productTitle, 'pack',  productId )}>
+      <div className='barcode-item' id={barcode}>
          <div className='barcode-item__col'>{barcode}</div>
          <div className='barcode-item__col'>{productTitle}</div>
-         <div className='barcode-item__col'>package</div>
       </div>
    );
-};
+});
 
 
 export default BarcodeItem;

@@ -51,7 +51,7 @@ const ManufacturersModal = React.memo((props: PropsType) => {
                         onClick={() => dispatch(openNewManufacturerModal(true))}
                         className='button'>Создать
                 </button>
-                <input type={"search"} className={'modal__search'} placeholder={'Поиск'}/>
+                {/*<input type={"search"} className={'modal__search'} placeholder={'Поиск'}/>*/}
             </div>
             <div className="modal__list">
                 <div className="modal__caption">Наименование</div>

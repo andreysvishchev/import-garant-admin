@@ -21,17 +21,18 @@ const ProductsPage = () => {
    const dispatch = useDispatch<AppDispatchType>()
    const categories = useAppSelector(state => state.products.categories)
 
+
    return status !== 'loading' ? (
          <div className='wrap'>
             <div className="nav">
-               <button style={{marginLeft: '30px'}} className='button'
-                       onClick={() => dispatch(openCategoriesModal(true))}>Добавить
+               <button style={{marginLeft: '30px'}} className='button' onClick={() => dispatch(openCategoriesModal(true))}>
+                  Добавить
                </button>
                <div className="nav__list">
                   {categories.map(el => {
                      return (
                         <NavLink className='nav__link' key={el.Ref_Key}
-                                 to={`/products/${el.Ref_Key}`}>{el.Description}</NavLink>
+                                 to={`/admin/${el.Ref_Key}`}>{el.Description}</NavLink>
                      )
                   })}
                </div>
