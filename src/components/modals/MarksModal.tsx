@@ -5,7 +5,7 @@ import {AppDispatchType, useAppSelector} from "../../store/store";
 import {openMarksModal, openNewMarkModal} from "../../store/modalsReducer";
 import ModalItem from "../modal-item/ModalItem";
 import {SelectedType} from "./ManufacturersModal";
-import {updateManufacturer, updateMark} from "../../store/additionalReducer";
+import {updateMark} from "../../store/additionalReducer";
 
 type PropsType = {
    changeMark: (data: any) => void
@@ -21,10 +21,6 @@ const MarksModal = React.memo((props: PropsType) => {
       Ref_Key: '',
       Description: ''
    })
-   /*  console.log(123)
-     useEffect(() => {
-         dispatch(fetchMarks())
-     }, [])*/
 
    const handleClose = () => dispatch(openMarksModal(false));
    const selectedHandler = (id: string, title: string) => {

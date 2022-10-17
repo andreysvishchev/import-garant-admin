@@ -1,15 +1,13 @@
-import React, {memo, useState} from 'react';
+import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
 import BaseModal from "./BaseModal";
 import {AppDispatchType, useAppSelector} from "../../store/store";
 import {openManufacturersModal, openNewManufacturerModal} from "../../store/modalsReducer";
 import ModalItem from "../modal-item/ModalItem";
-import {Description} from "@mui/icons-material";
 import {updateManufacturer} from "../../store/additionalReducer";
 
 type PropsType = {
     changeManufacturer: (data: any) => void
-
 }
 
 export type SelectedType = {

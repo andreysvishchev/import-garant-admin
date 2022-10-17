@@ -1,10 +1,8 @@
 import {Dispatch} from "redux";
-import {api as apiF, api} from "../api/api";
+import {api as apiF} from "../api/api";
 import {store} from "./store";
-import exp from "constants";
 import {setButtonStatus} from "./appReducer";
-import barcodeEditModal from "../components/modals/BarcodeEditModal";
-import {openBarcodeEditModal, openClassifierModal, openNewManufacturerModal, openNewMarkModal} from "./modalsReducer";
+import {openBarcodeEditModal, openClassifierModal, openGroupFolderModal, openNewManufacturerModal, openNewMarkModal} from "./modalsReducer";
 
 const initState = {
    manufacturer: [],
@@ -15,6 +13,7 @@ const initState = {
    classifiers: [],
    units: [],
    barcode: [],
+   groupFolder: []
 }
 
 export const additionalReducer = (state: InitStateType = initState, action: ActionsType): InitStateType => {
@@ -43,9 +42,12 @@ export const additionalReducer = (state: InitStateType = initState, action: Acti
          return {...state, classifiers: [...state.classifiers, action.data]}
       case "ADD-BARCODE":
          return {...state, barcode: action.data}
-      case "ADD-NEW-BARCODE": {
+      case "ADD-NEW-BARCODE":
          return {...state, barcode: [...state.barcode, {Номенклатура_Key: action.id, Штрихкод: action.barcode}]}
-      }
+      case "ADD-GROUP-FOLDER":
+         return {...state, groupFolder: action.data}
+      case "ADD-NEW-GROUP-FOLDER":
+         return {...state, groupFolder: [...state.groupFolder, action.data]}
       case "UPDATE-MANUFACTURER":
          return {
             ...state, manufacturer:
@@ -148,6 +150,12 @@ export const addNewBarcode = (barcode: string, id: string) => {
 export const updateBarcodeAction = (barcode: string, id: string) => {
    return {type: 'UPDATE-BARCODE', barcode, id} as const
 }
+export const addGroupFolderToState = (data: any) => {
+   return {type: 'ADD-GROUP-FOLDER', data} as const
+}
+export const addNewGroupFolder = (data: any) => {
+   return {type: 'ADD-NEW-GROUP-FOLDER', data} as const
+}
 
 //thunk
 export const createManufacturer = (data: any,) => (dispatch: Dispatch) => {
@@ -238,6 +246,18 @@ export const updateBarcode = (barcode: string, id: string) => (dispatch: Dispatc
       dispatch(updateBarcodeAction(res.data.Штрихкод, res.data.Номенклатура_Key))
    })
 }
+export const createGroupFolder = (data: any) => (dispatch: Dispatch) => {
+   dispatch(setButtonStatus('loading'))
+   const api = apiF(store.getState().app.instance)
+   api.createGroupFolder(data).then(res => {
+      dispatch(addNewGroupFolder(res.data))
+      dispatch(openGroupFolderModal(false))
+   })
+      .finally(() => {
+         dispatch(setButtonStatus('idle'))
+      })
+}
+
 
 type InitStateType = {
    manufacturer: any[],
@@ -247,8 +267,10 @@ type InitStateType = {
    rates: any[],
    classifiers: any[],
    units: any[],
-   barcode: any[]
+   barcode: any[],
+   groupFolder: any[]
 }
+
 type ActionsType =
    | ReturnType<typeof addManufacturerToState>
    | ReturnType<typeof addMarksToState>
@@ -268,4 +290,6 @@ type ActionsType =
    | ReturnType<typeof updateClassifierAction>
    | ReturnType<typeof addNewBarcode>
    | ReturnType<typeof updateBarcodeAction>
+   | ReturnType<typeof addGroupFolderToState>
+   | ReturnType<typeof addNewGroupFolder>
 

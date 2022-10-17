@@ -1,8 +1,6 @@
-import React, {ChangeEvent, MutableRefObject, useEffect, useRef, useState} from 'react';
+import React, {ChangeEvent, MutableRefObject, useRef, useState} from 'react';
 import {useOnClickOutside} from "../../functions/useOnClickOutside";
-import {api as apiF} from "../../api/api";
 import {Link} from "react-router-dom";
-import {store} from "../../store/store";
 
 type PropsType = {
    categoryId: string
@@ -29,7 +27,6 @@ const Search = (props: PropsType) => {
          setOpen(true)
       }
    }
-
 
    // const filterHandler = (searchValue: string, productList: any[]) => {
    //    if (!searchValue) {

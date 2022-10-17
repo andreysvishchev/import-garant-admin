@@ -1,23 +1,21 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import Input from "../../../../components/input/Input";
 import Textarea from "../../../../components/textarea/Textarea";
 import InputList from "../../../../components/input-list/InputList";
 import {AppDispatchType, useAppSelector} from "../../../../store/store";
 import {useDispatch} from "react-redux";
 import CountriesModal from "../../../../components/modals/CountriesModal";
-import ImportersModal from "../../../../components/modals/ImportersModal";
 import MarksModal from "../../../../components/modals/MarksModal";
 import ManufacturersModal from "../../../../components/modals/ManufacturersModal";
 import CountryNewModal from "../../../../components/modals/CountryNewModal";
-import ImporterNewModal from "../../../../components/modals/ImporterNewModal";
 import MarkNewModal from "../../../../components/modals/MarkNewModal";
 import ManufacturerNewModal from "../../../../components/modals/ManufacturerNewModal";
 import ProductTypeModal from "../../../../components/modals/ProductTypeModal";
 import {
    openBarcodeModal,
    openClassifierModal,
-   openCountriesModal, openManufacturersModal, openMarksModal,
-   openNewCountryModal, openNewManufacturerModal, openNewMarkModal, openProductTypeModal
+   openCountriesModal, openGroupFolderModal, openManufacturersModal, openMarksModal,
+   openNewManufacturerModal, openNewMarkModal, openProductTypeModal
 } from "../../../../store/modalsReducer";
 import {useFormik} from "formik";
 import {addNewProduct, updateProduct} from "../../../../store/productsReducer";
@@ -25,6 +23,7 @@ import Checkbox from '@mui/material/Checkbox';
 import ClassifierModal from "../../../../components/modals/ClassifierModal";
 import Print from "../../../../components/print/Print";
 import BarcodeModal from "../../../../components/modals/BarcodeModal";
+import GroupFolderModal from "../../../../components/modals/GroupFolderModal";
 
 
 type PropsType = {
@@ -35,29 +34,23 @@ type PropsType = {
 
 const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType) => {
    const dispatch = useDispatch<AppDispatchType>()
-
-   const [importersModal, setImportersModal] = useState(false)
-   const [importerNewModal, setImporterNewModal] = useState(false)
-
+   const groupFolder = useAppSelector(state => state.additionally.groupFolder)
    const groups = useAppSelector(state => state.products.groups)
    const manufacturer = useAppSelector(state => state.additionally.manufacturer)
    const marks = useAppSelector(state => state.additionally.marks)
-   const importers = useAppSelector(state => state.additionally.importers)
    const countries = useAppSelector(state => state.additionally.countries)
    const rates = useAppSelector(state => state.additionally.rates)
    const classifiers = useAppSelector(state => state.additionally.classifiers)
    const buttonStatus = useAppSelector(state => state.app.buttonStatus)
-
+   const units = useAppSelector(state => state.additionally.units)
 
    const baseParam = '00000000-0000-0000-0000-000000000000';
    let manufacturerValue = '';
    let markValue = '';
-   let importerValue = '';
    let groupsValue = currentGroup.Description;
    let countryValue = '';
    let ratesValue = '';
    let classifiersValue = '';
-
 
    if (product) {
       const currentManufacturer = manufacturer.find(el => el.Ref_Key === product.Производитель_Key)
@@ -72,10 +65,6 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
       if (currentCountry !== undefined) {
          countryValue = currentCountry.Description
       }
-      const currentImporter = importers.find(el => el.Ref_Key === product.ПроизводительИмпортерКонтрагент_Key)
-      if (currentImporter !== undefined) {
-         importerValue = currentImporter.Description
-      }
       const currentRate = rates.find(el => el.Ref_Key === product.СтавкаНДС_Key)
       if (currentRate !== undefined) {
          ratesValue = currentRate.Description
@@ -86,7 +75,6 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
       }
    }
 
-
    const [manufacturerKey, setManufacturerKey] = useState(product ? product.Производитель_Key : baseParam)
    const [countryKey, setCountryKey] = useState(product ? product.СтранаПроисхождения_Key : baseParam)
    const [groupKey, setGroupKey] = useState(currentGroup.Ref_Key)
@@ -94,12 +82,13 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
    const [currentCategoryKey, setCurrentCategoryKey] = useState(currentCategory.Ref_Key)
    const [rateKey, setRateKey] = useState(product ? product.СтавкаНДС_Key : baseParam)
    const [classifierKey, setClassifierKey] = useState(product ? product.КодТНВЭД_Key : baseParam)
+   const [groupFolderKey, setGroupFolderKey] = useState(product ? product.Parent_Key : baseParam)
+   const [unitsKey, setUnitsKey] = useState(product ? product.ЕдиницаИзмерения_Key : baseParam)
 
    const [manufacturerField, setManufacturerField] = useState(manufacturerValue)
    const [countryField, setCountryField] = useState(countryValue)
    const [markField, setMarkField] = useState(markValue)
    const [viewField, setViewField] = useState(groupsValue)
-   const [importerField, setImporterField] = useState(importerValue)
    const [classifierField, setClassifierField] = useState(classifiersValue)
 
    const viewFieldHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -132,9 +121,6 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
          setCountryKey(currentCountry.Ref_Key)
       }
    }
-   const importerFieldHandler = (e: ChangeEvent<HTMLInputElement>) => {
-      setImporterField(e.currentTarget.value)
-   }
    const changeManufacturer = (data: any) => {
       setManufacturerKey(data.Ref_Key)
       setManufacturerField(data.Description)
@@ -159,10 +145,16 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
       setClassifierField(data.Code)
       setClassifierKey(data.Ref_Key)
    }
+   const groupFolderChangeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
+      setGroupFolderKey(e.currentTarget.value)
+   }
+   const changeUnits = (e: ChangeEvent<HTMLSelectElement>) => {
+     setUnitsKey(e.currentTarget.value)
+   }
 
    const formik = useFormik({
       initialValues: {
-         // Parent_Key: '25e24bee-cfd0-11e5-8a17-74d435b03623',
+         Parent_Key: groupFolderKey,
          Description: product ? product.Description : '',
          ТипНоменклатуры: 'Товар',
          НаименованиеПолное: product ? product.НаименованиеПолное : '',
@@ -174,6 +166,7 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
          СтранаПроисхождения_Key: countryKey,
          ВидНоменклатуры_Key: groupKey,
          Марка_Key: markKey,
+         ЕдиницаИзмерения_Key: unitsKey,
          ВесИспользовать: product ? product.ВесИспользовать : false,
          ВесМожноУказыватьВДокументах: product ? product.ВесМожноУказыватьВДокументах : false,
          ОбъемИспользовать: product ? product.ОбъемИспользовать : false,
@@ -193,7 +186,7 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
          СтавкаНДС_Key: rateKey
       },
       onSubmit: values => {
-         // values.Parent_Key = '25e24bee-cfd0-11e5-8a17-74d435b03623'
+         values.Parent_Key = groupFolderKey
          values.КодТНВЭД_Key = classifierKey
          values.ВидНоменклатуры_Key = groupKey
          values.Производитель_Key = manufacturerKey
@@ -201,6 +194,7 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
          values.ВидНоменклатуры_Key = groupKey
          values.Марка_Key = markKey
          values.СтавкаНДС_Key = rateKey
+         values.ЕдиницаИзмерения_Key = unitsKey
          console.log(values)
          if (product) {
             dispatch(updateProduct(values, product.Ref_Key))
@@ -237,7 +231,7 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
                </div>
             </div>
             <div className="form__row">
-               <div className="form__col">
+               <div className="form__col" style={{maxWidth: '200px'}}>
                   <div className='select'>
                      <div className='select__caption'>Ставка НДС</div>
                      <select className='select__field' value={rateKey}
@@ -253,6 +247,25 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
                   </div>
                </div>
                <div className="form__col">
+                  <div className='select'>
+                     <div className='select__caption'>Группа списка</div>
+                     <select className='select__field' value={groupFolderKey}
+                             name='Parent_Key' onChange={groupFolderChangeHandler}>
+                        <option value={baseParam}>Выберите группу</option>
+                        {groupFolder.map(el => {
+                           return (
+                              <option key={el.Ref_Key} id={el.Ref_Key}
+                                      value={el.Ref_Key}>{el.Description}</option>
+                           )
+                        })}
+                     </select>
+                  </div>
+                  <button type={'button'} onClick={() => dispatch(openGroupFolderModal(true))}
+                          style={{marginTop: '7px', padding: '8px 15px', height: '40px'}}
+                          className="button">+
+                  </button>
+               </div>
+               <div className="form__col">
                   <Input title={'Код ТН ВЭД'} placeholder={'Создайте кот ТНВЭД'}
                          name="КодТНВЭД_Key" disabled value={classifierField}/>
                   <button type={'button'} onClick={() => dispatch(openClassifierModal(true))}
@@ -263,9 +276,6 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
             </div>
             <Textarea title='Описание' name="Описание" placeholder={'Заполните описание'}
                       onBlur={formik.handleBlur} onChange={formik.handleChange} value={formik.values.Описание}/>
-            {product && <div className="form__row">
-               <button type='button' className='barcode' onClick={() => dispatch(openBarcodeModal(true))}>Штрихкод</button>
-            </div>}
             <div className="form__row">
                <div className="form__col">
                   <InputList placeholder={'Выберте производителя'} value={manufacturerField}
@@ -300,15 +310,32 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
                <div className="form__col">
                   <InputList placeholder={'Выберте страну Происхождения'} handler={countryFieldHandler}
                              value={countryField} data={countries} title={'Страна происхождения'}/>
-                  {/*<button type={'button'} onClick={() => dispatch(openNewCountryModal(true))}*/}
-                  {/*        style={{marginTop: '7px', padding: '8px 15px', height: '40px'}}*/}
-                  {/*        className="button">+*/}
-                  {/*</button>*/}
                   <button style={{marginTop: '7px', padding: '8px 15px', height: '40px'}} type='button'
                           onClick={() => dispatch(openCountriesModal(true))} className='button'>Показать все
                   </button>
                </div>
             </div>
+            <div className="form__row" style={{alignItems: 'center'}}>
+               <div className="select" style={{maxWidth: '30%', marginRight: '30px'}}>
+                  <div className="select__caption">Еденица Измерения</div>
+                  <select className='select__field' onChange={changeUnits} name="ЕдиницаИзмерения_Key"
+                          value={unitsKey}>
+                     <option value={baseParam}>Выберите еденицу измерения</option>
+                     {
+                        units.map(el => {
+                           return (
+                              <option key={el.Ref_Key} value={el.Ref_Key}>{el.Description}</option>
+                           )
+                        })
+                     }
+                  </select>
+               </div>
+               {product && <div className="form__row">
+                  <button type='button' className='barcode' onClick={() => dispatch(openBarcodeModal(true))}>Штрихкод</button>
+               </div>}
+
+            </div>
+
             <div className="form__parameter">
                <div className="form__row">
                   <div className='form__caption'>Вес</div>
@@ -415,11 +442,9 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
                <Print formik={formik.values} rateValue={ratesValue} code={classifierField}
                       manufacturer={manufacturerField} country={countryField} mark={markField} view={viewField}/>
             </div>
-
-
          </form>
          {product && <BarcodeModal productId={product.Ref_Key} productTitle={product.Description}/>}
-
+         <GroupFolderModal/>
          <ProductTypeModal changeGroup={changeGroup} currentGroup={currentGroup}/>
          <ClassifierModal changeClassifier={changeClassifier} id={product ? product.КодТНВЭД_Key : ''}
                           unitId={product ? product.ЕдиницаИзмеренияТНВЭД_Key : ''}/>
@@ -429,10 +454,7 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
          <MarksModal changeMark={changeMark} currentManufacturer={manufacturerKey}/>
          <CountryNewModal changeCountry={changeCountry}/>
          <CountriesModal changeCountry={changeCountry}/>
-         <ImporterNewModal open={importerNewModal} setOpen={setImporterNewModal}/>
-         <ImportersModal open={importersModal} setOpen={setImportersModal} data={importers}/>
       </>
-
    )
 });
 

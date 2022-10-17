@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Route, Routes} from "react-router-dom";
-import {AppDispatchType, useAppSelector} from "../../store/store";
+import {AppDispatchType, store, useAppSelector} from "../../store/store";
 import CategoryPage from "./category-page/CategoryPage";
 import {NavLink} from 'react-router-dom';
 import ProductPage from "./product/ProductPage";
@@ -13,10 +13,6 @@ import EditModal from "../../components/modals/EditModal";
 import {CircularProgress} from "@mui/material";
 
 const ProductsPage = () => {
-   // useEffect(() => {
-   //     dispatch(baseDataLoading())
-   // }, [])
-
    const status = useAppSelector(state => state.app.appStatus)
    const dispatch = useDispatch<AppDispatchType>()
    const categories = useAppSelector(state => state.products.categories)

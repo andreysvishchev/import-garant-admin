@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import BaseModal from "./BaseModal";
 import {AppDispatchType, useAppSelector} from "../../store/store";
 import {useDispatch} from "react-redux";
@@ -18,10 +18,6 @@ const BarcodeEditModal = () => {
 
    const [codeValue, setCodeValue] = useState<string>('')
    const [error, setError] = useState(false)
-
-   // useEffect(() => {
-   //    setCodeValue(barcode)
-   // }, [barcode])
 
    const handleClose = () => dispatch(openBarcodeEditModal({status: false}))
 

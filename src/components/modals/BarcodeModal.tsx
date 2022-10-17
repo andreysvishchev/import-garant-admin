@@ -1,10 +1,8 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import BaseModal from "./BaseModal";
 import {useDispatch} from "react-redux";
 import {AppDispatchType, useAppSelector} from "../../store/store";
-import {openBarcodeEditModal, openBarcodeModal, openClassifierModal, openNewCountryModal} from "../../store/modalsReducer";
-import {api} from "../../api/api";
-import ModalItem from "../modal-item/ModalItem";
+import {openBarcodeEditModal, openBarcodeModal} from "../../store/modalsReducer";
 import BarcodeItem from "../barcode-item/BarcodeItem";
 import BarcodeEditModal from "./BarcodeEditModal";
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
 import { AppDispatchType, useAppSelector } from "../../store/store";
 import TypeList from "../../pages/products/product/type-list/TypeList";

@@ -3,8 +3,7 @@ import {useDispatch} from "react-redux";
 import BaseModal from "./BaseModal";
 import {AppDispatchType, useAppSelector} from "../../store/store";
 import {openNewMarkModal} from "../../store/modalsReducer";
-import {v1} from "uuid";
-import {addNewMark, createMark} from "../../store/additionalReducer";
+import {createMark} from "../../store/additionalReducer";
 
 type PropsType = {
    changeMark: (data: any) => void
@@ -63,9 +62,7 @@ const MarkNewModal: React.FC<PropsType> = React.memo(({changeMark, manufacturer}
             </select>
          </div>
          <div className="modal__buttons">
-            <button style={{width: '100%'}} onClick={handleClose}
-                    className="button light">Закрыть
-            </button>
+            <button style={{width: '100%'}} onClick={handleClose} className="button light">Закрыть</button>
             <button style={{width: '100%'}} onClick={addMark} disabled={buttonStatus === 'loading'}
                     className={buttonStatus === 'loading' ? 'button load' : 'button'}>Добавить
             </button>

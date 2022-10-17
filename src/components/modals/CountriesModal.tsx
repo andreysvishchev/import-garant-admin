@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
 import BaseModal from "./BaseModal";
 import {AppDispatchType, useAppSelector} from "../../store/store";
-import {openCountriesModal, openNewCountryModal} from "../../store/modalsReducer";
+import {openCountriesModal} from "../../store/modalsReducer";
 import ModalItem from "../modal-item/ModalItem";
 import {SelectedType} from "./ManufacturersModal";
-import {updateCountry, updateManufacturer} from "../../store/additionalReducer";
+import {updateCountry} from "../../store/additionalReducer";
 
 type PropsType = {
     changeCountry: (data: any) => void

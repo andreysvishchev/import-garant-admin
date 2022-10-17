@@ -4,7 +4,7 @@ import {openCategoriesModal, openEditModal, openGroupModal, openNoticeModal} fro
 import {
    addBarcodeToState,
    addClassifiersToState,
-   addCountriesToState,
+   addCountriesToState, addGroupFolderToState,
    addImportersToState,
    addManufacturerToState,
    addMarksToState,
@@ -13,7 +13,7 @@ import {
 } from "./additionalReducer";
 import {store} from "./store";
 import {api as apiF} from "../api/api";
-import {useNavigate} from "react-router-dom";
+import {addProductId} from "./siteReducer";
 
 const initState: initStateType = {
    categories: [],
@@ -125,10 +125,13 @@ export const baseDataLoading = () => (dispatch: Dispatch) => {
    const classifiers = api.getClassifiers()
    const units = api.getUnits()
    const barcode = api.getBarCode()
-   Promise.all([categories, groups, manufacturers, marks, importers, countries, rates, classifiers, units, barcode])
-      .then(([categories, groups, manufacturers,
-                marks, importers, countries,
-                rates, classifiers, units, barcode]) => {
+   const groupFolder = api.getGroupFolder()
+
+
+   Promise.all([categories, groups, manufacturers, marks, importers, countries, rates, classifiers, units, barcode, groupFolder])
+      .then(([categories, groups, manufacturers, marks,
+                importers, countries, rates, classifiers,
+                units, barcode,  groupFolder]) => {
          dispatch(addCategoriesToState(categories.data.value))
          dispatch(addGroupsToState(groups.data.value))
          dispatch(addManufacturerToState(manufacturers.data.value))
@@ -139,8 +142,10 @@ export const baseDataLoading = () => (dispatch: Dispatch) => {
          dispatch(addClassifiersToState(classifiers.data.value))
          dispatch(addUnitsToState(units.data.value))
          dispatch(addBarcodeToState(barcode.data.value))
+         dispatch(addGroupFolderToState(groupFolder.data.value))
          dispatch(changeLoginStatus(true))
          dispatch(changeErrorStatus(false))
+
       }).catch((error) => {
       if (error.response.status === 401) {
          dispatch(changeErrorStatus(true))
@@ -163,6 +168,7 @@ export const fetchProduct = (Ref_Key: string | undefined) => (dispatch: Dispatch
    dispatch(setProductPageStatus('loading'))
    api.getProduct(Ref_Key).then((res) => {
       dispatch(addProductToState(res.data))
+      dispatch(addProductId(res.data.Ref_Key))
       dispatch(setProductPageStatus('idle'))
    })
 }
@@ -182,6 +188,7 @@ export const addNewProduct = (product: any) => (dispatch: Dispatch) => {
    api.createProduct(product).then(res => {
       dispatch(addNewProductToState(res.data))
       dispatch(openNoticeModal(true, `Товар ${res.data.Description} добавлен`))
+      dispatch(addProductId(res.data.Ref_Key))
    }).finally(() => {
       dispatch(setButtonStatus("idle"))
    })
@@ -192,6 +199,7 @@ export const updateProduct = (product: any, id: string) => (dispatch: Dispatch) 
    api.updateProduct(product, id).then(res => {
       dispatch(changeDataProduct(res.data, id))
       dispatch(openNoticeModal(true, `Товар ${res.data.Description} изменен`))
+      dispatch(addProductId(res.data.Ref_Key))
    }).finally(() => {
       dispatch(setButtonStatus("idle"))
    })
@@ -203,8 +211,8 @@ export const createNewGroup = (data: any) => (dispatch: Dispatch) => {
       dispatch(addNewGroup(res.data))
       dispatch(openGroupModal(false))
    }).finally(() => {
-         dispatch(setButtonStatus("idle"))
-      })
+      dispatch(setButtonStatus("idle"))
+   })
 }
 export const updateGroupTitle = (data: any, id: string) => (dispatch: Dispatch) => {
    dispatch(setButtonStatus("loading"))

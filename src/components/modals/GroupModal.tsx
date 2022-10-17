@@ -5,7 +5,6 @@ import {AppDispatchType, useAppSelector} from "../../store/store";
 import {openGroupModal} from "../../store/modalsReducer";
 import BaseModal from "./BaseModal";
 
-
 type PropsType = {
    categoryId: string
 }

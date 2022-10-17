@@ -6,6 +6,7 @@ import { fetchProducts } from "../../../store/productsReducer";
 import GroupItem from "./GroupItem";
 import { CircularProgress } from "@mui/material";
 import Search from "../../../components/search/Search";
+import {addProductId} from "../../../store/siteReducer";
 
 const GroupPage = React.memo(() => {
   const { id, groupId } = useParams()
@@ -18,10 +19,9 @@ const GroupPage = React.memo(() => {
   const currentCategory = categories.find(el => el.Ref_Key === id)
   const currentGroup = groups.find(el => el.Ref_Key === groupId)
 
-
   useEffect(() => {
     dispatch(fetchProducts(groupId))
-  }, [])
+  }, [groupId])
 
   return status !== "loading" ? (
     <div className='content'>
@@ -32,7 +32,7 @@ const GroupPage = React.memo(() => {
           <div className='breadcrumbs__item'>{currentGroup.Description}</div>
         </div>
         <div className="content__row">
-          <Link className='button'
+          <Link className='button' onClick={()=> dispatch(addProductId(''))}
             to={`/admin/${id}/${groupId}/new`}>Добавить</Link>
           <Search categoryId={id!} groupId={groupId!} productList={productsList}/>
         </div>

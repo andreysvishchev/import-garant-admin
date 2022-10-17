@@ -29,7 +29,11 @@ const ClassifierModal: React.FC<PropsType> = memo(({id, unitId, changeClassifier
    const [fullName, setFullName] = useState(classifier !== undefined ? classifier.НаименованиеПолное : '')
    const [error, setError] = useState(false)
 
-   const handleClose = () => dispatch(openClassifierModal(false))
+
+   const handleClose = () => {
+      dispatch(openClassifierModal(false))
+      setError(false)
+   }
 
    const changeUnits = (e: ChangeEvent<HTMLSelectElement>) => {
       setValue(e.currentTarget.value)
@@ -51,12 +55,15 @@ const ClassifierModal: React.FC<PropsType> = memo(({id, unitId, changeClassifier
          setName(foundEl.Description)
          setFullName(foundEl.НаименованиеПолное)
          setValue(foundEl.ЕдиницаИзмерения_Key)
+      } else {
+         setFullName('')
+         setName('')
       }
    }
 
    const submitHandler = (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault()
-      if (code === '' && name === '') {
+      if (code !== '' && name !== '') {
          const foundEl = classifiers.find(el => el.Code === code)
          if (foundEl !== undefined) {
             const data = {
@@ -100,7 +107,7 @@ const ClassifierModal: React.FC<PropsType> = memo(({id, unitId, changeClassifier
             <div className="form__row">
                <div className='input-list'>
                   <div className='input-list__caption'>{'Код'}</div>
-                  <input onChange={changeCodeHandler} onBlur={onblurHandler} autoFocus placeholder={'Введите код'}
+                  <input onChange={changeCodeHandler} onBlur={onblurHandler} placeholder={'Введите код'}
                          className='input-list__field' list={'code-list'} value={code}/>
                   <datalist id={'code-list'}>
                      {classifiers.map(el => {
@@ -127,11 +134,11 @@ const ClassifierModal: React.FC<PropsType> = memo(({id, unitId, changeClassifier
             </div>
             <div className="input">
                <div className="input__caption">Наименование</div>
-               <input className="input__field" value={name} onChange={changeNameHandler}/>
+               <input className="input__field" value={name} placeholder={'Введите наименование'} onChange={changeNameHandler}/>
             </div>
             <div className="input">
                <div className="input__caption">Полное наименование</div>
-               <input className="input__field" value={fullName} onChange={changeFullNameHandler}/>
+               <input className="input__field" value={fullName} placeholder={'Введите полное наименование'} onChange={changeFullNameHandler}/>
             </div>
             <div className="modal__buttons" style={{marginTop: '30px'}}>
                <button style={{width: '100%'}} onClick={handleClose} className="button light">Закрыть</button>

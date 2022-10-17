@@ -31,7 +31,8 @@ const initState = {
       packageKey: '',
       productId: '',
       typeModal: ''
-   }
+   },
+   groupFolder: false
 
 }
 export const modalsReducer = (state: InitStateType = initState, action: ActionsType): InitStateType => {
@@ -82,6 +83,8 @@ export const modalsReducer = (state: InitStateType = initState, action: ActionsT
                typeModal: action.data.typeModal
             }
          }
+      case "MODAL/GROUP-FOLDER":
+         return {...state, groupFolder: action.status}
       default:
          return state
    }
@@ -129,6 +132,9 @@ export const openBarcodeModal = (status: boolean) => {
 export const openBarcodeEditModal = (data: any) => {
    return {type: 'MODAL/BARCODE-EDIT', data} as const
 }
+export const openGroupFolderModal = (status: boolean) => {
+   return {type: 'MODAL/GROUP-FOLDER', status} as const
+}
 
 
 type InitStateType = typeof initState
@@ -147,3 +153,4 @@ type ActionsType =
    | ReturnType<typeof openClassifierModal>
    | ReturnType<typeof openBarcodeModal>
    | ReturnType<typeof openBarcodeEditModal>
+   | ReturnType<typeof openGroupFolderModal>
