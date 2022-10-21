@@ -10,8 +10,9 @@ import BaseInfo from "./product-forms/BaseInfo";
 import AddInfo from "./product-forms/AddInfo";
 import {CircularProgress} from "@mui/material";
 import NoticeModal from "../../../components/modals/NoticeModal";
+import {getSiteInfo} from "../../../store/siteReducer";
 
-const ProductPage = React.memo(() => {
+const ProductPage = () => {
    const {id, groupId, productId} = useParams()
    const dispatch = useDispatch<AppDispatchType>()
    const product = useAppSelector(state => state.products.product)
@@ -24,6 +25,11 @@ const ProductPage = React.memo(() => {
    useEffect(() => {
       dispatch(fetchProduct(productId))
    }, [productId])
+
+   useEffect(() => {
+      dispatch(getSiteInfo(productId))
+   }, [])
+
 
    return status !== "loading" ? (
          <div className='content'>
@@ -60,6 +66,6 @@ const ProductPage = React.memo(() => {
       <div className='page-preloader'>
          <CircularProgress/>
       </div>;
-});
+};
 
 export default ProductPage;

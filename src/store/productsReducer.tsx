@@ -145,7 +145,6 @@ export const baseDataLoading = () => (dispatch: Dispatch) => {
          dispatch(addGroupFolderToState(groupFolder.data.value))
          dispatch(changeLoginStatus(true))
          dispatch(changeErrorStatus(false))
-
       }).catch((error) => {
       if (error.response.status === 401) {
          dispatch(changeErrorStatus(true))

@@ -32,7 +32,7 @@ type PropsType = {
    currentCategory: any
 }
 
-const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType) => {
+const BaseInfo = ({product, currentGroup, currentCategory}: PropsType) => {
    const dispatch = useDispatch<AppDispatchType>()
    const groupFolder = useAppSelector(state => state.additionally.groupFolder)
    const groups = useAppSelector(state => state.products.groups)
@@ -149,7 +149,7 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
       setGroupFolderKey(e.currentTarget.value)
    }
    const changeUnits = (e: ChangeEvent<HTMLSelectElement>) => {
-     setUnitsKey(e.currentTarget.value)
+      setUnitsKey(e.currentTarget.value)
    }
 
    const formik = useFormik({
@@ -456,6 +456,6 @@ const BaseInfo = React.memo(({product, currentGroup, currentCategory}: PropsType
          <CountriesModal changeCountry={changeCountry}/>
       </>
    )
-});
+};
 
 export default BaseInfo;

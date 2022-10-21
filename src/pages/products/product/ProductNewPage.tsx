@@ -1,21 +1,27 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link, useLocation, useParams} from "react-router-dom";
-import {useAppSelector} from "../../../store/store";
+import {AppDispatchType, useAppSelector} from "../../../store/store";
 import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
 import BaseInfo from "./product-forms/BaseInfo";
 import AddInfo from "./product-forms/AddInfo";
 import {Tooltip} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import {getSiteInfo} from "../../../store/siteReducer";
+import {useDispatch} from "react-redux";
 
 const ProductNewPage = () => {
    const {id, groupId} = useParams()
+   const dispatch = useDispatch<AppDispatchType>()
    const categories = useAppSelector(state => state.products.categories)
    const groups = useAppSelector(state => state.products.groups)
    const currentCategory = categories.find(el => el.Ref_Key === id)
    const currentGroup = groups.find(el => el.Ref_Key === groupId)
    const productIdForSite = useAppSelector(state => state.siteInfo.id)
 
+   useEffect(() => {
+      dispatch(getSiteInfo(productIdForSite))
+   }, [])
 
    return (
       <div className='content'>

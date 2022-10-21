@@ -17,7 +17,6 @@ const ProductsPage = () => {
    const dispatch = useDispatch<AppDispatchType>()
    const categories = useAppSelector(state => state.products.categories)
 
-
    return status !== 'loading' ? (
          <div className='wrap'>
             <div className="nav">

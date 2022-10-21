@@ -49,7 +49,7 @@ const Login = () => {
                 </div>
                 <div className="input">
                     <div className="input__caption">Пароль</div>
-                    <input className='input__field' placeholder='Введите пароль' type="password" onChange={changePassword}/>
+                    <input autoComplete="on" className='input__field' placeholder='Введите пароль' type="password" onChange={changePassword}/>
                 </div>
                 <button style={{marginTop: '15px'}} type={'button'} disabled={buttonStatus === "loading"}
                         onClick={submitHandler} className={buttonStatus === 'loading' ? 'button load' : 'button'}>Вход

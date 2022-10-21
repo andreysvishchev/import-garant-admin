@@ -1,4 +1,5 @@
 import axios, {AxiosInstance} from "axios";
+import {addFieldsValue, SiteInfoType} from "../store/siteReducer";
 
 
 // const uName = 'adm'
@@ -103,6 +104,15 @@ export const api = (instance: AxiosInstance) => ({
       return instance.post(`/Catalog_Номенклатура`, data)
    },
 })
+
+export const siteApi = {
+   getSiteInfo(id: string | undefined) {
+      return axios.get(`http://192.168.226.6/admin/get_data.ashx?id=${id}`)
+   },
+   addSiteInfo(data: SiteInfoType) {
+      return axios.post('http://192.168.226.6/admin/get_data.ashx', {data})
+   }
+}
 
 
 
