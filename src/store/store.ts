@@ -5,12 +5,14 @@ import {TypedUseSelectorHook, useSelector} from "react-redux";
 import {appReducer} from "./appReducer";
 import {modalsReducer} from "./modalsReducer";
 import {additionalReducer} from "./additionalReducer";
+import {siteReducer} from "./siteReducer";
 
 const rootReducer = combineReducers({
     products: productsReducer,
     app: appReducer,
     modals: modalsReducer,
-    additionally: additionalReducer
+    additionally: additionalReducer,
+    siteInfo: siteReducer
 });
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));

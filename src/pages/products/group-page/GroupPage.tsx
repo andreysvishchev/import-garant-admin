@@ -5,6 +5,8 @@ import { useDispatch } from "react-redux";
 import { fetchProducts } from "../../../store/productsReducer";
 import GroupItem from "./GroupItem";
 import { CircularProgress } from "@mui/material";
+import Search from "../../../components/search/Search";
+import {addProductId} from "../../../store/siteReducer";
 
 const GroupPage = React.memo(() => {
   const { id, groupId } = useParams()
@@ -19,27 +21,20 @@ const GroupPage = React.memo(() => {
 
   useEffect(() => {
     dispatch(fetchProducts(groupId))
-  }, [])
+  }, [groupId])
 
   return status !== "loading" ? (
     <div className='content'>
       <div className="content__top">
         <div className='breadcrumbs'>
           <Link className='breadcrumbs__link'
-            to={`/products/${id}`}>{currentCategory.Description}</Link>
+            to={`/admin/${id}`}>{currentCategory.Description}</Link>
           <div className='breadcrumbs__item'>{currentGroup.Description}</div>
         </div>
         <div className="content__row">
-          <Link className='button'
-            to={`/products/${id}/${groupId}/new`}>Добавить</Link>
-          <div className="sort">
-            <div className='sort__caption'>Сортировать по:</div>
-            <select className='sort__select'>
-              <option value="">По возрастнаию</option>
-              <option value="">По убыванию</option>
-              <option value="">По цене</option>
-            </select>
-          </div>
+          <Link className='button' onClick={()=> dispatch(addProductId(''))}
+            to={`/admin/${id}/${groupId}/new`}>Добавить</Link>
+          <Search categoryId={id!} groupId={groupId!} productList={productsList}/>
         </div>
       </div>
       <div className="content__main">

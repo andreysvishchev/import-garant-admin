@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Route, Routes} from "react-router-dom";
-import {AppDispatchType, useAppSelector} from "../../store/store";
+import {AppDispatchType, store, useAppSelector} from "../../store/store";
 import CategoryPage from "./category-page/CategoryPage";
 import {NavLink} from 'react-router-dom';
 import ProductPage from "./product/ProductPage";
@@ -13,10 +13,6 @@ import EditModal from "../../components/modals/EditModal";
 import {CircularProgress} from "@mui/material";
 
 const ProductsPage = () => {
-   // useEffect(() => {
-   //     dispatch(baseDataLoading())
-   // }, [])
-
    const status = useAppSelector(state => state.app.appStatus)
    const dispatch = useDispatch<AppDispatchType>()
    const categories = useAppSelector(state => state.products.categories)
@@ -24,14 +20,14 @@ const ProductsPage = () => {
    return status !== 'loading' ? (
          <div className='wrap'>
             <div className="nav">
-               <button style={{marginLeft: '30px'}} className='button'
-                       onClick={() => dispatch(openCategoriesModal(true))}>Добавить
+               <button style={{marginLeft: '30px'}} className='button' onClick={() => dispatch(openCategoriesModal(true))}>
+                  Добавить
                </button>
                <div className="nav__list">
                   {categories.map(el => {
                      return (
                         <NavLink className='nav__link' key={el.Ref_Key}
-                                 to={`/products/${el.Ref_Key}`}>{el.Description}</NavLink>
+                                 to={`/admin/${el.Ref_Key}`}>{el.Description}</NavLink>
                      )
                   })}
                </div>
