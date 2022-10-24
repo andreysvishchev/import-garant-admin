@@ -13,28 +13,54 @@ const Main = () => {
   const [state, setState] = useState<any[]>()
 
   const test = () => {
-    /*      axios.get("Catalog_Номенклатура?$format=json", {
-              headers: headers
-          })
-              .then((r) => {
-                  console.log(r.data)
-
-                  setState( r.data.value)
-              })*/
-    axios.get("Catalog_ВидыНоменклатуры?$format=json", {
+    axios.get("Catalog_ВидыНоменклатуры?$select=Ref_Key,Description,IsFolder,Parent_Key", {
       headers: headers
     })
       .then((r) => {
         console.log(r.data.value)
 
-        setState(r.data.value)
+        // setState(r.data.value)
       })
   }
 
+  const test2 = () => {
+    axios.get("Catalog_ВидыНоменклатуры?$format=json", {
+      headers: headers
+    })
+      .then((r) => {
+        console.log(r.data.value)
+      })
+  }
+
+  const test3 = () => {
+    axios.get(`Catalog_Номенклатура(guid'c6b018d4-01ca-11ed-801e-e0d55e051ed2')?$select=Ref_Key,Description,Parent_Key,Описание,Производитель_Key,СтранаПроисхождения_Key,ВидНоменклатуры_Key,Марка_Key,ЕдиницаИзмерения_Key,ВесЧислитель,ОбъемЧислитель,ДлинаЧислитель,ПлощадьЧислитель`, {
+      headers: headers
+    })
+      .then((r) => {
+        console.log(r)
+      })
+  }
+
+//  : '', 
+//   Description: '',
+//   Parent_Key: '',
+//   Описание:'',
+//   Производитель_Key: '',
+//   СтранаПроисхождения_Key: '',
+//   ВидНоменклатуры_Key: '',
+//   Марка_Key: '',
+//   ЕдиницаИзмерения_Key: '',
+//   ВесЧислитель: '',
+//   ОбъемЧислитель: '',     
+//   ДлинаЧислитель: '',
+//   ПлощадьЧислитель: '',
 
   return (
     <div>
-      <button onClick={test}>123</button>
+      <button onClick={test}>select</button>
+      <button onClick={test2}>all</button>
+      <button onClick={test3}>product</button>
+    
 
 
       {state?.map((el, i) => {

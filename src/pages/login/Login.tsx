@@ -28,7 +28,7 @@ const Login: React.FC<PropsType> = ({}) => {
             login, password
         }
         const instance = axios.create({
-            baseURL: "/importgarant_ut/odata/standard.odata/",
+            // baseURL: "/importgarant_ut/odata/standard.odata/",
             headers: {
                 // 'Authorization': "Basic " + window.btoa(login + ':' + password),
                 'Authorization': "Basic " + window.btoa(unescape(encodeURIComponent(login + ':' + password))),
