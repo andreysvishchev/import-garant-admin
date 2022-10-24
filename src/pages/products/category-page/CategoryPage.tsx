@@ -1,12 +1,10 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { AppDispatchType, useAppSelector } from "../../../store/store";
-import Search from "../../../components/search/Search";
 import { useDispatch } from "react-redux";
 import GroupModal from "../../../components/modals/GroupModal";
 import CategoryItem from "./CategoryItem";
 import { openGroupModal } from "../../../store/modalsReducer";
-
 
 const CategoryPage = () => {
   const { id } = useParams()
@@ -25,7 +23,6 @@ const CategoryPage = () => {
         </div>
         <div className="content__row">
           <button className='button' onClick={() => dispatch(openGroupModal(true))}>Добавить</button>
-          <Search id={id!} />
         </div>
       </div>
       <div className="content__main">

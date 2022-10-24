@@ -10,12 +10,10 @@ type PropsType = {
   setSelected: (id: string, title: string, parentId: string) => void
 }
 const TypeList = (props: PropsType) => {
-
   const [open, setOpen] = useState(false)
 
-  const openListHandler = () => {
-    setOpen(!open)
-  }
+  const openListHandler = () => setOpen(!open)
+
 
 
   return (

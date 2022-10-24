@@ -285,10 +285,12 @@ body {
     height: 70px;
     background-color: $dark-grey;
     font-size: 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+
+    img {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+    }
   }
 
   &__filters {
@@ -399,7 +401,7 @@ body {
 
 .wrap {
   display: flex;
-  min-height: calc(100vh - 69px);
+  min-height: 100vh;
 
   &__btn {
     color: $black;
@@ -468,7 +470,7 @@ body {
 
   &__captions {
     display: grid;
-    grid-template-columns: 200px 1fr 200px;
+    grid-template-columns: 250px 1fr;
   }
 
   &__caption {
@@ -558,8 +560,11 @@ body {
   }
 
   &__tab {
-    padding: 10px 30px;
+    padding: 9px 30px;
     width: calc(100% / 3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     font-weight: 500;
     cursor: pointer;
@@ -567,6 +572,10 @@ body {
     background-color: #fff;
     border: 1px solid $dark-green;
     color: $dark-green;
+
+    &--disabled {
+      color: $dark-grey;
+    }
 
     &--selected {
       background-color: $dark-green;
@@ -582,8 +591,8 @@ body {
   &__caption {
     font-size: 14px;
     font-weight: 500;
-    margin-bottom: 7px;
     color: #494343;
+    margin-bottom: 7px;
   }
 
   &__field {
@@ -597,6 +606,12 @@ body {
     &:focus {
       border-color: $dark-green;
     }
+  }
+
+  &__error {
+    font-size: 14px;
+    margin-top: 5px;
+    color: red;
   }
 }
 
@@ -699,10 +714,17 @@ body {
     align-items: center;
   }
 
+  &__error {
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 10px;
+    color: red;
+  }
+
   &__col {
     display: flex;
     align-items: center;
-    width: 50%;
+    width: 100%;
     gap: 10px;
   }
 
@@ -775,15 +797,14 @@ body {
   color: $dark-green;
   text-decoration: underline;
   cursor: pointer;
-  margin: 15px 0;
 }
 
 .barcode-item {
   display: grid;
-  grid-template-columns: 200px 1fr 200px;
+  grid-template-columns: 250px 1fr;
   align-items: center;
   border-bottom: 1px solid #C1C1C1;
-  cursor: pointer;
+  //cursor: pointer;
 
   &:hover {
     background-color: #60b31b8c;
@@ -817,6 +838,7 @@ body {
 
 .table {
   padding: 20px;
+
   td {
     padding: 5px;
     border: 1px solid black;
@@ -825,4 +847,22 @@ body {
   .no-border {
     border: none;
   }
+}
+
+.input-img {
+  width: 350px;
+  height: 350px;
+  display: block;
+  margin-bottom: 30px;
+}
+
+.input-img-empty {
+  width: 350px;
+  height: 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  line-height: 24px;
+  background-color: $grey;
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
 import { AppDispatchType, useAppSelector } from "../../store/store";
 import TypeList from "../../pages/products/product/type-list/TypeList";
@@ -43,7 +43,7 @@ const ProductTypeModal = React.memo( (props: PropsType) => {
         className="modal__buttons">
         <button style={{ padding: '5px 15px' }} onClick={changeItemHandler} className='button'>Выбрать</button>
         {/* <button style={{ padding: '5px 15px' }} className='button'>Создать</button> */}
-        <input type={"search"} className={'modal__search'} placeholder={'Поиск'} />
+        {/*<input type={"search"} className={'modal__search'} placeholder={'Поиск'} />*/}
       </div>
       <div className="modal__list">
         <div className="modal__caption">Наименование</div>

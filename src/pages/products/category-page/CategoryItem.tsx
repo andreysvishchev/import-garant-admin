@@ -1,11 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Link, useParams} from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
-import FolderIcon from "@mui/icons-material/Folder";
 import {Checkbox} from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditModal from "../../../components/modals/EditModal";
 import PackIcon from '../../../img/pack.svg'
 import {useDispatch} from "react-redux";
 import {AppDispatchType} from "../../../store/store";
@@ -24,7 +22,7 @@ const CategoryItem: React.FC<PropsType> = React.memo(({data}) => {
             className={img ? 'content__item img' : 'content__item'}
             key={data.Ref_Key}>
             <Link className='content__link'
-                  to={`/products/${id}/${data.Ref_Key}`}>
+                  to={`/admin/${id}/${data.Ref_Key}`}>
                 <img style={{marginRight: '15px'}} src={PackIcon} alt="icon"/>
                 {data.Description}</Link>
             <div className='content__public content__col'>

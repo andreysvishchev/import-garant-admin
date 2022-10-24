@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import BaseModal from "./BaseModal";
 import {useDispatch} from "react-redux";
 import {AppDispatchType, useAppSelector} from "../../store/store";
@@ -9,7 +9,6 @@ const NoticeModal = () => {
     const open = useAppSelector(state => state.modals.notice.status)
     const title = useAppSelector(state => state.modals.notice.title)
     const handleClose = () => dispatch(openNoticeModal(false, ''));
-
 
     return (
         <BaseModal open={open} handleClose={handleClose} title={title}>

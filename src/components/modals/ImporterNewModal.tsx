@@ -27,8 +27,7 @@ const ImporterNewModal: React.FC<PropsType> = ({open, setOpen, }) => {
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
+                aria-describedby="modal-modal-description">
                 <Box sx={style}>
                     <div className="modal">
                         <IconButton onClick={handleClose}
@@ -47,7 +46,6 @@ const ImporterNewModal: React.FC<PropsType> = ({open, setOpen, }) => {
                             <button style={{width: '100%'}} onClick={handleClose} className="button light">Закрыть</button>
                             <button style={{width: '100%'}} className="button">Добавить</button>
                         </div>
-
                     </div>
                 </Box>
             </Modal>
