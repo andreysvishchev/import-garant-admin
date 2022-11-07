@@ -4,6 +4,7 @@ import {AppDispatchType, useAppSelector} from "../../store/store";
 import {updateGroupTitle, updateProductTitle} from "../../store/productsReducer";
 import BaseModal from "./BaseModal";
 import {openEditModal} from "../../store/modalsReducer";
+import {translit} from "../../functions/translit";
 
 
 const EditModal = () => {
@@ -15,21 +16,51 @@ const EditModal = () => {
    const param = useAppSelector(state => state.modals.edit.param)
    const caption = useAppSelector(state => state.modals.edit.caption)
    const [value, setValue] = useState(title)
+   const [error, setError] = useState(false)
+   const [errorText, setErrorText] = useState('')
+   const categories = useAppSelector(state => state.products.categories)
+   const groups = useAppSelector(state => state.products.groups)
 
    useEffect(() => {
       setValue(title)
    }, [title])
 
-   const handleClose = () => dispatch(openEditModal(false, '', '', '', ''));
+   const handleClose = () => {
+      setError(false)
+      setErrorText('')
+      dispatch(openEditModal(false, '', '', '', ''));
+   }
 
    const onClickHandler = () => {
+      const str = value.trim()
       if (param === "group") {
-         const group = {Description: value}
-         dispatch(updateGroupTitle(group, id))
+         const matchByCategories = categories.find(el => el.Description === str)
+         const matchByGroup = groups.find(el => el.Description === str)
+         if (str === '') {
+            setError(true)
+            setErrorText('Поле не может быть пустым')
+         } else if (str === title) {
+            setError(true)
+            setErrorText('Название не изменилось, просто нажмите крестик')
+         } else if (matchByGroup !== undefined) {
+            setError(true)
+            setErrorText('Название не может совпадать с названием группы')
+         } else if (matchByCategories !== undefined) {
+            setError(true)
+            setErrorText('Название не может совпадать с названием категории')
+         } else {
+            const group = {Description: str}
+            console.log(group)
+            // dispatch(updateGroupTitle(group, id))
+            handleClose()
+         }
+
       }
       if (param === "product") {
-         const data = {Description: value}
-         dispatch(updateProductTitle(data, id))
+         if (str !== '') {
+            const data = {Description: value}
+            dispatch(updateProductTitle(data, id))
+         }
       }
    }
 
@@ -39,6 +70,7 @@ const EditModal = () => {
 
    return (
       <BaseModal open={status} handleClose={handleClose} title={caption}>
+         {error && <div className='error'>{errorText}</div>}
          <div className='input'>
             <div className='input__caption'>Введите название</div>
             <input className='input__field' value={value} onChange={onChangeHandler}/>

@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {api as apiF} from "../api/api";
+import {odataApi as apiF} from "../api/odataApi";
 import {store} from "./store";
 import {setButtonStatus} from "./appReducer";
 import {openBarcodeEditModal, openClassifierModal, openGroupFolderModal, openNewManufacturerModal, openNewMarkModal} from "./modalsReducer";

@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {siteApi} from "../api/api";
+import {siteApi} from "../api/odataApi";
 import {openNoticeModal} from "./modalsReducer";
 
 const initState = {
@@ -54,6 +54,7 @@ export const postSiteInfo = (data: SiteInfoType) => (dispatch: Dispatch) => {
    siteApi.addSiteInfo(data)
       .then(res => {
          if (res.data.ret === 0) {
+            dispatch(addFieldsValue(data))
             dispatch(openNoticeModal(true, 'Информация о товаре сохранена'))
          } else {
             dispatch(openNoticeModal(true, 'Ошибка, просьба уведомить разработчиков сайта'))

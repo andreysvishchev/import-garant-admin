@@ -156,34 +156,34 @@ const BaseInfo = ({product, currentGroup, currentCategory}: PropsType) => {
       initialValues: {
          Parent_Key: groupFolderKey,
          Description: product ? product.Description : '',
-         ТипНоменклатуры: 'Товар',
-         НаименованиеПолное: product ? product.НаименованиеПолное : '',
-         Артикул: product ? product.Артикул : '',
+         ['ТипНоменклатуры']: 'Товар',
+         ['НаименованиеПолное']: product ? product.НаименованиеПолное : '',
+         ['Артикул']: product ? product.Артикул : '',
          Code: product ? product.Code : '',
-         Описание: product ? product.Описание : '',
-         КодТНВЭД_Key: classifierKey,
-         Производитель_Key: manufacturerKey,
-         СтранаПроисхождения_Key: countryKey,
-         ВидНоменклатуры_Key: groupKey,
-         Марка_Key: markKey,
-         ЕдиницаИзмерения_Key: unitsKey,
-         ВесИспользовать: product ? product.ВесИспользовать : false,
-         ВесМожноУказыватьВДокументах: product ? product.ВесМожноУказыватьВДокументах : false,
-         ОбъемИспользовать: product ? product.ОбъемИспользовать : false,
-         ОбъемМожноУказыватьВДокументах: product ? product.ОбъемМожноУказыватьВДокументах : false,
-         ДлинаИспользовать: product ? product.ДлинаИспользовать : false,
-         ДлинаМожноУказыватьВДокументах: product ? product.ДлинаМожноУказыватьВДокументах : false,
-         ПлощадьИспользовать: product ? product.ПлощадьИспользовать : false,
-         ПлощадьМожноУказыватьВДокументах: product ? product.ПлощадьМожноУказыватьВДокументах : false,
-         ВесЗнаменатель: product ? product.ВесЗнаменатель : 0,
-         ВесЧислитель: product ? product.ВесЧислитель : 0,
-         ОбъемЗнаменатель: product ? product.ОбъемЗнаменатель : 0,
-         ОбъемЧислитель: product ? product.ОбъемЧислитель : 0,
-         ДлинаЗнаменатель: product ? product.ДлинаЗнаменатель : 0,
-         ДлинаЧислитель: product ? product.ДлинаЧислитель : 0,
-         ПлощадьЗнаменатель: product ? product.ПлощадьЗнаменатель : 0,
-         ПлощадьЧислитель: product ? product.ПлощадьЧислитель : 0,
-         СтавкаНДС_Key: rateKey
+         ['Описание']: product ? product.Описание : '',
+         ['КодТНВЭД_Key']: classifierKey,
+         ['Производитель_Key']: manufacturerKey,
+         ['СтранаПроисхождения_Key']: countryKey,
+         ['ВидНоменклатуры_Key']: groupKey,
+         ['Марка_Key']: markKey,
+         ['ЕдиницаИзмерения_Key']: unitsKey,
+         ['ВесИспользовать']: product ? product.ВесИспользовать : false,
+         ['ВесМожноУказыватьВДокументах']: product ? product.ВесМожноУказыватьВДокументах : false,
+         ['ОбъемИспользовать']: product ? product.ОбъемИспользовать : false,
+         ['ОбъемМожноУказыватьВДокументах']: product ? product.ОбъемМожноУказыватьВДокументах : false,
+         ['ДлинаИспользовать']: product ? product.ДлинаИспользовать : false,
+         ['ДлинаМожноУказыватьВДокументах']: product ? product.ДлинаМожноУказыватьВДокументах : false,
+         ['ПлощадьИспользовать']: product ? product.ПлощадьИспользовать : false,
+         ['ПлощадьМожноУказыватьВДокументах']: product ? product.ПлощадьМожноУказыватьВДокументах : false,
+         ['ВесЗнаменатель']: product ? product.ВесЗнаменатель : 0,
+         ['ВесЧислитель']: product ? product.ВесЧислитель : 0,
+         ['ОбъемЗнаменатель']: product ? product.ОбъемЗнаменатель : 0,
+         ['ОбъемЧислитель']: product ? product.ОбъемЧислитель : 0,
+         ['ДлинаЗнаменатель']: product ? product.ДлинаЗнаменатель : 0,
+         ['ДлинаЧислитель']: product ? product.ДлинаЧислитель : 0,
+         ['ПлощадьЗнаменатель']: product ? product.ПлощадьЗнаменатель : 0,
+         ['ПлощадьЧислитель']: product ? product.ПлощадьЧислитель : 0,
+         ['СтавкаНДС_Key']: rateKey
       },
       onSubmit: values => {
          values.Parent_Key = groupFolderKey
@@ -333,9 +333,7 @@ const BaseInfo = ({product, currentGroup, currentCategory}: PropsType) => {
                {product && <div className="form__row">
                   <button type='button' className='barcode' onClick={() => dispatch(openBarcodeModal(true))}>Штрихкод</button>
                </div>}
-
             </div>
-
             <div className="form__parameter">
                <div className="form__row">
                   <div className='form__caption'>Вес</div>
@@ -443,6 +441,7 @@ const BaseInfo = ({product, currentGroup, currentCategory}: PropsType) => {
                       manufacturer={manufacturerField} country={countryField} mark={markField} view={viewField}/>
             </div>
          </form>
+
          {product && <BarcodeModal productId={product.Ref_Key} productTitle={product.Description}/>}
          <GroupFolderModal/>
          <ProductTypeModal changeGroup={changeGroup} currentGroup={currentGroup}/>

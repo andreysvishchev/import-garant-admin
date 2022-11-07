@@ -16,6 +16,7 @@ const Search = (props: PropsType) => {
 
    useOnClickOutside(ref, () => setOpen(false))
 
+   
    const productList = props.productList.filter(el => {
       return el.Description.toLowerCase().includes(value.toLowerCase())
    })

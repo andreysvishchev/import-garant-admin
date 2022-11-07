@@ -64,8 +64,8 @@ type InitStateType = {
    password: string
    instance: any,
    error: boolean
-
 }
+
 type ActionsType =
    ReturnType<typeof setAppStatus>
    | ReturnType<typeof setProductPageStatus>
@@ -74,6 +74,7 @@ type ActionsType =
    | ReturnType<typeof appFetchData>
    | ReturnType<typeof changeLoginStatus>
    | ReturnType<typeof changeErrorStatus>
+
 export type AppStatusType = 'idle' | 'loading'
 
 

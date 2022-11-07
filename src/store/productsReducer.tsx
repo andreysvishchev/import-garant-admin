@@ -12,7 +12,7 @@ import {
    addUnitsToState
 } from "./additionalReducer";
 import {store} from "./store";
-import {api as apiF} from "../api/api";
+import {odataApi as apiF} from "../api/odataApi";
 import {addProductId} from "./siteReducer";
 
 const initState: initStateType = {
@@ -112,14 +112,11 @@ export const changeProductTitle = (data: any, id: string) => {
 export const baseDataLoading = () => (dispatch: Dispatch) => {
    dispatch(setAppStatus('loading'))
    dispatch(setButtonStatus("loading"))
-   const login = store.getState().app.login
-   const password = store.getState().app.password
    const api = apiF(store.getState().app.instance)
    const categories = api.getCategories()
    const groups = api.getGroups()
    const manufacturers = api.getManufacturer()
    const marks = api.getMarks()
-   const importers = api.getImporters()
    const countries = api.getCountries()
    const rates = api.getRatesNDS()
    const classifiers = api.getClassifiers()
@@ -128,14 +125,14 @@ export const baseDataLoading = () => (dispatch: Dispatch) => {
    const groupFolder = api.getGroupFolder()
 
 
-   Promise.all([categories, groups, manufacturers, marks, importers, countries, rates, classifiers, units, barcode, groupFolder])
+   Promise.all([categories, groups, manufacturers, marks, countries, rates, classifiers, units, barcode, groupFolder])
       .then(([categories, groups, manufacturers, marks,
-                importers, countries, rates, classifiers,
+               countries, rates, classifiers,
                 units, barcode,  groupFolder]) => {
          dispatch(addCategoriesToState(categories.data.value))
+         console.log(categories)
          dispatch(addGroupsToState(groups.data.value))
          dispatch(addManufacturerToState(manufacturers.data.value))
-         dispatch(addImportersToState(importers.data.value))
          dispatch(addMarksToState(marks.data.value))
          dispatch(addCountriesToState(countries.data.value))
          dispatch(addRatesToState(rates.data.value))

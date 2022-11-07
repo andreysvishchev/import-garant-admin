@@ -38,25 +38,24 @@ const Login = () => {
         }
     }
 
-
-    return (
-        <div className='login'>
-            <form className='login__form' onSubmit={submitHandler} autoComplete={'on'}>
-                {error && <div className='error'>Неверный логин или пароль</div>}
-                <div className="input">
-                    <div className="input__caption">Логин</div>
-                    <input className='input__field' placeholder='Введите  лоигн' type="text" onChange={changeLogin}/>
-                </div>
-                <div className="input">
-                    <div className="input__caption">Пароль</div>
-                    <input autoComplete="on" className='input__field' placeholder='Введите пароль' type="password" onChange={changePassword}/>
-                </div>
-                <button style={{marginTop: '15px'}} type={'button'} disabled={buttonStatus === "loading"}
-                        onClick={submitHandler} className={buttonStatus === 'loading' ? 'button load' : 'button'}>Вход
-                </button>
-            </form>
-        </div>
-    );
+   return (
+      <div className='login'>
+         <form className='login__form' onSubmit={submitHandler} autoComplete={'on'}>
+            {error && <div className='error'>Неверный логин или пароль</div>}
+            <div className="input">
+               <div className="input__caption">Логин</div>
+               <input className='input__field' placeholder='Введите  лоигн' type="text" onChange={changeLogin}/>
+            </div>
+            <div className="input">
+               <div className="input__caption">Пароль</div>
+               <input autoComplete="on" className='input__field' placeholder='Введите пароль' type="password" onChange={changePassword}/>
+            </div>
+            <button style={{marginTop: '15px'}} type={'button'} disabled={buttonStatus === "loading"}
+                    onClick={submitHandler} className={buttonStatus === 'loading' ? 'button load' : 'button'}>Вход
+            </button>
+         </form>
+      </div>
+   );
 };
 
 

@@ -4,7 +4,7 @@ import {AppDispatchType, store, useAppSelector} from "../../store/store";
 import {useDispatch} from "react-redux";
 import {openClassifierModal} from "../../store/modalsReducer";
 import {addNewClassifier, updateClassifier} from "../../store/additionalReducer";
-import {api as apiF} from "../../api/api";
+import {odataApi as apiF} from "../../api/odataApi";
 
 type PropsType = {
    id: string
@@ -29,12 +29,10 @@ const ClassifierModal: React.FC<PropsType> = memo(({id, unitId, changeClassifier
    const [fullName, setFullName] = useState(classifier !== undefined ? classifier.НаименованиеПолное : '')
    const [error, setError] = useState(false)
 
-
    const handleClose = () => {
       dispatch(openClassifierModal(false))
       setError(false)
    }
-
    const changeUnits = (e: ChangeEvent<HTMLSelectElement>) => {
       setValue(e.currentTarget.value)
    }
