@@ -16,6 +16,8 @@ const ProductsPage = () => {
    const status = useAppSelector(state => state.app.appStatus)
    const dispatch = useDispatch<AppDispatchType>()
    const categories = useAppSelector(state => state.products.categories)
+   console.log(categories);
+   
 
    return status !== 'loading' ? (
          <div className='wrap'>

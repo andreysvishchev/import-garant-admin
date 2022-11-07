@@ -159,7 +159,7 @@ const BaseInfo = ({product, currentGroup, currentCategory}: PropsType) => {
          ['ТипНоменклатуры']: 'Товар',
          ['НаименованиеПолное']: product ? product.НаименованиеПолное : '',
          ['Артикул']: product ? product.Артикул : '',
-         ['Code']: product ? product.Code : '',
+         Code: product ? product.Code : '',
          ['Описание']: product ? product.Описание : '',
          ['КодТНВЭД_Key']: classifierKey,
          ['Производитель_Key']: manufacturerKey,
@@ -333,9 +333,7 @@ const BaseInfo = ({product, currentGroup, currentCategory}: PropsType) => {
                {product && <div className="form__row">
                   <button type='button' className='barcode' onClick={() => dispatch(openBarcodeModal(true))}>Штрихкод</button>
                </div>}
-
             </div>
-
             <div className="form__parameter">
                <div className="form__row">
                   <div className='form__caption'>Вес</div>
@@ -443,6 +441,7 @@ const BaseInfo = ({product, currentGroup, currentCategory}: PropsType) => {
                       manufacturer={manufacturerField} country={countryField} mark={markField} view={viewField}/>
             </div>
          </form>
+
          {product && <BarcodeModal productId={product.Ref_Key} productTitle={product.Description}/>}
          <GroupFolderModal/>
          <ProductTypeModal changeGroup={changeGroup} currentGroup={currentGroup}/>
