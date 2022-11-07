@@ -12,18 +12,22 @@ import {addFieldsValue, SiteInfoType} from "../store/siteReducer";
 //    },
 // })
 
+const baseId = '00000000-0000-0000-0000-000000000000'
+const baseParams = 'Ref_Key,Description,IsFolder,Parent_Key'
+
 export const api = (instance: AxiosInstance) => ({
    getCategories() {
-      return instance.get(`/Catalog_ВидыНоменклатуры?$filter=IsFolder?$format=json`)
+      // return instance.get(`/Catalog_ВидыНоменклатуры?$filter=IsFolder?$format=json`)
+      return instance.get(`/Catalog_ВидыНоменклатуры?$filter=IsFolder&$select=${baseParams}`)
    },
    getGroupFolder() {
-      return instance.get(`/Catalog_Номенклатура?$filter=Parent_Key eq guid'25e24bee-cfd0-11e5-8a17-74d435b03623'?$format=json`)
+      return instance.get(`/Catalog_Номенклатура?$filter=Parent_Key eq guid'25e24bee-cfd0-11e5-8a17-74d435b03623'&$format=json&$select=${baseParams}`)
    },
    getGroups() {
-      return instance.get(`/Catalog_ВидыНоменклатуры?$format=json`)
+      return instance.get(`/Catalog_ВидыНоменклатуры?$format=json&$filter=IsFolder eq false and Parent_Key ne guid'${baseId}'&$select=${baseParams}`)
    },
    getUnits() {
-      return instance.get(`/Catalog_УпаковкиЕдиницыИзмерения?$format=json`)
+      return instance.get(`/Catalog_УпаковкиЕдиницыИзмерения?$format=json&$select=Ref_Key,Description`)
    },
    getBarCode() {
       return instance.get(`/InformationRegister_ШтрихкодыНоменклатуры?$format=json`)
@@ -48,9 +52,6 @@ export const api = (instance: AxiosInstance) => ({
    },
    getProducts(Ref_Key: string | undefined) {
       return instance.get(`/Catalog_Номенклатура?$filter=ВидНоменклатуры_Key eq guid'${Ref_Key}'?$format=json`)
-   },
-   getProductsForCategory(id: string) {
-      return instance.get(`/Catalog_Номенклатура?$filter=Parent_Key eq guid'${id}' and IsFolder ne true?$format=json`)
    },
    getProduct(Ref_Key: string | undefined) {
       return instance.get(`/Catalog_Номенклатура(guid'${Ref_Key}')?$format=json`)
@@ -108,9 +109,11 @@ export const api = (instance: AxiosInstance) => ({
 export const siteApi = {
    getSiteInfo(id: string | undefined) {
       return axios.get(`http://192.168.226.6/admin/get_data.ashx?id=${id}`)
+      // return axios.get(`/admin/get_data.ashx?id=${id}`)
    },
    addSiteInfo(data: SiteInfoType) {
       return axios.post('http://192.168.226.6/admin/get_data.ashx', {data})
+      // return axios.post('/admin/get_data.ashx', {data})
    }
 }
 

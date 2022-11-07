@@ -112,8 +112,6 @@ export const changeProductTitle = (data: any, id: string) => {
 export const baseDataLoading = () => (dispatch: Dispatch) => {
    dispatch(setAppStatus('loading'))
    dispatch(setButtonStatus("loading"))
-   const login = store.getState().app.login
-   const password = store.getState().app.password
    const api = apiF(store.getState().app.instance)
    const categories = api.getCategories()
    const groups = api.getGroups()
