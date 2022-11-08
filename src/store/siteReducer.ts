@@ -48,6 +48,7 @@ export const getSiteInfo = (id: string | undefined) => (dispatch: Dispatch) => {
    siteApi.getSiteInfo(id)
       .then(res => {
          dispatch(addFieldsValue(res.data))
+         console.log(res.data)
       })
 }
 export const postSiteInfo = (data: SiteInfoType) => (dispatch: Dispatch) => {

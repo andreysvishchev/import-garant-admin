@@ -130,7 +130,6 @@ export const baseDataLoading = () => (dispatch: Dispatch) => {
                countries, rates, classifiers,
                 units, barcode,  groupFolder]) => {
          dispatch(addCategoriesToState(categories.data.value))
-         console.log(categories)
          dispatch(addGroupsToState(groups.data.value))
          dispatch(addManufacturerToState(manufacturers.data.value))
          dispatch(addMarksToState(marks.data.value))

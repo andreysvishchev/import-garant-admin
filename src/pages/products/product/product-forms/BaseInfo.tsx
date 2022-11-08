@@ -195,7 +195,7 @@ const BaseInfo = ({product, currentGroup, currentCategory}: PropsType) => {
          values.Марка_Key = markKey
          values.СтавкаНДС_Key = rateKey
          values.ЕдиницаИзмерения_Key = unitsKey
-         console.log(values)
+
          if (product) {
             dispatch(updateProduct(values, product.Ref_Key))
          } else {

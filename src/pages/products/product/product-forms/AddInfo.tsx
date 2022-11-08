@@ -13,8 +13,8 @@ const AddInfo = () => {
    const data = useAppSelector(state => state.siteInfo)
    const [file64, setFile64] = useState('')
    const [download, setDownload] = useState(false)
-   const imgSrc = `http://192.168.226.6/admin/img.ashx?id=${data.id}`
-   // const imgSrc = `/admin/img.ashx?id=${data.id}`
+   // const imgSrc = `http://192.168.226.6/admin/img.ashx?id=${data.id}`
+   const imgSrc = `/admin/img.ashx?id=${data.id}`
 
    async function upload(e: ChangeEvent<HTMLInputElement>) {
       const newFile = e.target.files && e.target.files[0];
@@ -40,19 +40,18 @@ const AddInfo = () => {
       initialValues: {
          id: data.id,
          image: file64,
-         energy_value: data.energy_value,
-         proteins: data.proteins,
-         fats: data.fats,
-         carbohydrates: data.carbohydrates,
-         expiration_date: data.expiration_date,
-         composition: data.composition,
-         package: data.package,
-         storage_conditions: data.storage_conditions,
+         energy_value: data.energy_value !== undefined ? data.energy_value : '',
+         proteins: data.proteins !== undefined ? data.proteins : '',
+         fats: data.fats !== undefined ? data.fats : '',
+         carbohydrates: data.carbohydrates !== undefined ? data.fats : '',
+         expiration_date: data.expiration_date !== undefined ? data.expiration_date : '',
+         composition: data.composition !== undefined ? data.composition : '',
+         package: data.package !== undefined ? data.package : '',
+         storage_conditions: data.storage_conditions !== undefined ? data.storage_conditions : ''
       },
       onSubmit: values => {
          if (download) {
             values.image = file64
-            console.log(values.image)
          } else {
             values.image = ''
          }

@@ -14,7 +14,7 @@ const CategoryPage = () => {
   const currentCategory = categories.find(el => el.Ref_Key === id)
   const filterGroups = groups.filter(el => el.Parent_Key === id)
   const dispatch = useDispatch<AppDispatchType>()
-  console.log(groups)
+
   return (
     <div className='content'>
       <div className="content__top">
