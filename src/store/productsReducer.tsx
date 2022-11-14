@@ -5,7 +5,6 @@ import {
    addBarcodeToState,
    addClassifiersToState,
    addCountriesToState, addGroupFolderToState,
-   addImportersToState,
    addManufacturerToState,
    addMarksToState,
    addRatesToState,
@@ -53,26 +52,46 @@ export const productsReducer = (state: initStateType = initState, action: Action
             } : el)
          }
       case "UPDATE-PRODUCT":
+         console.log(action.data)
          return {
             ...state,
             productsList: state.productsList.map(el => el.Ref_Key === action.id ? {
                ...el,
                Ref_Key: action.data.Ref_Key,
+               Parent_Key: action.data.Parent_Key,
                Description: action.data.Description,
-               НаименованиеПолное: action.data.НаименованиеПолное,
-               Артикул: action.data.Артикул,
+               ['НаименованиеПолное']: action.data.НаименованиеПолное,
+               ['ТипНоменклатуры']: action.data.Товар,
+               ['Артикул']: action.data.Артикул,
                Code: action.data.Code,
-               КодТНВЭД_Key: action.data.КодТНВЭД_Key,
-               Описание: action.data.Описание,
-               Производитель_Key: action.data.manufacturerKey,
-               СтранаПроисхождения_Key: action.data.countryKey,
-               ВидНоменклатуры_Key: action.data.groupKey,
-               Марка_Key: action.data.markKey
+               ['КодТНВЭД_Key']: action.data.КодТНВЭД_Key,
+               ['Описание']: action.data.Описание,
+               ['Производитель_Key']: action.data.Производитель_Key,
+               ['СтранаПроисхождения_Key']: action.data.СтранаПроисхождения_Key,
+               ['ВидНоменклатуры_Key']: action.data.ВидНоменклатуры_Key,
+               ['Марка_Key']: action.data.Марка_Key,
+               ['ЕдиницаИзмерения_Key']: action.data.ЕдиницаИзмерения_Key,
+               ['ВесИспользовать']: action.data.ВесИспользовать,
+               ['ВесМожноУказыватьВДокументах']: action.data.ВесМожноУказыватьВДокументах,
+               ['ОбъемИспользовать']: action.data.ОбъемИспользовать ,
+               ['ОбъемМожноУказыватьВДокументах']: action.data.ОбъемМожноУказыватьВДокументах ,
+               ['ДлинаИспользовать']: action.data.ДлинаИспользовать,
+               ['ДлинаМожноУказыватьВДокументах']: action.data.ДлинаМожноУказыватьВДокументах,
+               ['ПлощадьИспользовать']: action.data.ПлощадьИспользовать,
+               ['ПлощадьМожноУказыватьВДокументах']: action.data.ПлощадьМожноУказыватьВДокументах,
+               ['ВесЗнаменатель']: action.data.ВесЗнаменатель,
+               ['ВесЧислитель']: action.data.ВесЧислитель,
+               ['ОбъемЗнаменатель']: action.data.ОбъемЗнаменатель,
+               ['ОбъемЧислитель']: action.data.ОбъемЧислитель,
+               ['ДлинаЗнаменатель']: action.data.ДлинаЗнаменатель,
+               ['ДлинаЧислитель']: action.data.ДлинаЧислитель,
+               ['ПлощадьЗнаменатель']: action.data.ПлощадьЗнаменатель ,
+               ['ПлощадьЧислитель']: action.data.ПлощадьЧислитель,
+               ['СтавкаНДС_Key']: action.data.СтавкаНДС_Key
             } : el)
          }
       case "ADD-NEW-PRODUCT":
          return {...state, productsList: [...state.productsList, action.product]}
-
       default:
          return state
    }

@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
-import {siteApi} from "../api/odataApi";
 import {openNoticeModal} from "./modalsReducer";
+import {siteApi} from "../api/odataApi";
 
 const initState = {
    id: '',
