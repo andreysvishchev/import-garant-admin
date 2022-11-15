@@ -20,8 +20,8 @@ const GroupItem: React.FC<PropsType> = React.memo(({data}) => {
    return (
       <div className={img ? 'content__item img' : 'content__item'} key={data.Ref_Key}>
          <div className='content__img'>
-            {/*<img src={`http://192.168.226.6/admin/img.ashx?id=${data.Ref_Key}`} alt="картинка"/>*/}
-            <img src={`/admin/img.ashx?id=${data.Ref_Key}`} alt="картинка"/>
+            <img src={`http://192.168.226.6/admin/img.ashx?id=${data.Ref_Key}`} alt="картинка"/>
+            {/*<img src={`/admin/img.ashx?id=${data.Ref_Key}`} alt="картинка"/>*/}
          </div>
          <Link className='content__link'
                to={`/admin/${id}/${groupId}/${data.Ref_Key}`}>

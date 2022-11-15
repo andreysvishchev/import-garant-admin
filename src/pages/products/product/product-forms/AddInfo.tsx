@@ -13,8 +13,8 @@ const AddInfo = () => {
    const data = useAppSelector(state => state.siteInfo)
    const [file64, setFile64] = useState('')
    const [download, setDownload] = useState(false)
-   // const imgSrc = `http://192.168.226.6/admin/img.ashx?id=${data.id}`
-   const imgSrc = `/admin/img.ashx?id=${data.id}`
+   const imgSrc = `http://192.168.226.6/admin/img.ashx?id=${data.id}`
+   // const imgSrc = `/admin/img.ashx?id=${data.id}`
 
    async function upload(e: ChangeEvent<HTMLInputElement>) {
       const newFile = e.target.files && e.target.files[0];

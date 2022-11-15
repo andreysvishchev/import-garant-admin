@@ -108,12 +108,12 @@ export const api = (instance: AxiosInstance) => ({
 
 export const siteApi = {
    getSiteInfo(id: string | undefined) {
-      // return axios.get(`http://192.168.226.6/admin/get_data.ashx?id=${id}`)
-      return axios.get(`/admin/get_data.ashx?id=${id}`)
+      return axios.get(`http://192.168.226.6/admin/get_data.ashx?id=${id}`)
+      // return axios.get(`/admin/get_data.ashx?id=${id}`)
    },
    addSiteInfo(data: SiteInfoType) {
-      // return axios.post('http://192.168.226.6/admin/get_data.ashx', {data})
-      return axios.post('/admin/get_data.ashx', {data})
+      return axios.post('http://192.168.226.6/admin/get_data.ashx', {data})
+      // return axios.post('/admin/get_data.ashx', {data})
    }
 }
 

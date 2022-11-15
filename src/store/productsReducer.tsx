@@ -145,6 +145,7 @@ export const baseDataLoading = () => (dispatch: Dispatch) => {
       if (error.response.status === 401) {
          dispatch(changeErrorStatus(true))
       }
+      dispatch(openNoticeModal(true, 'Ошибка, обратитесь в IT отдел'))
    }).finally(() => {
       dispatch(setAppStatus('idle'))
       dispatch(setButtonStatus("idle"))
